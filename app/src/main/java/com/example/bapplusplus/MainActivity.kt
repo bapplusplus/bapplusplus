@@ -1,5 +1,6 @@
 package com.example.bapplusplus
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -12,6 +13,16 @@ class MainActivity : AppCompatActivity() {
 
         testButton.setOnClickListener {
             Toast.makeText(this, "testing", Toast.LENGTH_SHORT).show()
+        }
+
+        btn_showmap.setOnClickListener {
+            val intent = Intent(this, ShowMapActivity::class.java)
+            startActivity(intent)
+        }
+
+        btn_botnavi.setOnClickListener {
+            val intent = Intent(this, BottomNaviActivity::class.java)
+            startActivity(intent)
         }
     }
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_menu1"
+
+        android:icon="@android:drawable/ic_dialog_info"
+        android:title="INFO" />
+
+    <item
+        android:id="@+id/navigation_menu2"
+
+        android:icon="@drawable/ic_place_black_24dp"
+        android:title="MAP" />
+
+    <item
+        android:id="@+id/navigation_menu3"
+
+        android:icon="@android:drawable/ic_input_add"
+        android:title="OTHERS" />
+
+</menu>
