@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import com.example.bapplusplus.fragment.BnFragment3
 import com.example.bapplusplusTemp.fragment.BnFragment1
 import com.example.bapplusplusTemp.fragment.BnFragment2
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -14,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_bottom_navi.view.*
 class BottomNaviActivity : AppCompatActivity() {
     var frag1save: BnFragment1? = null
     var frag2save: BnFragment2? = null
-    var frag3save: Fragment? = null
+    var frag3save: BnFragment3? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,10 +67,8 @@ class BottomNaviActivity : AppCompatActivity() {
                 }
                 R.id.navigation_menu3->{
                     if(frag3save == null){
-                        frag3save = BnFragment1()
-                        supportFragmentManager.beginTransaction().add(R.id.bn_framelayout,
-                            frag3save as BnFragment1
-                        ).commit()
+                        frag3save = BnFragment3()
+                        supportFragmentManager.beginTransaction().add(R.id.bn_framelayout, frag3save!!).commit()
                     }
 
                     if(frag1save != null) supportFragmentManager.beginTransaction().hide(frag1save!!).commit()
