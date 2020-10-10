@@ -1,12 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bn1_scrollview"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/bn1_tv"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bn1_const"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Blank Fragment 1" />
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/bn1_call3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="TextView"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/bn_delivery"
+            app:layout_constraintTop_toTopOf="@+id/bn_delivery" />
+
+        <ImageView
+            android:id="@+id/bn_delivery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bn1_address_img"
+            app:srcCompat="@android:drawable/ic_menu_send" />
+
+        <TextView
+            android:id="@+id/bn1_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="TextView"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/bn1_address_img"
+            app:layout_constraintTop_toTopOf="@+id/bn1_address_img" />
+
+        <ImageView
+            android:id="@+id/bn1_address_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bn1_time_img"
+            app:srcCompat="@android:drawable/ic_menu_mylocation" />
+
+        <ImageView
+            android:id="@+id/bn1_call_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bn1_category"
+            app:srcCompat="@android:drawable/ic_menu_call" />
+
+        <TextView
+            android:id="@+id/bn1_call"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="TextView"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/bn1_call_img"
+            app:layout_constraintTop_toTopOf="@+id/bn1_call_img" />
+
+        <TextView
+            android:id="@+id/bn1_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:text="TextView"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bn1_title" />
+
+        <TextView
+            android:id="@+id/bn1_title"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:text="TextView"
+            android:textColor="#FF5722"
+            android:textSize="28sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/bn1_time_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bn1_call_img"
+            app:srcCompat="@android:drawable/ic_menu_recent_history" />
+
+        <TextView
+            android:id="@+id/bn1_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="TextView"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/bn1_time_img"
+            app:layout_constraintTop_toTopOf="@+id/bn1_time_img" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

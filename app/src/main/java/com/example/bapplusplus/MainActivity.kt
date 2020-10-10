@@ -24,5 +24,10 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, BottomNaviActivity::class.java)
             startActivity(intent)
         }
+
+        btn_favlist.setOnClickListener {
+            val intent = Intent(this, FavoritesListActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

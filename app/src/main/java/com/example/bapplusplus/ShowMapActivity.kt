@@ -75,24 +75,24 @@ class ShowMapActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         mapFragment.getMapAsync(this)
 
-//        val toolbar = findViewById(R.id.showmap_toolbar) as Toolbar
-//        setSupportActionBar(toolbar)
-//
-//        val ab = supportActionBar!!
-//        ab.setDisplayShowTitleEnabled(false)
-//        ab.setDisplayHomeAsUpEnabled(true)
+        val toolbar = findViewById(R.id.showmap_toolbar) as Toolbar
+        setSupportActionBar(toolbar)
+
+        val ab = supportActionBar!!
+        ab.setDisplayShowTitleEnabled(false)
+        ab.setDisplayHomeAsUpEnabled(true)
     }
 
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        val id = item.itemId
-//        when (id) {
-//            android.R.id.home -> {
-//                finish()
-//                return true
-//            }
-//        }
-//        return super.onOptionsItemSelected(item)
-//    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        when (id) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
     override fun onMapReady(naverMap: NaverMap) {
         var adap = InfoWindowAdapter(this@ShowMapActivity)

@@ -8,12 +8,13 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_temp2"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_temp2_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BottomNaviActivity"></activity>
+        <activity android:name=".FavoritesListActivity"></activity>
+        <activity android:name=".BottomNaviActivity" />
         <activity android:name=".ShowMapActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
