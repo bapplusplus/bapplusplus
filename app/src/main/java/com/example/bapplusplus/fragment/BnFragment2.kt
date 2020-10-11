@@ -94,21 +94,21 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(naverMap: NaverMap) {
         mapN = naverMap
-        naverMap.locationSource = locationSource
+        mapN.locationSource = locationSource
 
-        naverMap.addOnOptionChangeListener {
+        mapN.addOnOptionChangeListener {
             val mode = naverMap.locationTrackingMode
 
             locationSource.isCompassEnabled = mode == LocationTrackingMode.Follow || mode == LocationTrackingMode.Face
 
         }
-        naverMap.locationTrackingMode = LocationTrackingMode.None
+        mapN.locationTrackingMode = LocationTrackingMode.None
 
 
         val marker = Marker().apply {
             position = LatLng(positionX, positionY)
             setOnClickListener {
-                naverMap.locationTrackingMode = LocationTrackingMode.None
+//                mapN.locationTrackingMode = LocationTrackingMode.None
 //                distanceEstimate = locationSource.lastLocation!!.distanceTo(locpos).toDouble()
                 var presentLoc = getLatLng()
                 distanceEstimate = presentLoc.distanceTo(getinfopar.locpos).toDouble()
@@ -136,7 +136,7 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
                 true
             }
             tag = 10
-            map = naverMap
+            map = mapN
         }
 
 

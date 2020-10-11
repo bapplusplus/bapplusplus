@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
     val infoList: ArrayList<RestInfoTemp> = arrayListOf(
         RestInfoTemp("삼삼구 한양대점", 4.27, "육류, 고기요리", "매일 11:00 - 22:00", 37.5594683,127.0382745,
-            "0507-1473-3394","서울 성동구 마조로 17 1층 삼삼구", null)
+            "서울 성동구 마조로 17 1층 삼삼구","0507-1473-3394", null)
     )
 
 

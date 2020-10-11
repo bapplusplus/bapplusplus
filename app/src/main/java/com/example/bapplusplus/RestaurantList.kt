@@ -16,27 +16,25 @@ class RestaurantList : AppCompatActivity() {
 
     val restList: ArrayList<RestInfoTemp> = arrayListOf(
         RestInfoTemp("삼삼구 한양대점", 4.27, "육류, 고기요리", "매일 11:00 - 22:00", 37.559248, 127.040840,
-            "0507-1473-3394","서울 성동구 마조로 17 1층 삼삼구", null),
+            "서울 성동구 마조로 17 1층 삼삼구","0507-1473-3394", null),
         RestInfoTemp("알촌 한양대점", 4.49, "퓨전음식", "매일 09:00 - 21:00", 37.558542, 127.040173,
-            "02-2292-8885","서울 성동구 마조로3길 6", null),
+            "서울 성동구 마조로3길 6","02-2292-8885", null),
         RestInfoTemp("다시올치킨", 4.1, "치킨, 닭강정", "매일 07:00 - 22:00\n일요일 휴무", 37.5604271,127.0445195,
-            "02-2293-8979","서울 성동구 사근동8길 8", null),
+            "서울 성동구 사근동8길 8","02-2293-8979", null),
         RestInfoTemp("Dummy", 4.20, "육류, 고기요리", "매일 11:00 - 22:00", 37.5594700,127.0382752,
-            "0507-1473-3394","서울 성동구 마조로 17 1층 삼삼구", null),
+            "서울 성동구 마조로 17 1층 삼삼구", "0507-1473-3394", null),
         RestInfoTemp("Dummy2", 4.20, "육류, 고기요리", "매일 11:00 - 22:00", 37.5594700,127.0382752,
-            "0507-1473-3394","서울 성동구 마조로 17 1층 삼삼구", null),
+            "서울 성동구 마조로 17 1층 삼삼구", "0507-1473-3394", null),
         RestInfoTemp("Dummy3", 4.20, "육류, 고기요리", "매일 11:00 - 22:00", 37.5594700,127.0382752,
-            "0507-1473-3394","서울 성동구 마조로 17 1층 삼삼구", null),
+            "서울 성동구 마조로 17 1층 삼삼구", "0507-1473-3394", null),
         RestInfoTemp("Dummy4", 4.20, "육류, 고기요리", "매일 11:00 - 22:00", 37.5594700,127.0382752,
-            "0507-1473-3394","서울 성동구 마조로 17 1층 삼삼구", null),
+            "서울 성동구 마조로 17 1층 삼삼구", "0507-1473-3394", null),
         RestInfoTemp("Dummy5", 4.20, "육류, 고기요리", "매일 11:00 - 22:00", 37.5594700,127.0382752,
-            "0507-1473-3394","서울 성동구 마조로 17 1층 삼삼구", null),
+            "서울 성동구 마조로 17 1층 삼삼구", "0507-1473-3394", null),
         RestInfoTemp("Dummy6", 4.20, "육류, 고기요리", "매일 11:00 - 22:00", 37.5594700,127.0382752,
-            "0507-1473-3394","서울 성동구 마조로 17 1층 삼삼구", null),
+            "서울 성동구 마조로 17 1층 삼삼구", "0507-1473-3394", null),
         RestInfoTemp("Dummy7", 4.20, "육류, 고기요리", "매일 11:00 - 22:00", 37.5594700,127.0382752,
-            "0507-1473-3394","서울 성동구 마조로 17 1층 삼삼구", null),
-        RestInfoTemp("Dummy8", 4.20, "육류, 고기요리", "매일 11:00 - 22:00", 37.5594700,127.0382752,
-            "0507-1473-3394","서울 성동구 마조로 17 1층 삼삼구", null),
+            "서울 성동구 마조로 17 1층 삼삼구", "0507-1473-3394", null)
 
     )
 
@@ -65,13 +63,17 @@ class RestaurantList : AppCompatActivity() {
                 return true
             }
             R.id.ftb_maps ->{
-                Toast.makeText(this, "Menu Test", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "OnMap Button Clicked", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, ShowMapActivity::class.java)
                 intent.putExtra("infoArray", restList)
                 startActivity(intent)
 //                finish()
                 return true
             }
+            R.id.ftb_search->{
+                Toast.makeText(this, "Search Button Clicked", Toast.LENGTH_SHORT).show()
+            }
+
         }
         return super.onOptionsItemSelected(item)
     }
