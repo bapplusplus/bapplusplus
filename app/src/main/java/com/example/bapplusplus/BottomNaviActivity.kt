@@ -18,7 +18,7 @@ class BottomNaviActivity : AppCompatActivity() {
 
     var posx = 0.0
     var posy = 0.0
-    lateinit var getinfo: InfoTemp
+    lateinit var getinfo: RestInfoTemp
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +26,7 @@ class BottomNaviActivity : AppCompatActivity() {
 
         posx = intent.getDoubleExtra("posx", 30.5613217)
         posy = intent.getDoubleExtra("posy", 127.0384896)
-        getinfo = intent.getParcelableExtra<InfoTemp>("infoList")!!
+        getinfo = intent.getParcelableExtra<RestInfoTemp>("infoList")!!
 
         val bundle = Bundle()
         bundle.putDouble("posx", posx)

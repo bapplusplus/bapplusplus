@@ -3,4 +3,12 @@
     android:id="@+id/bn_frame_third"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.bapplusplus.fragment.BnFragment2"/>
+    tools:context="com.example.bapplusplus.fragment.BnFragment2">
+
+    <TextView
+        android:id="@+id/bn3_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TODO"
+        android:textSize="20sp" />
+</FrameLayout>

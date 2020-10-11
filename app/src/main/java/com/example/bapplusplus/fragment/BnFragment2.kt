@@ -14,6 +14,7 @@ import android.view.animation.AnimationSet
 import android.view.animation.TranslateAnimation
 import androidx.core.app.ActivityCompat
 import com.example.bapplusplus.R
+import com.example.bapplusplus.RestInfoTemp
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.Marker
@@ -33,6 +34,7 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
     private val REQUEST_CODE_LOCATION: Int = 2
     private var positionX: Double = 0.0
     private var positionY: Double = 0.0
+    private lateinit var getinfopar: RestInfoTemp
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +47,9 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
         val bundle = arguments
         positionX = bundle?.getDouble("posx") ?: 36.5613999
         positionY = bundle?.getDouble("posy") ?: 127.0384896
+        getinfopar = bundle?.getParcelable<RestInfoTemp>("infotemp")!!
+        positionX = getinfopar.locpos?.latitude ?: 33.333333
+        positionY = getinfopar.locpos?.longitude ?: 127.127127
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.bn_frame_2) as MapFragment?
             ?: run {
@@ -106,7 +111,7 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
                 naverMap.locationTrackingMode = LocationTrackingMode.None
 //                distanceEstimate = locationSource.lastLocation!!.distanceTo(locpos).toDouble()
                 var presentLoc = getLatLng()
-                distanceEstimate = presentLoc.distanceTo(locpos).toDouble()
+                distanceEstimate = presentLoc.distanceTo(getinfopar.locpos).toDouble()
 
 //                Toast.makeText(activity, distanceEstimate.toString(), Toast.LENGTH_SHORT).show()
 //                var toast_test = View.inflate(requireContext(), R.layout.toast_custom_1, null)
@@ -121,7 +126,7 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
                 }
                 else{
 //                    toast_test.findViewById<TextView>(R.id.toastc1_tv).text = "Distance: "+distanceEstimate.toString() +"m"
-                    bn_info_add_txt.text = "Distance: "+distanceEstimate.toString() +"m"
+                    bn_info_add_txt.text = "Distance: "+distanceEstimate.roundToInt().toString() +"m"
                 }
                 bn_const_info_add.startAnimation(slideDownAndVanish3(bn_const_info_add))
 

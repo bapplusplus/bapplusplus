@@ -2,7 +2,7 @@ package com.example.bapplusplus
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
+import android.location.Location
 import android.os.Parcel
 import android.os.Parcelable
 import android.util.SparseBooleanArray
@@ -34,7 +34,7 @@ data class InfoTemp(
         parcel.readDouble(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readByte() != 0.toByte()
+        parcel.readByte() != 0.toByte(),
     ) {
     }
 

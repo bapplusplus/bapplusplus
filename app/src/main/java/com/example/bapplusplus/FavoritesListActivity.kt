@@ -48,6 +48,7 @@ class FavoritesListActivity : AppCompatActivity() {
             R.id.ftb_maps ->{
                 Toast.makeText(this, "Menu Test", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, ShowMapActivity::class.java)
+                intent.putExtra("infoArray", infoList)
                 startActivity(intent)
 //                finish()
                 return true

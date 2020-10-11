@@ -15,6 +15,7 @@ import com.naver.maps.map.overlay.InfoWindow
 import com.naver.maps.map.overlay.Marker
 
 class ShowMapActivity : AppCompatActivity(), OnMapReadyCallback {
+    private lateinit var infoList: ArrayList<InfoTemp>
 
     private class InfoWindowAdapter(private val context: Context) : InfoWindow.ViewAdapter() {
         private var rootView: View? = null
@@ -63,6 +64,7 @@ class ShowMapActivity : AppCompatActivity(), OnMapReadyCallback {
 //        posx = intent.getDoubleExtra("posx", 37.000000)
 //        posy = intent.getDoubleExtra("posy", 127.000000)
 
+        infoList = intent.getParcelableArrayListExtra<InfoTemp>("infoArray")!!
 
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map_frame) as MapFragment?
             ?: run {
@@ -95,12 +97,15 @@ class ShowMapActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     override fun onMapReady(naverMap: NaverMap) {
+        var infoWindowArray: ArrayList<InfoWindow>? = null
+        var markerArray: ArrayList<Marker>? = null
+
         var adap = InfoWindowAdapter(this@ShowMapActivity)
-        adap.getExtraInfo("Description", "Name")
+        adap.getExtraInfo("desc", "title")
         val infoWindow = InfoWindow().apply {
             anchor = PointF(0f, 1f)
-            offsetX = resources.getDimensionPixelSize(R.dimen.custom_info_window_offset_x_ver2)
-            offsetY = resources.getDimensionPixelSize(R.dimen.custom_info_window_offset_y_ver2)
+            offsetX = resources.getDimensionPixelSize(R.dimen.custom_info_window_offset_x)
+            offsetY = resources.getDimensionPixelSize(R.dimen.custom_info_window_offset_y)
             adapter = adap
 
             setOnClickListener {
@@ -111,8 +116,7 @@ class ShowMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
         val marker = Marker().apply {
-//            position = LatLng(intent.getDoubleExtra("posx", 37.000000), intent.getDoubleExtra("posy", 127.000000))
-            position = LatLng(37.560063, 127.041204)
+            position = LatLng(intent.getDoubleExtra("posx", 37.000000), intent.getDoubleExtra("posy", 127.000000))
             setOnClickListener {
                 infoWindow.open(this)
                 true
@@ -121,12 +125,36 @@ class ShowMapActivity : AppCompatActivity(), OnMapReadyCallback {
             map = naverMap
         }
 
+//        val infoWindow = InfoWindow().apply {
+//            anchor = PointF(0f, 1f)
+//            offsetX = resources.getDimensionPixelSize(R.dimen.custom_info_window_offset_x_ver2)
+//            offsetY = resources.getDimensionPixelSize(R.dimen.custom_info_window_offset_y_ver2)
+//            adapter = adap
+//
+//            setOnClickListener {
+//                close()
+//                true
+//            }
+//        }
+
+
+//        val marker = Marker().apply {
+//            position = LatLng(37.560063, 127.041204)
+//            setOnClickListener {
+//                infoWindow.open(this)
+//                true
+//            }
+//            tag = 10
+//            map = naverMap
+//        }
+
 
         infoWindow.open(marker)
 
         naverMap.setOnMapClickListener { _, coord ->
             infoWindow.position = coord
             infoWindow.open(naverMap)
+
         }
 
     }
