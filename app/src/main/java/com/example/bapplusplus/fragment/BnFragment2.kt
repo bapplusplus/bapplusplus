@@ -6,15 +6,19 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationSet
 import android.view.animation.TranslateAnimation
+import android.widget.TextView
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.example.bapplusplus.R
 import com.example.bapplusplus.RestInfoTemp
+import com.google.firebase.firestore.FirebaseFirestore
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.Marker
@@ -35,8 +39,38 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
     private var positionX: Double = 0.0
     private var positionY: Double = 0.0
     private lateinit var getinfopar: RestInfoTemp
+    private var RestPosx = 0.0
+    private var RestPosy = 0.0
+    private var getPosx = 11.0
+    private var getPosy = 12.0
+    private var RestNo = 0
+    private lateinit var RestLoc: Location
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
+        /*val bundle = arguments
+        val fbdb = FirebaseFirestore.getInstance()
+        RestNo = bundle?.getInt("RestNo") ?: 0
+        fbdb.collection("tmp3v")
+            .whereEqualTo("RestNo", RestNo)
+            .get()
+            .addOnSuccessListener { documents ->
+                for(document in documents)
+                    if (document != null) {
+                        Log.d("TAG", "OOOO DocumentSnapshot data: ${document.data}")
+                        RestPosx = document.getDouble("RestPosx")!!
+                        RestPosy = document.getDouble("RestPosy")!!
+
+                        println("Bn3x "+ RestPosx)
+                        println("Bn3y "+ RestPosy)
+                    } else {
+                        Log.d("TAG", "No such document - Fragment1")
+                    }
+            }
+            .addOnFailureListener { exception ->
+                Log.d("TAG", "get failed with ", exception)
+            }*/
         super.onCreate(savedInstanceState)
 
     }
@@ -45,16 +79,72 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
         var rootview = inflater.inflate(R.layout.fragment_bn2, container, false)
 
         val bundle = arguments
-        positionX = bundle?.getDouble("posx") ?: 36.5613999
-        positionY = bundle?.getDouble("posy") ?: 127.0384896
-        getinfopar = bundle?.getParcelable<RestInfoTemp>("infotemp")!!
-        positionX = getinfopar.locpos?.latitude ?: 33.333333
-        positionY = getinfopar.locpos?.longitude ?: 127.127127
+        val fbdb = FirebaseFirestore.getInstance()
+        RestNo = bundle?.getInt("RestNo") ?: 0
+        getPosx = bundle?.getDouble("pppx") ?: 1.1
+        getPosy = bundle?.getDouble("pppy") ?: 1.2
+        println("Bn3bundle "+ RestNo)
+        println("Bn3bundlex "+ getPosx)
+        println("Bn3bundley "+ getPosy)
+        RestLoc = Location("pov")
+        RestLoc.latitude = getPosy
+        RestLoc.longitude = getPosx
+        //positionX = bundle?.getDouble("posx") ?: 36.5613999
+        //positionY = bundle?.getDouble("posy") ?: 127.0384896
+        //getinfopar = bundle?.getParcelable<RestInfoTemp>("infotemp")!!
+        //positionX = getinfopar.locpos?.latitude ?: 33.333333
+        //positionY = getinfopar.locpos?.longitude ?: 127.127127
+        //RestPosx = bundle?.getDouble("RestPosx")!!
+        //RestPosy = bundle?.getDouble("RestPosy")!!
+        //RestLoc = Location("provider")
+//        RestLoc.latitude = RestPosx
+//        RestLoc.longitude = RestPosy
+
+        fbdb.collection("tmp3v")
+            .whereEqualTo("RestNo", RestNo)
+            .get()
+            .addOnSuccessListener { documents ->
+                for(document in documents)
+                    if (document != null) {
+                        Log.d("TAG", "RRRR DocumentSnapshot data: ${document.data}")
+                        RestPosx = document.getDouble("RestPosx")!!
+                        RestPosy = document.getDouble("RestPosy")!!
+
+                    } else {
+                        Log.d("TAG", "No such document - Fragment1")
+                    }
+            }
+            .addOnFailureListener { exception ->
+                Log.d("TAG", "get failed with ", exception)
+            }
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.bn_frame_2) as MapFragment?
             ?: run {
+                    println("mapfr")
+                /*fbdb.collection("tmp3v")
+                    .whereEqualTo("RestNo", RestNo)
+                    .get()
+                    .addOnSuccessListener { documents ->
+                        for(document in documents)
+                            if (document != null) {
+                                Log.d("TAG", "DocumentSnapshot data: ${document.data}")
+                                RestPosx = document.getDouble("RestPosx")!!
+                                RestPosy = document.getDouble("RestPosy")!!
+                                RestLoc = Location("provider")
+                                RestLoc.latitude = RestPosx
+                                RestLoc.longitude = RestPosy
+                                println("Bn3x "+ RestPosx)
+                                println("Bn3y "+ RestPosy)
+                            } else {
+                                Log.d("TAG", "No such document - Fragment1")
+                            }
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.d("TAG", "get failed with ", exception)
+                    }*/
+
                 val options = NaverMapOptions()
-                    .camera(CameraPosition(LatLng(positionX, positionY), 16.0, 0.0, 0.0))
+                    .camera(CameraPosition(LatLng(getPosy, getPosx), 16.0, 0.0, 0.0))
                     .locationButtonEnabled(true)
                 MapFragment.newInstance(options).also {
                     childFragmentManager.beginTransaction().add(R.id.bn_frame_2, it).commit()
@@ -95,6 +185,7 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
     override fun onMapReady(naverMap: NaverMap) {
         mapN = naverMap
         mapN.locationSource = locationSource
+        //mapN.cameraPosition
 
         mapN.addOnOptionChangeListener {
             val mode = naverMap.locationTrackingMode
@@ -106,12 +197,12 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
 
 
         val marker = Marker().apply {
-            position = LatLng(positionX, positionY)
+            position = LatLng(getPosy, getPosx)
             setOnClickListener {
 //                mapN.locationTrackingMode = LocationTrackingMode.None
 //                distanceEstimate = locationSource.lastLocation!!.distanceTo(locpos).toDouble()
                 var presentLoc = getLatLng()
-                distanceEstimate = presentLoc.distanceTo(getinfopar.locpos).toDouble()
+                distanceEstimate = presentLoc.distanceTo(RestLoc).toDouble()
 
 //                Toast.makeText(activity, distanceEstimate.toString(), Toast.LENGTH_SHORT).show()
 //                var toast_test = View.inflate(requireContext(), R.layout.toast_custom_1, null)
@@ -133,6 +224,7 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
 //                tst.setGravity(Gravity.TOP or Gravity.RIGHT, 50, 180)
 //                tst.duration = Toast.LENGTH_LONG
 //                tst.show()
+                Toast.makeText(context, "LatLng Marker "+ getPosy +" / " + getPosx, Toast.LENGTH_SHORT).show()
                 true
             }
             tag = 10

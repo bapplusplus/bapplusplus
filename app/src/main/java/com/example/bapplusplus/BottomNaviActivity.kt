@@ -2,12 +2,14 @@ package com.example.bapplusplus
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import com.example.bapplusplus.fragment.BnFragment2
 import com.example.bapplusplusTemp.fragment.BnFragment1
 import com.example.bapplusplusTemp.fragment.BnFragment3
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_bottom_navi.*
 import kotlinx.android.synthetic.main.activity_bottom_navi.view.*
 
@@ -20,18 +22,62 @@ class BottomNaviActivity : AppCompatActivity() {
     var posy = 0.0
     lateinit var getinfo: RestInfoTemp
 
+    var RestNo = 0
+    var get_posx = 0.0
+    var get_posy = 0.0
+    var RestTitle = ""
+    var RestRoadAddress = ""
+    var RestCallNum = ""
+    var RestCategory = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bottom_navi)
-
-        posx = intent.getDoubleExtra("posx", 30.5613217)
-        posy = intent.getDoubleExtra("posy", 127.0384896)
-        getinfo = intent.getParcelableExtra<RestInfoTemp>("infoList")!!
-
         val bundle = Bundle()
+        val itt = intent
+        val fbdb = FirebaseFirestore.getInstance()
+
+        //posx = intent.getDoubleExtra("posx", 30.5613217)
+        //posy = intent.getDoubleExtra("posy", 127.0384896)
+        //getinfo = intent.getParcelableExtra<RestInfoTemp>("infoList")!!
+
+        RestNo = intent.getIntExtra("gni_num", 0)
+
+        RestTitle = intent.getStringExtra("gni_title").toString()
+        println("btn restno" + RestNo + " btn_resttitle"+RestTitle)
+        get_posx = itt.getDoubleExtra("pppx", 1.0)
+        get_posy = itt.getDoubleExtra("pppy", 1.0)
+        println("btn pppx" + itt.getDoubleExtra("pppx", 1.0) + " btn_pppy"+itt.getDoubleExtra("pppy", 1.0))
+        bundle.putInt("RestNo", RestNo)
+        bundle.putDouble("pppx", itt.getDoubleExtra("pppx", 1.0))
+        bundle.putDouble("pppy", itt.getDoubleExtra("pppy", 1.0))
+
+        fbdb.collection("tmp3v")
+            .whereEqualTo("RestNo", RestNo)
+            .get()
+            .addOnSuccessListener { documents ->
+                for(document in documents)
+                    if (document != null) {
+                        Log.d("TAG", "DocumentSnapshot data: ${document.data}")
+                        bundle.putDouble("RestPosx", document.getDouble("RestPosx")?:0.0)
+                        bundle.putDouble("RestPosy", document.getDouble("RestPosy")?:0.0)
+//                        bundle.putString("RestTitle", document.getString("RestTitle").toString())
+//                        bundle.putString("RestRoadAddress", document.getString("RestRoadAddress").toString())
+//                        bundle.putString("RestCallNum", document.getString("RestCallNum").toString())
+//                        bundle.putString("RestCategory", document.getString("RestCategory").toString())
+                    } else {
+                        Log.d("TAG", "No such document")
+                    }
+            }
+            .addOnFailureListener { exception ->
+                Log.d("TAG", "get failed with ", exception)
+            }
+
+        //val bundle = Bundle()
         bundle.putDouble("posx", posx)
         bundle.putDouble("posy", posy)
-        bundle.putParcelable("infotemp", getinfo)
+        //bundle.putParcelable("infotemp", getinfo)
+
 
         //if (savedInstanceState == null) {
         frag1save = BnFragment1()
@@ -49,7 +95,7 @@ class BottomNaviActivity : AppCompatActivity() {
         val ab = supportActionBar!!
         ab.setDisplayShowTitleEnabled(false)
         ab.setDisplayHomeAsUpEnabled(true)
-        bn_toolbar.bn_toolbar_title.text = getinfo.store_title +" 정보"
+        bn_toolbar.bn_toolbar_title.text = RestTitle +" 정보"
 //        loadFragment(BnFragment1())
 
         val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener{

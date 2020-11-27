@@ -6,6 +6,45 @@
     android:layout_height="match_parent"
     tools:context="com.example.bapplusplus.fragment.BnFragment2">
 
+    <TextView
+        android:id="@+id/bn3_tv_norvsyet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="작성된 리뷰가 없습니다."
+        android:textSize="21sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/bn3_rcv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
+
+    <Button
+        android:id="@+id/bn3_btn_myfav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/buttonst02"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:text="즐겨찾기 등록하기"
+        android:textColor="@color/colorGrey1"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/button"
         android:layout_width="170dp"
@@ -29,22 +68,21 @@
 
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+        app:layout_constraintTop_toBottomOf="@+id/bn3_ratingbar" />
 
     <TextView
         android:id="@+id/bn3_txt_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
         android:text="평점을 매겨주세요"
         android:textSize="22sp"
 
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/bn3_btn_myfav" />
 
     <RatingBar
-        android:id="@+id/ratingBar"
+        android:id="@+id/bn3_ratingbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -54,12 +92,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bn3_txt_1" />
 
-    <TextView
-        android:id="@+id/bn3_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TODO"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

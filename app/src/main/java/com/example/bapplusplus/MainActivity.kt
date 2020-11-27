@@ -36,14 +36,24 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-//        btn_favlist.setOnClickListener {
-//            val intent = Intent(this, FavoritesListActivity::class.java)
-//            startActivity(intent)
-//        }
+        btn_favlist.setOnClickListener {
+            val intent = Intent(this, FavoritesListActivity::class.java)
+            startActivity(intent)
+        }
 
         btn_list.setOnClickListener {
             val intent = Intent(this, RestaurantList::class.java)
             startActivity(intent)
         }
+
+        btn_loginact.setOnClickListener {
+            val intent = Intent(this, TestLoginActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }

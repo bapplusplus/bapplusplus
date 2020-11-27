@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/btn_loginact"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/buttonst02"
+        android:text="LOGIN TEST"
+        android:textColor="@color/colorOrange1"
+        app:layout_constraintBottom_toTopOf="@+id/btn_favlist"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
@@ -43,7 +55,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="12dp"
-        android:text="Favorites"
+        android:background="@drawable/buttonst02"
+        android:text="Favlist New"
+        android:textColor="@color/colorOrange1"
         app:layout_constraintBottom_toTopOf="@+id/btn_botnavi"
         app:layout_constraintEnd_toEndOf="parent" />
 

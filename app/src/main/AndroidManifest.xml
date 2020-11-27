@@ -13,20 +13,18 @@
         android:roundIcon="@mipmap/ic_temp2_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".TestSignupActivity"></activity>
+        <activity android:name=".TestLoginActivity" />
         <activity
             android:name=".RestaurantList"
             android:label="@string/title_activity_restaurant_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
-        <activity android:name=".FavoritesListActivity"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".FavoritesListActivity" />
         <activity
             android:name=".BottomNaviActivity"
-            android:theme="@style/AppThemeRst">
-        </activity>
+            android:theme="@style/AppThemeRst" />
         <activity android:name=".ShowMapActivity" />
-
-        <activity
-            android:name=".MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
