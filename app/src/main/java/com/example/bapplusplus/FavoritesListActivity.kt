@@ -10,11 +10,11 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.PropertyName
 import kotlinx.android.synthetic.main.activity_favorites_list.*
-import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
@@ -147,7 +147,7 @@ class FavoritesListActivity : AppCompatActivity() {
         //println("listtrytestnew "+listtry.get(5).RestTitle + " / " + listtry.get(37).RestTitle)
 
         //val adapter = favlistnu?.let { FavListAdapter(this, infoList, it) }
-
+        fav_recycler.addItemDecoration(DividerItemDecoration(applicationContext, DividerItemDecoration.VERTICAL))
         fav_recycler.adapter = adapter
 
 

@@ -125,7 +125,7 @@ class FavListAdapter(val context: Context, val gni: ArrayList<GetNumsInfo>) : Re
             intent.putExtra("gni_num", gni_item.RestNo)
             intent.putExtra("gni_title", gni_item.RestTitle)
             intent.putExtra("BottomNaviNum", 1)
-            Handler().postDelayed(Runnable { context.startActivity(intent) }, 1000)
+            Handler().postDelayed(Runnable { context.startActivity(intent) }, 600)
 
 
         }

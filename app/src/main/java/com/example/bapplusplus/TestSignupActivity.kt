@@ -1,5 +1,6 @@
 package com.example.bapplusplus
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.animation.AnimationSet
 import android.view.animation.AnimationUtils
 import android.view.animation.TranslateAnimation
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
@@ -37,19 +39,38 @@ class TestSignupActivity : AppCompatActivity() {
 
         var shake_anim = AnimationUtils.loadAnimation(applicationContext, R.anim.shake1)
 
+        tsu_container.setOnClickListener {
+            CloseKeyboard()
+        }
+
         tsu_btn_reg.setOnClickListener{
             remail = tsu_til_email_edt.text.toString().trim()
             rname = tsu_til_name_edt.text.toString().trim()
             rpw = tsu_til_pw1_edt.text.toString().trim()
             rpwcheck = tsu_til_pw2_edt.text.toString().trim()
 
-
-
-            if(rpw.equals(rpwcheck)){
+            if(rname.isNullOrEmpty()){
+                tsu_tv_one.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorRed1))
+                tsu_tv_one.text = " ❗ Enter your Name."
+                tsu_tv_one.startAnimation(shake_anim)
+            }else if(remail.isNullOrEmpty()){
+                tsu_tv_one.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorRed1))
+                tsu_tv_one.text = " ❗ Enter your E-mail Address."
+                tsu_tv_one.startAnimation(shake_anim)
+            }else if(rpw.isNullOrEmpty()){
+                tsu_tv_one.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorRed1))
+                tsu_tv_one.text = " ❗ Enter your Password."
+                tsu_tv_one.startAnimation(shake_anim)
+            }else if (rpwcheck.isNullOrEmpty()){
+                tsu_tv_one.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorRed1))
+                tsu_tv_one.text = " ❗ Confirm your Password."
+                tsu_tv_one.startAnimation(shake_anim)
+            }else if(rpw.equals(rpwcheck)){
                 //var mDialog = AlertDialog.Builder(applicationContext)
+                tsu_tv_one.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorOrange1))
+                tsu_tv_one.text = "Trying to Sign Up..."
+                //tsu_tv_one.startAnimation(shake_anim)
                 Toast.makeText(applicationContext, "가입 중",  Toast.LENGTH_SHORT).show()
-
-
 
                 fbauth.createUserWithEmailAndPassword(remail!!, rpw!!).addOnCompleteListener(this) {
                     if(it.isSuccessful){
@@ -87,7 +108,7 @@ class TestSignupActivity : AppCompatActivity() {
                     } else{
                         //it failed
                         tsu_tv_one.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorRed1))
-                        tsu_tv_one.text = " !  Email address already exists."
+                        tsu_tv_one.text = " ❗ Email address already exists."
                         tsu_tv_one.startAnimation(shake_anim)
                         Toast.makeText(applicationContext, "Registration failed: same email exists.",  Toast.LENGTH_SHORT).show()
                     }
@@ -97,17 +118,25 @@ class TestSignupActivity : AppCompatActivity() {
                 //pw != pwcheck
                 if(!remail!!.contains("@")){
                     tsu_tv_one.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorRed1))
-                    tsu_tv_one.text = " !  '@' Missing in E-Mail Address."
+                    tsu_tv_one.text = " ❗ '@' Missing in E-Mail Address."
                     tsu_tv_one.startAnimation(shake_anim)
                 }else{
                     tsu_tv_one.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorRed1))
-                    tsu_tv_one.text = " !  Confirm your password."
+                    tsu_tv_one.text = " ❗ Confirm your password."
                     tsu_tv_one.startAnimation(shake_anim)
                     Toast.makeText(applicationContext, "pwcheck failed.",  Toast.LENGTH_SHORT).show()
                 }
 
             }
 
+        }
+    }
+
+    fun CloseKeyboard() {
+        var view = this.currentFocus
+        if(view != null) {
+            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
 

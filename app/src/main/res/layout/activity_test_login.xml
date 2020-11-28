@@ -8,6 +8,17 @@
     tools:context=".TestLoginActivity">
 
     <TextView
+        android:id="@+id/tl_tv_one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Sign In to BapPlusPlus"
+        android:textColor="@color/colorOrange1"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/tl_til_email"
+        app:layout_constraintStart_toStartOf="@+id/tl_btn_login" />
+
+    <TextView
         android:id="@+id/tl_tv_notmem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
