@@ -7,6 +7,16 @@
     android:layout_height="match_parent"
     tools:context="com.example.bapplusplus.fragment.BnFragment2">
 
+    <TextView
+        android:id="@+id/bn3_tv_totalrv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/bn3_btn_writerv"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bn3_makerv_const"
         android:layout_width="match_parent"
@@ -131,7 +141,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
 
-        android:text="리뷰를 작성해 주세요"
+        android:text="리뷰를 작성해 보세요"
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bn3_ratingbar" />

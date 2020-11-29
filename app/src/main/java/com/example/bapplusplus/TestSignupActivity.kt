@@ -66,6 +66,7 @@ class TestSignupActivity : AppCompatActivity() {
                 tsu_tv_one.text = " ❗ Confirm your Password."
                 tsu_tv_one.startAnimation(shake_anim)
             }else if(rpw.equals(rpwcheck)){
+                CloseKeyboard()
                 //var mDialog = AlertDialog.Builder(applicationContext)
                 tsu_tv_one.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorOrange1))
                 tsu_tv_one.text = "Trying to Sign Up..."
@@ -115,6 +116,7 @@ class TestSignupActivity : AppCompatActivity() {
                 }
             }
             else{
+                CloseKeyboard()
                 //pw != pwcheck
                 if(!remail!!.contains("@")){
                     tsu_tv_one.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorRed1))

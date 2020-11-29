@@ -71,12 +71,12 @@ class BnFragment3 : Fragment() {
         val fbdb = FirebaseFirestore.getInstance()
         val fbauth = FirebaseAuth.getInstance()
         val fbuser = fbauth.currentUser
-        val user_uid = fbuser?.uid!!
+        val user_uid = fbuser?.uid ?: ""
         get_uid = fbauth.currentUser?.uid ?: ""
 
         RestNo = bundle?.getInt("RestNo") ?: 0
 
-        val adapter = Bn3ReviewsAdapter(requireContext(), ReviewArray, user_uid)
+        val adapter = Bn3ReviewsAdapter(requireContext(), ReviewArray, get_uid)
 
         fbdb.collection("tmp5vStrings")
             .whereEqualTo("RestNo", RestNo)
@@ -113,17 +113,16 @@ class BnFragment3 : Fragment() {
                         for (kk in 0..ReviewArray.size-1){
                             println("testing review C"+ReviewArray.get(kk).content+" / D"+ReviewArray.get(kk).date+" / U"+ReviewArray.get(kk).uid)
                         }
-
+                        rootView.bn3_tv_totalrv.text = "리뷰 "+ReviewArray.size+"건"
                         if(my_review_num > 0){
                             rootView.bn3_txt_rv.text = "내가 작성한 리뷰: "+my_review_num+"개"
                         }else{
-                            rootView.bn3_txt_rv.text = "첫 리뷰를 작성해 주세요"
+                            rootView.bn3_txt_rv.text = "리뷰를 작성해 보세요"
                         }
                     } else {
                         Log.d("TAG", "No such document - Fragment1")
                     }
                 adapter.notifyDataSetChanged()
-
 
             }
             .addOnFailureListener { exception ->
@@ -151,6 +150,7 @@ class BnFragment3 : Fragment() {
 
 
         Handler().postDelayed({
+
             if(get_uid.equals("")){
                 rootView.bn3_btn_myfav.text = "로그인 되지 않았습니다"
                 rootView.bn3_txt_rt.text = "로그인 후 별점을 줄 수 있습니다"
@@ -175,11 +175,13 @@ class BnFragment3 : Fragment() {
                 println("ReviewArray size is zero "+ReviewArray.size)
                 rootView.bn3_rcv.visibility = View.INVISIBLE
                 rootView.bn3_tv_norvsyet.visibility = View.VISIBLE
+                rootView.bn3_tv_totalrv.visibility = View.GONE
             }
             else{
                 println("ReviewArray size is not zero "+ReviewArray.size)
                 //rootView.bn3_rcv.visibility = View.VISIBLE
                 rootView.bn3_tv_norvsyet.visibility = View.GONE
+                rootView.bn3_tv_totalrv.text = "리뷰 "+ReviewArray.size+"건"
             }
         }, 600)
 
@@ -366,10 +368,11 @@ class BnFragment3 : Fragment() {
                             rootView.bn3_rcv.visibility = View.VISIBLE
                             rootView.bn3_btn_writerv.isEnabled = true
                             Log.d("Inmain", "my_review_num in main is: "+my_review_num+" / uid: "+get_uid)
+                            rootView.bn3_tv_totalrv.text = "리뷰 "+ReviewArray.size+"건"
                             if(my_review_num > 0){
                                 rootView.bn3_txt_rv.text = "내가 작성한 리뷰: "+my_review_num+"개"
                             }else{
-                                rootView.bn3_txt_rv.text = "첫 리뷰를 작성해 주세요"
+                                rootView.bn3_txt_rv.text = "리뷰를 작성해 보세요"
                             }
                         }, 400)
                     }, 800)

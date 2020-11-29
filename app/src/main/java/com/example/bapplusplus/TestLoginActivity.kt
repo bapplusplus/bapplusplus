@@ -30,6 +30,7 @@ class TestLoginActivity : AppCompatActivity() {
         var fbauth = FirebaseAuth.getInstance()
         var fbdb = FirebaseFirestore.getInstance()
         user = fbauth.currentUser
+        userUid = user?.uid ?: ""
 
         var shake_anim = AnimationUtils.loadAnimation(applicationContext, R.anim.shake1)
 
@@ -40,12 +41,35 @@ class TestLoginActivity : AppCompatActivity() {
             tl_btn_signout.visibility = View.INVISIBLE
         }
         else{
+            //userUid = user!!.uid
+            fbdb.collection("AccountGroup").document(userUid)
+                .get()
+                .addOnSuccessListener { document ->
+                    if (document != null) {
+                        Log.d("TAG", "DocumentSnapshot data: ${document.data}")
+                        //tl_tv_test1.text = "welcome, "+ document.getString("name")
+                        UserName = document.getString("name").toString()
+                        tl_btn_login.text = UserName
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.d("TAG", "get failed with ", exception)
+                }
+
+            Handler().postDelayed({
+                //tl_btn_login.text = UserName
+            }, 360)
+
             tl_tv_test1.text = "Signed in as " + user!!.email
             tl_tv_one.text = "Signed In"
             tl_btn_signout.visibility = View.VISIBLE
-            tl_til_email_edt.isEnabled = false
-            tl_til_pw_edt.isEnabled = false
-            tl_btn_login.text = user!!.email
+            tl_til_email.visibility = View.GONE
+            tl_til_pw.visibility = View.GONE
+            //tl_til_email_edt.isEnabled = false
+            //tl_til_pw_edt.isEnabled = false
+            tl_tv_notmem.visibility = View.GONE
+            tl_btn_reg.visibility = View.GONE
+            tl_btn_login.text = ""
             tl_btn_login.isEnabled = false
             tl_btn_reg.isEnabled = false
         }
@@ -56,6 +80,7 @@ class TestLoginActivity : AppCompatActivity() {
 
 
         tl_btn_login.setOnClickListener {
+            CloseKeyboard()
             lemail = tl_til_email_edt.text.toString().trim()
             lpw = tl_til_pw_edt.text.toString().trim()
 
