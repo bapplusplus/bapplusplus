@@ -72,6 +72,8 @@ class TestLoginActivity : AppCompatActivity() {
             tl_btn_login.text = ""
             tl_btn_login.isEnabled = false
             tl_btn_reg.isEnabled = false
+            tl_cb_remember.visibility = View.GONE
+            tl_btn_forgotpw.visibility = View.GONE
         }
 
         tl_container.setOnClickListener {

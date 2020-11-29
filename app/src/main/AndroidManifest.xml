@@ -13,8 +13,11 @@
         android:roundIcon="@mipmap/ic_temp2_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TestSignupActivity"></activity>
-        <activity android:name=".TestLoginActivity" />
+        <activity android:name=".TestSignupActivity"
+            android:windowSoftInputMode="adjustResize"
+            ></activity>
+        <activity android:name=".TestLoginActivity"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".RestaurantList"
             android:label="@string/title_activity_restaurant_list"

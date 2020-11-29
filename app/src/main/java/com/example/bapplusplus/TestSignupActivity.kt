@@ -32,6 +32,8 @@ class TestSignupActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test_signup)
+        tsu2_til_phone.isEnabled = false
+        tsu2_til_phone_edt.isEnabled = false
 
         var fbauth = FirebaseAuth.getInstance()
         var fbdb = FirebaseFirestore.getInstance()

@@ -7,6 +7,31 @@
     android:layout_height="match_parent"
     tools:context=".TestLoginActivity">
 
+    <CheckBox
+        android:id="@+id/tl_cb_remember"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Remember me"
+        android:textColor="@color/colorOrange1"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/tl_btn_login"
+        app:layout_constraintTop_toBottomOf="@+id/tl_btn_login" />
+
+    <Button
+        android:id="@+id/tl_btn_forgotpw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/white_rect"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="Forgot Password"
+        android:textColor="@color/colorOrange1"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/tl_btn_reg"
+        app:layout_constraintTop_toBottomOf="@+id/tl_btn_reg" />
+
     <TextView
         android:id="@+id/tl_tv_one"
         android:layout_width="wrap_content"
@@ -25,9 +50,9 @@
         android:layout_marginEnd="16dp"
         android:text="Not our Member?"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/tl_tv_test1"
+        app:layout_constraintBottom_toBottomOf="@+id/tl_btn_reg"
         app:layout_constraintEnd_toStartOf="@+id/tl_btn_reg"
-        app:layout_constraintTop_toBottomOf="@+id/tl_btn_login" />
+        app:layout_constraintTop_toTopOf="@+id/tl_btn_reg" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tl_til_email"
@@ -51,11 +76,10 @@
         android:id="@+id/tl_tv_test1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="4dp"
         android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tl_btn_reg" />
+        app:layout_constraintEnd_toEndOf="@+id/tl_btn_login"
+        app:layout_constraintTop_toBottomOf="@+id/tl_btn_login" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tl_til_pw"
@@ -82,13 +106,13 @@
         android:id="@+id/tl_btn_reg"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="4dp"
         android:background="@drawable/white_rect"
         android:text="SIGN UP"
         android:textColor="@color/colorOrange1"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/tl_btn_login"
-        app:layout_constraintTop_toBottomOf="@+id/tl_btn_login" />
+        app:layout_constraintTop_toBottomOf="@+id/tl_cb_remember" />
 
     <Button
         android:id="@+id/tl_btn_login"
@@ -112,7 +136,9 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/fill_oragne_temp"
-        android:text="SIGN OUT"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="Log out"
         android:textColor="@color/colorWhite1"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
