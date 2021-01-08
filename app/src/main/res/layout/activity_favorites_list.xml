@@ -24,7 +24,6 @@
                 android:id="@+id/fav_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="#FF5722"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="@style/ToolbarVer1"
                 app:subtitleTextColor="#FFFFFF"
@@ -53,6 +52,14 @@
         android:layout_marginBottom="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <ProgressBar
+        android:id="@+id/fav_progressbar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/colorOrange2Primary" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

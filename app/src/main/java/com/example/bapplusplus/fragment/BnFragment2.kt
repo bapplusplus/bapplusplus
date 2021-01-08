@@ -99,28 +99,9 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
         //RestLoc = Location("provider")
 //        RestLoc.latitude = RestPosx
 //        RestLoc.longitude = RestPosy
-
-        fbdb.collection("tmp3v")
-            .whereEqualTo("RestNo", RestNo)
-            .get()
-            .addOnSuccessListener { documents ->
-                for(document in documents)
-                    if (document != null) {
-                        Log.d("TAG", "RRRR DocumentSnapshot data: ${document.data}")
-                        RestPosx = document.getDouble("RestPosx")!!
-                        RestPosy = document.getDouble("RestPosy")!!
-
-                    } else {
-                        Log.d("TAG", "No such document - Fragment1")
-                    }
-            }
-            .addOnFailureListener { exception ->
-                Log.d("TAG", "get failed with ", exception)
-            }
-
-        val mapFragment = childFragmentManager.findFragmentById(R.id.bn_frame_2) as MapFragment?
-            ?: run {
-                    println("mapfr")
+        var mapFragment : MapFragment? //= childFragmentManager.findFragmentById(R.id.bn_frame_2) as MapFragment?
+            /*?: run {
+                println("mapfr")
                 /*fbdb.collection("tmp3v")
                     .whereEqualTo("RestNo", RestNo)
                     .get()
@@ -144,13 +125,68 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
                     }*/
 
                 val options = NaverMapOptions()
-                    .camera(CameraPosition(LatLng(getPosy, getPosx), 16.0, 0.0, 0.0))
+                    .camera(CameraPosition(LatLng(RestPosx, RestPosy), 16.0, 0.0, 0.0))
                     .locationButtonEnabled(true)
                 MapFragment.newInstance(options).also {
                     childFragmentManager.beginTransaction().add(R.id.bn_frame_2, it).commit()
                 }
             }
-        mapFragment.getMapAsync(this)
+        mapFragment.getMapAsync(this)*/
+
+        fbdb.collection("tmp3v")
+            .whereEqualTo("RestNo", RestNo)
+            .get()
+            .addOnSuccessListener { documents ->
+                for(document in documents)
+                    if (document != null) {
+                        Log.d("TAG", "RRRR DocumentSnapshot data: ${document.data}")
+                        RestPosx = document.getDouble("RestPosx")!!
+                        RestPosy = document.getDouble("RestPosy")!!
+                            mapFragment = childFragmentManager.findFragmentById(R.id.bn_frame_2) as MapFragment?
+                                ?:run {
+                                println("mapfr")
+                                /*fbdb.collection("tmp3v")
+                                    .whereEqualTo("RestNo", RestNo)
+                                    .get()
+                                    .addOnSuccessListener { documents ->
+                                        for(document in documents)
+                                            if (document != null) {
+                                                Log.d("TAG", "DocumentSnapshot data: ${document.data}")
+                                                RestPosx = document.getDouble("RestPosx")!!
+                                                RestPosy = document.getDouble("RestPosy")!!
+                                                RestLoc = Location("provider")
+                                                RestLoc.latitude = RestPosx
+                                                RestLoc.longitude = RestPosy
+                                                println("Bn3x "+ RestPosx)
+                                                println("Bn3y "+ RestPosy)
+                                            } else {
+                                                Log.d("TAG", "No such document - Fragment1")
+                                            }
+                                    }
+                                    .addOnFailureListener { exception ->
+                                        Log.d("TAG", "get failed with ", exception)
+                                    }*/
+
+                                val options = NaverMapOptions()
+                                    .camera(CameraPosition(LatLng(RestPosy, RestPosx), 16.0, 0.0, 0.0))
+                                    .locationButtonEnabled(true)
+                                MapFragment.newInstance(options).also {
+                                    childFragmentManager.beginTransaction().add(R.id.bn_frame_2, it).commit()
+                                }
+                            }
+                        mapFragment?.getMapAsync(this)
+
+
+                    } else {
+                        Log.d("TAG", "No such document - Fragment1")
+                    }
+            }
+            .addOnFailureListener { exception ->
+                Log.d("TAG", "get failed with ", exception)
+            }
+
+
+        //mapFragment.getMapAsync(this)
 
         locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
         lm = activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -197,7 +233,7 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
 
 
         val marker = Marker().apply {
-            position = LatLng(getPosy, getPosx)
+            position = LatLng(RestPosy, RestPosx)
             setOnClickListener {
 //                mapN.locationTrackingMode = LocationTrackingMode.None
 //                distanceEstimate = locationSource.lastLocation!!.distanceTo(locpos).toDouble()
@@ -224,13 +260,12 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
 //                tst.setGravity(Gravity.TOP or Gravity.RIGHT, 50, 180)
 //                tst.duration = Toast.LENGTH_LONG
 //                tst.show()
-                Toast.makeText(context, "LatLng Marker "+ getPosy +" / " + getPosx, Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "LatLng Marker "+ RestPosx +" / " + RestPosy, Toast.LENGTH_SHORT).show()
                 true
             }
             tag = 10
             map = mapN
         }
-
 
     }
 

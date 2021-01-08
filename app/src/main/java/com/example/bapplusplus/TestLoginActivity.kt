@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -26,6 +27,7 @@ class TestLoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test_login)
+        //window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
         var fbauth = FirebaseAuth.getInstance()
         var fbdb = FirebaseFirestore.getInstance()
@@ -85,7 +87,7 @@ class TestLoginActivity : AppCompatActivity() {
             CloseKeyboard()
             lemail = tl_til_email_edt.text.toString().trim()
             lpw = tl_til_pw_edt.text.toString().trim()
-
+            tl_pbar.visibility=View.GONE
             if(lemail.equals("")){
                 tl_tv_one.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorRed1))
                 tl_tv_one.text = " ❗ E-mail is empty."
@@ -97,8 +99,12 @@ class TestLoginActivity : AppCompatActivity() {
                 tl_tv_one.startAnimation(shake_anim)
                 //Toast.makeText(applicationContext, "Password empty",  Toast.LENGTH_SHORT).show()
             } else{
+                tl_pbar.visibility=View.VISIBLE
+                tl_tv_one.text = "Please Wait..."
+                tl_tv_one.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorBlue1))
                 fbauth.signInWithEmailAndPassword(lemail, lpw).addOnCompleteListener {
                     if(it.isSuccessful){
+
                         user = FirebaseAuth.getInstance().currentUser
                         userUid = user?.uid ?: "nun"
                         val docRef = fbdb.collection("AccountGroup").document(userUid)
@@ -111,6 +117,7 @@ class TestLoginActivity : AppCompatActivity() {
 
                                     Handler().postDelayed({
                                         Toast.makeText(applicationContext, "Login Success",  Toast.LENGTH_SHORT).show()
+                                        tl_pbar.visibility=View.GONE
                                         tl_tv_one.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorGreen1))
                                         tl_tv_one.text = " Welcome, "+UserName+ " !"
                                         Handler().postDelayed({
@@ -126,6 +133,7 @@ class TestLoginActivity : AppCompatActivity() {
                                 Log.d("TAG", "get failed with ", exception)
                             }
                     }else{
+                        tl_pbar.visibility=View.GONE
                         tl_tv_one.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorRed1))
                         tl_tv_one.text = " ❗ Check Your E-mail or PW."
                         tl_tv_one.startAnimation(shake_anim)

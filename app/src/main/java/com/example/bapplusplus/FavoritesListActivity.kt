@@ -1,5 +1,6 @@
 package com.example.bapplusplus
 
+import android.app.ProgressDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.os.Parcelable
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -81,6 +83,11 @@ class FavoritesListActivity : AppCompatActivity() {
         val docRef = fbfs.collection("tmp5vValuesBeta").document("eb022c50-3005-11eb-bf1d-09863b642d3c")
         val ddtt = fbfs.collection("FSTestDocs").document("tt1")
         val adapter = FavListAdapter(this, listtry)
+        /*val progressDialog = ProgressDialog(this)
+        progressDialog.setMessage("Loading List...")
+        //progressDialog.setCancelable(true)
+        progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Horizontal)
+        progressDialog.show()*/
 
         ddtt.get()
             .addOnSuccessListener { document ->
@@ -142,6 +149,9 @@ class FavoritesListActivity : AppCompatActivity() {
 //                println("letssee0" + favlistnu2!!.resultList?.size.toString())
 //                println("letssee" + favlistnu2!!.resultList!![2].RestTitle)
                 adapter.notifyDataSetChanged()
+                //progressDialog.dismiss()
+                fav_progressbar.visibility = View.GONE
+
             }
         }
         //println("listtrytestnew "+listtry.get(5).RestTitle + " / " + listtry.get(37).RestTitle)

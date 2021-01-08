@@ -1,5 +1,6 @@
 package com.example.bapplusplusTemp.fragment
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -27,6 +28,11 @@ class BnFragment1 : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var rootview = inflater.inflate(R.layout.fragment_bn1, container, false)
         // Inflate the layout for this fragment
+        val progressDialog = ProgressDialog(context)
+        progressDialog.setMessage("ProgressDialog running...")
+        //progressDialog.setCancelable(true)
+        progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Horizontal)
+        progressDialog.show()
         val bundle = arguments
         //val infoTemp = bundle?.getParcelable<RestInfoTemp>("infotemp")
         RestNo = bundle?.getInt("RestNo") ?: 0
@@ -59,6 +65,7 @@ class BnFragment1 : Fragment() {
                             rootview.findViewById<TextView>(R.id.bn1_call).text = RestCallNum
                         }
 
+                        progressDialog.dismiss()
                     } else {
                         Log.d("TAG", "No such document - Fragment1")
                     }

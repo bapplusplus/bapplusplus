@@ -12,16 +12,36 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ProgressBar
+            android:id="@+id/bn1_pbar_initial"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:indeterminateTint="@color/colorOrange2Primary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/bn1_btn_like"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="♥"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/bn1_category" />
+
         <ImageView
             android:id="@+id/bn1_line_sep"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bn1_category"
+            app:layout_constraintTop_toBottomOf="@+id/bn1_btn_like"
             app:srcCompat="@drawable/fill_oragne_temp" />
 
         <TextView
@@ -31,7 +51,7 @@
             android:layout_marginStart="8dp"
             android:text="TextView"
             android:textColor="@color/colorGrey2"
-            android:textSize="20sp"
+            android:textSize="17sp"
             app:layout_constraintStart_toEndOf="@+id/bn1_delivery_img"
             app:layout_constraintTop_toTopOf="@+id/bn1_delivery_img" />
 
@@ -54,7 +74,7 @@
             android:inputType="textMultiLine"
             android:text="TextView"
             android:textColor="@color/colorGrey2"
-            android:textSize="20sp"
+            android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/bn1_address_img"
             app:layout_constraintTop_toTopOf="@+id/bn1_address_img" />
@@ -86,7 +106,7 @@
             android:layout_marginStart="8dp"
             android:text="TextView"
             android:textColor="@color/colorGrey2"
-            android:textSize="20sp"
+            android:textSize="17sp"
             app:layout_constraintStart_toEndOf="@+id/bn1_call_img"
             app:layout_constraintTop_toTopOf="@+id/bn1_call_img" />
 
@@ -98,19 +118,19 @@
             android:layout_marginTop="12dp"
             android:text="TextView"
             android:textColor="@color/colorGrey2"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bn1_title" />
 
         <TextView
             android:id="@+id/bn1_title"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="28dp"
             android:text="TextView"
-            android:textColor="#FF5722"
-            android:textSize="28sp"
+            android:textColor="@color/colorOrange2Primary"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -133,7 +153,7 @@
             android:inputType="textMultiLine"
             android:text="TextView"
             android:textColor="@color/colorGrey2"
-            android:textSize="20sp"
+            android:textSize="17sp"
             app:layout_constraintStart_toEndOf="@+id/bn1_time_img"
             app:layout_constraintTop_toTopOf="@+id/bn1_time_img" />
     </androidx.constraintlayout.widget.ConstraintLayout>

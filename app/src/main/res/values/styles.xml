@@ -28,6 +28,12 @@
         <item name="colorPrimaryDark">#FF4000</item>
     </style>
 
+    <style name="AppThemeNew1" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/colorOrange2Primary</item>
+        <item name="colorPrimaryDark">@color/colorOrange2Dark</item>
+        <item name="colorAccent">@color/colorOrange2Accent</item>
+    </style>
+
     <style name="EditTextStyle1" parent="Widget.Design.TextInputLayout">
 
         <!--<item name="colorControlNormal">@color/colorOrange1</item>  // unFocus 상태일때 밑줄 색. -->

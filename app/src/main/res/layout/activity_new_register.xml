@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/box"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/newr_scrollview"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:context=".NewRegisterActivity">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/newr_const"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/newr_tv_pwc_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="○"
+                android:textColor="@color/colorGreen1"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/newr_til_four"
+                app:layout_constraintStart_toEndOf="@+id/newr_til_four"
+                app:layout_constraintTop_toTopOf="@+id/newr_til_four" />
+
+            <TextView
+                android:id="@+id/newr_tv_name_nec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="*"
+                android:textColor="@color/colorOrange1"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="@+id/newr_til_one"
+                app:layout_constraintEnd_toStartOf="@+id/newr_til_one"
+                app:layout_constraintTop_toTopOf="@+id/newr_til_one" />
+
+            <TextView
+                android:id="@+id/newr_tv_email_nec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="*"
+                android:textColor="@color/colorOrange1"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="@+id/newr_til_two"
+                app:layout_constraintEnd_toStartOf="@+id/newr_til_two"
+                app:layout_constraintTop_toTopOf="@+id/newr_til_two" />
+
+            <TextView
+                android:id="@+id/newr_tv_pw_nec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="*"
+                android:textColor="@color/colorOrange1"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="@+id/newr_til_three"
+                app:layout_constraintEnd_toStartOf="@+id/newr_til_three"
+                app:layout_constraintTop_toTopOf="@+id/newr_til_three" />
+
+            <TextView
+                android:id="@+id/newr_tv_pwc_nec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="*"
+                android:textColor="@color/colorOrange1"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="@+id/newr_til_four"
+                app:layout_constraintEnd_toStartOf="@+id/newr_til_four"
+                app:layout_constraintTop_toTopOf="@+id/newr_til_four" />
+
+            <Button
+                android:id="@+id/newr_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:text="Register"
+                app:layout_constraintEnd_toEndOf="@+id/newr_til_seven"
+                app:layout_constraintTop_toBottomOf="@+id/newr_til_seven" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/newr_til_two"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:boxBackgroundColor="@android:color/transparent"
+                app:layout_constraintEnd_toEndOf="@+id/newr_til_one"
+                app:layout_constraintStart_toStartOf="@+id/newr_til_one"
+                app:layout_constraintTop_toBottomOf="@+id/newr_til_one">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/newr_til_edt_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="E-Mail" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/newr_til_four"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:boxBackgroundColor="@android:color/transparent"
+                app:counterMaxLength="20"
+                app:layout_constraintEnd_toEndOf="@+id/newr_til_one"
+                app:layout_constraintStart_toStartOf="@+id/newr_til_one"
+                app:layout_constraintTop_toBottomOf="@+id/newr_til_three"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/newr_til_edt_four"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Confirm Password"
+                    android:inputType="textPassword"
+                    android:maxLength="20" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/newr_til_five"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="@+id/newr_til_one"
+                app:layout_constraintStart_toStartOf="@+id/newr_til_one"
+                app:layout_constraintTop_toBottomOf="@+id/newr_til_four">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/newr_til_edt_five"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Birth Date" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/newr_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:paddingTop="0dp"
+                android:text="Sign Up to BapPlusPlus"
+                android:textColor="@color/colorOrange2Primary"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="@+id/newr_til_one"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/newr_til_six"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:boxBackgroundColor="@android:color/transparent"
+                app:layout_constraintEnd_toEndOf="@+id/newr_til_one"
+                app:layout_constraintStart_toStartOf="@+id/newr_til_one"
+                app:layout_constraintTop_toBottomOf="@+id/newr_til_five">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/newr_til_edt_six"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Phone" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/newr_til_seven"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:boxBackgroundColor="@android:color/transparent"
+                app:layout_constraintEnd_toEndOf="@+id/newr_til_one"
+                app:layout_constraintStart_toStartOf="@+id/newr_til_one"
+                app:layout_constraintTop_toBottomOf="@+id/newr_til_six">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/newr_til_edt_seven"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Additional E-Mail" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/newr_til_three"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:boxBackgroundColor="@android:color/transparent"
+                app:counterEnabled="true"
+                app:counterMaxLength="20"
+                app:layout_constraintEnd_toEndOf="@+id/newr_til_one"
+                app:layout_constraintStart_toStartOf="@+id/newr_til_one"
+                app:layout_constraintTop_toBottomOf="@+id/newr_til_two"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/newr_til_edt_three"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:maxLength="20" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/newr_til_one"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="60dp"
+                app:boxBackgroundColor="@android:color/transparent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/newr_tv">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/newl_til_edt_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Name"
+                    android:textColorHint="@color/colorOrange2Dark" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

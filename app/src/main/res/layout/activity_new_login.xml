@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/newl_scrollview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NewLoginActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/newl_const"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical">
+
+        <ProgressBar
+            android:id="@+id/newl_pbar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="38dp"
+            android:layout_height="0dp"
+            android:indeterminateTint="@color/colorBlue1"
+            android:paddingEnd="6dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/newl_tv_one"
+            app:layout_constraintStart_toStartOf="@+id/newl_btn_login2"
+            app:layout_constraintTop_toTopOf="@+id/newl_tv_one" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/newl_const_reg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/newl_btn_login2">
+
+            <Button
+                android:id="@+id/newl_btn_reg"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="가입하기"
+                android:textColor="@color/colorOrange2Primary"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/newl_tv_reg"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/newl_tv_reg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="회원이 아니신가요?"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/newl_const_forgotpw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/newl_const_reg">
+
+            <Button
+                android:id="@+id/newl_btn_forgotpw"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="비밀번호 찾기"
+                android:textColor="@color/colorOrange2Primary"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/newl_tv_forgotpw"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/newl_tv_forgotpw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="비밀번호를 잊어버리셨나요?"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/newl_tv_one"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:text="LOG IN to BapPlusPlus"
+            android:textColor="@color/colorOrange2Primary"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/newl_til_email"
+            app:layout_constraintEnd_toEndOf="@+id/newl_btn_login2"
+            app:layout_constraintStart_toEndOf="@+id/newl_pbar" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/newl_til_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/newl_til_pw"
+            app:layout_constraintEnd_toEndOf="@+id/newl_btn_login2"
+            app:layout_constraintStart_toStartOf="@+id/newl_til_pw"
+            app:boxBackgroundColor="@android:color/transparent"
+            android:background="@android:color/transparent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/newl_til_edt_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="E-Mail" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/newl_til_pw"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@id/newl_btn_login2"
+            app:layout_constraintEnd_toEndOf="@+id/newl_btn_login2"
+            app:layout_constraintStart_toStartOf="@+id/newl_btn_login2"
+            app:boxBackgroundColor="@android:color/transparent"
+            android:background="@android:color/transparent"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/newl_til_edt_pw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/newl_btn_login2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="60dp"
+            android:background="@drawable/buttonst02"
+            android:text="로그인"
+            android:textColor="#FF4000"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.63" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

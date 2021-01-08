@@ -3,6 +3,7 @@ package com.example.bapplusplus
 import android.content.Context
 import android.content.Intent
 import android.os.Handler
+import android.os.Looper
 import android.os.Parcel
 import android.os.Parcelable
 import android.util.Log
@@ -125,7 +126,8 @@ class FavListAdapter(val context: Context, val gni: ArrayList<GetNumsInfo>) : Re
             intent.putExtra("gni_num", gni_item.RestNo)
             intent.putExtra("gni_title", gni_item.RestTitle)
             intent.putExtra("BottomNaviNum", 1)
-            Handler().postDelayed(Runnable { context.startActivity(intent) }, 600)
+            context.startActivity(intent)
+            //Handler(Looper.getMainLooper()).postDelayed(Runnable { context.startActivity(intent) }, 10)
 
 
         }

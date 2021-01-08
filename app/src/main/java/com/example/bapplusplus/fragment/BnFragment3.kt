@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,9 +15,11 @@ import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.bapplusplus.Bn3ReviewsAdapter
+import com.example.bapplusplus.FBUserInfo
 import com.example.bapplusplus.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.fragment_bn3.*
 import kotlinx.android.synthetic.main.fragment_bn3.view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -67,6 +70,15 @@ class BnFragment3 : Fragment() {
         var rootView = inflater.inflate(R.layout.fragment_bn3, container, false)
         rootView.bn3_btn_myfav.isEnabled = false
         rootView.bn3_btn_writerv.isEnabled = false
+
+        //set views invisible
+        rootView.bn3_btn_myfav.visibility = View.INVISIBLE
+        rootView.bn3_btn_writerv.visibility = View.INVISIBLE
+        rootView.bn3_tv_totalrv.visibility = View.INVISIBLE
+        rootView.bn3_rcv.visibility = View.INVISIBLE
+        rootView.bn3_txt_rv.visibility = View.INVISIBLE
+        rootView.bn3_txt_rt.visibility = View.INVISIBLE
+
         val bundle = arguments
         val fbdb = FirebaseFirestore.getInstance()
         val fbauth = FirebaseAuth.getInstance()
@@ -113,16 +125,68 @@ class BnFragment3 : Fragment() {
                         for (kk in 0..ReviewArray.size-1){
                             println("testing review C"+ReviewArray.get(kk).content+" / D"+ReviewArray.get(kk).date+" / U"+ReviewArray.get(kk).uid)
                         }
+
                         rootView.bn3_tv_totalrv.text = "리뷰 "+ReviewArray.size+"건"
                         if(my_review_num > 0){
                             rootView.bn3_txt_rv.text = "내가 작성한 리뷰: "+my_review_num+"개"
                         }else{
                             rootView.bn3_txt_rv.text = "리뷰를 작성해 보세요"
                         }
+
+                        //info set
+                        //if(get_uid.equals("")){
+                        if(FBUserInfo.loginState == false){
+                            rootView.bn3_btn_myfav.text = "로그인 되지 않았습니다"
+                            //rootView.bn3_txt_rt.text = "로그인 후 별점을 줄 수 있습니다"
+                            rootView.bn3_txt_rv.text = "로그인 후 리뷰를 작성할 수 있습니다"
+                            rootView.bn3_btn_writerv.visibility = View.GONE
+                        }else{
+                            rootView.bn3_btn_myfav.isEnabled = true
+                            rootView.bn3_btn_writerv.isEnabled = true
+                            //RatingArray.indexOf(BN3Info_Rating(0.0 , get_uid))
+                            var uid_index = RatingArraySe.indexOf(get_uid)
+                            if(uid_index != -1){
+                                println("RatingArray found! "+uid_index)
+                                //rootView.bn3_txt_rt.text = "내가 준 별점"
+                                //rootView.bn3_ratingbar.rating = RatingArray.get(uid_index).stars.toFloat()
+                            }else{
+                                println("RatingArray not found "+uid_index)
+                                rootView.bn3_txt_rt.text = "별점을 매겨주세요"
+                            }
+                            rootView.bn3_btn_writerv.visibility = View.VISIBLE
+                        }
+
+                        println("ReviewArray size "+ReviewArray.size)
+                        if(ReviewArray.size == 0){
+                            println("ReviewArray size is zero "+ReviewArray.size)
+                            rootView.bn3_rcv.visibility = View.INVISIBLE
+                            rootView.bn3_tv_norvsyet.visibility = View.VISIBLE
+                            rootView.bn3_tv_totalrv.visibility = View.GONE
+                        }
+                        else{
+                            println("ReviewArray size is not zero "+ReviewArray.size)
+                            //rootView.bn3_rcv.visibility = View.VISIBLE
+                            rootView.bn3_tv_norvsyet.visibility = View.GONE
+                            rootView.bn3_rcv.visibility = View.VISIBLE
+                            rootView.bn3_tv_totalrv.visibility = View.VISIBLE
+                            rootView.bn3_tv_totalrv.text = "리뷰 "+ReviewArray.size+"건"
+                        }
+
+
+                        //visibility set
+                        rootView.bn3_pbar_initial.visibility = View.GONE
+                        rootView.bn3_btn_myfav.visibility = View.VISIBLE
+                        //rootView.bn3_btn_writerv.visibility = View.VISIBLE
+                        //rootView.bn3_tv_totalrv.visibility = View.VISIBLE
+                        //rootView.bn3_rcv.visibility = View.VISIBLE
+                        rootView.bn3_txt_rv.visibility = View.VISIBLE
+                        rootView.bn3_txt_rt.visibility = View.VISIBLE
+
                     } else {
                         Log.d("TAG", "No such document - Fragment1")
                     }
                 adapter.notifyDataSetChanged()
+                bn3_pbar_initial.visibility = View.GONE
 
             }
             .addOnFailureListener { exception ->
@@ -149,11 +213,11 @@ class BnFragment3 : Fragment() {
 
 
 
-        Handler().postDelayed({
+        /*Handler(Looper.getMainLooper()).postDelayed({
 
             if(get_uid.equals("")){
                 rootView.bn3_btn_myfav.text = "로그인 되지 않았습니다"
-                rootView.bn3_txt_rt.text = "로그인 후 별점을 줄 수 있습니다"
+                //rootView.bn3_txt_rt.text = "로그인 후 별점을 줄 수 있습니다"
                 rootView.bn3_txt_rv.text = "로그인 후 리뷰를 작성할 수 있습니다"
             }else{
                 rootView.bn3_btn_myfav.isEnabled = true
@@ -162,8 +226,8 @@ class BnFragment3 : Fragment() {
                 var uid_index = RatingArraySe.indexOf(get_uid)
                 if(uid_index != -1){
                     println("RatingArray found! "+uid_index)
-                    rootView.bn3_txt_rt.text = "내가 준 별점"
-                    rootView.bn3_ratingbar.rating = RatingArray.get(uid_index).stars.toFloat()
+                    //rootView.bn3_txt_rt.text = "내가 준 별점"
+                    //rootView.bn3_ratingbar.rating = RatingArray.get(uid_index).stars.toFloat()
                 }else{
                     println("RatingArray not found "+uid_index)
                     rootView.bn3_txt_rt.text = "별점을 매겨주세요"
@@ -183,7 +247,7 @@ class BnFragment3 : Fragment() {
                 rootView.bn3_tv_norvsyet.visibility = View.GONE
                 rootView.bn3_tv_totalrv.text = "리뷰 "+ReviewArray.size+"건"
             }
-        }, 600)
+        }, 600)*/
 
         rootView.bn3_const.setOnClickListener {
             hideKeyboard()
@@ -338,19 +402,19 @@ class BnFragment3 : Fragment() {
                         Log.d("TAG", "get failed with ", exception)
                     }
 
-                Handler().postDelayed({
+                Handler(Looper.getMainLooper()).postDelayed({
                     fbdb.collection("tmp5vStrings").document(get_documentId)
                         //.update("ValTest", "Right?")
                         .update("RestReview", ReviewArrayToUpdate)
                         .addOnSuccessListener { Log.d("Update", "DocumentSnapshot successfully updated!") }
                         .addOnFailureListener { e -> Log.w("Update", "Error updating document", e) }
 
-                    Handler().postDelayed({
+                    Handler(Looper.getMainLooper()).postDelayed({
                         Log.d("TAG RATU", ReviewArrayToUpdate.toString())
                         fdb_getdata(fbdb, get_uid, adapter)
 
                         println("mmmmm222 "+ my_review_num)
-                        Handler().postDelayed({
+                        Handler(Looper.getMainLooper()).postDelayed({
                             my_review_num = 0
                             for(kk in 0..ReviewArray.size-1){
                                 my_review_num = my_review_num + ReviewArray[kk].findUidNums(get_uid)
