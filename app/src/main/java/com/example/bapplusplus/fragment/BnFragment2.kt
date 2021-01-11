@@ -2,10 +2,15 @@ package com.example.bapplusplus.fragment
 
 import android.Manifest
 import android.content.Context
+import android.content.Context.LOCATION_SERVICE
 import android.content.pm.PackageManager
 import android.location.Location
+import android.location.LocationListener
 import android.location.LocationManager
+import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -18,6 +23,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.example.bapplusplus.R
 import com.example.bapplusplus.RestInfoTemp
+import com.google.android.gms.location.*
 import com.google.firebase.firestore.FirebaseFirestore
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
@@ -35,6 +41,7 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
     private var distanceEstimate = 0.0
     private lateinit var locpos: Location
     private lateinit var lm: LocationManager
+    lateinit var loclis: LocationListener
     private val REQUEST_CODE_LOCATION: Int = 2
     private var positionX: Double = 0.0
     private var positionY: Double = 0.0
@@ -45,32 +52,13 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
     private var getPosy = 12.0
     private var RestNo = 0
     private lateinit var RestLoc: Location
+    var currentLatLng: Location? = null
+    lateinit var fusedLocationClient: FusedLocationProviderClient
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-
-        /*val bundle = arguments
-        val fbdb = FirebaseFirestore.getInstance()
-        RestNo = bundle?.getInt("RestNo") ?: 0
-        fbdb.collection("tmp3v")
-            .whereEqualTo("RestNo", RestNo)
-            .get()
-            .addOnSuccessListener { documents ->
-                for(document in documents)
-                    if (document != null) {
-                        Log.d("TAG", "OOOO DocumentSnapshot data: ${document.data}")
-                        RestPosx = document.getDouble("RestPosx")!!
-                        RestPosy = document.getDouble("RestPosy")!!
-
-                        println("Bn3x "+ RestPosx)
-                        println("Bn3y "+ RestPosy)
-                    } else {
-                        Log.d("TAG", "No such document - Fragment1")
-                    }
-            }
-            .addOnFailureListener { exception ->
-                Log.d("TAG", "get failed with ", exception)
-            }*/
         super.onCreate(savedInstanceState)
 
     }
@@ -89,6 +77,9 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
         RestLoc = Location("pov")
         RestLoc.latitude = getPosy
         RestLoc.longitude = getPosx
+        lm = activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+
         //positionX = bundle?.getDouble("posx") ?: 36.5613999
         //positionY = bundle?.getDouble("posy") ?: 127.0384896
         //getinfopar = bundle?.getParcelable<RestInfoTemp>("infotemp")!!
@@ -142,6 +133,8 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
                         Log.d("TAG", "RRRR DocumentSnapshot data: ${document.data}")
                         RestPosx = document.getDouble("RestPosx")!!
                         RestPosy = document.getDouble("RestPosy")!!
+                        RestLoc.latitude = RestPosy
+                        RestLoc.longitude = RestPosx
                             mapFragment = childFragmentManager.findFragmentById(R.id.bn_frame_2) as MapFragment?
                                 ?:run {
                                 println("mapfr")
@@ -189,7 +182,7 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
         //mapFragment.getMapAsync(this)
 
         locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
-        lm = activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        //lm = activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         locpos = Location("point")
         locpos.latitude = 35.5613217
         locpos.longitude = 127.0384896
@@ -237,9 +230,11 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
             setOnClickListener {
 //                mapN.locationTrackingMode = LocationTrackingMode.None
 //                distanceEstimate = locationSource.lastLocation!!.distanceTo(locpos).toDouble()
-                var presentLoc = getLatLng()
-                distanceEstimate = presentLoc.distanceTo(RestLoc).toDouble()
 
+                var presentLoc = getCurrentLocationNu()
+                //locationSource.isCompassEnabled = true
+                //distanceEstimate = presentLoc?.distanceTo(RestLoc)?.toDouble() ?: 111.0
+                distanceEstimate = getCurrentLocationNu()?.distanceTo(RestLoc)?.toDouble() ?: 111.0
 //                Toast.makeText(activity, distanceEstimate.toString(), Toast.LENGTH_SHORT).show()
 //                var toast_test = View.inflate(requireContext(), R.layout.toast_custom_1, null)
 //                var tst = Toast(requireContext())
@@ -269,8 +264,9 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
 
     }
 
-    private fun getLatLng(): Location {
-        var currentLatLng: Location? = null
+    private fun getLatLng(): Location? {
+        //var currentLatLng: Location? = null
+        var  isGPSEnabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER)
         if(ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -287,8 +283,39 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
             getLatLng()
         }
         else{
+            /*if (isGPSEnabled) {
+                Log.d("loc xy", "gps enabled")
+                if (currentLatLng == null) {
+                    Log.d("loc xy", "currentlatlng is null")
+                    lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0.toFloat(), loclis);
+                    if (lm != null) {
+                        Log.d("loc xy", "lm is not null")
+                        currentLatLng = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                        if (currentLatLng != null) {
+                            Log.d("loc xy", "currentlatlng is not null")
+                            return currentLatLng
+                        }
+                    }
+                }
+            }*/
+
+            getLocSource()
             val locationProvider = LocationManager.GPS_PROVIDER
-            currentLatLng = lm.getLastKnownLocation(locationProvider)
+            currentLatLng = getCurrentLocationNu()
+
+            if(currentLatLng == null){
+                Log.d("currentlatlng", "currentLatLng is null")
+                lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1.toFloat(), loclis)
+                currentLatLng = lm.getLastKnownLocation(locationProvider)
+            }
+
+            //var lastlocknown =
+
+
+
+            //currentLatLng = lm.getLastKnownLocation(locationProvider)
+            Log.d("Loc xy", currentLatLng?.longitude.toString()+", "+currentLatLng?.latitude.toString())
+            return currentLatLng
         }
 
         return currentLatLng!!
@@ -312,4 +339,55 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
 
         return animset
     }
+
+    fun getCurrentLocationNu(): Location? {
+        val isGPSEnabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        val isNetworkEnabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+
+        if (Build.VERSION.SDK_INT >= 23 && requireContext().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 0)
+        } else {
+            when { //프로바이더 제공자 활성화 여부 체크
+                isNetworkEnabled ->{
+                    val location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER) //인터넷기반으로 위치를 찾음
+                    //getLongitude = location?.longitude!!
+                    //getLatitude = location.latitude
+                    //toast("현재위치를 불러옵니다.")
+                    Toast.makeText(requireContext(), "netw: "+location?.latitude.toString()+", "+location?.longitude.toString(), Toast.LENGTH_SHORT).show()
+                    return location
+                }
+                isGPSEnabled ->{
+                    val location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER) //GPS 기반으로 위치를 찾음
+                    //getLongitude = location?.longitude!!
+                    //getLatitude = location.latitude
+                    //toast("현재위치를 불러옵니다.")
+                    Toast.makeText(requireContext(), "gpsw: "+location?.latitude.toString()+", "+location?.longitude.toString(), Toast.LENGTH_SHORT).show()
+                    return location
+                }
+                else ->{
+                    return null
+                }
+            }
+            //몇초 간격과 몇미터를 이동했을시에 호출되는 부분 - 주기적으로 위치 업데이트를 하고 싶다면 사용
+            // ****주기적 업데이트를 사용하다가 사용안할시에는 반드시 해제 필요****
+            /*lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+                    1000, //몇초
+                    1F,   //몇미터
+                    gpsLocationListener)
+            lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+                    1000,
+                    1F,
+                    gpsLocationListener)
+            //해제부분. 상황에 맞게 잘 구현하자
+            lm.removeUpdates(gpsLocationListener)*/
+        }
+        return null
+    }
+
+    fun getLocSource(){
+        //locationSource.lastLocation
+
+        Toast.makeText(context, locationSource.lastLocation?.latitude.toString() +", "+locationSource.lastLocation?.longitude.toString(), Toast.LENGTH_SHORT).show()
+    }
+
 }

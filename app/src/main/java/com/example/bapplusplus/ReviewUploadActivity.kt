@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -43,7 +44,7 @@ class ReviewUploadActivity : AppCompatActivity() {
         fbdb = FirebaseFirestore.getInstance()
         fbauth = FirebaseAuth.getInstance()
         fbstr = FirebaseStorage.getInstance()
-
+        ru_sc_btn_upload.isEnabled = false
 
         //ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1)
 
@@ -59,18 +60,25 @@ class ReviewUploadActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                var review_str = ru_sc_edt.text.toString()
-                if (review_str.length >= 200) {
-                    ru_sc_edt_writenum.setTextColor(
-                        ContextCompat.getColor(
-                            applicationContext,
-                            R.color.colorRed1
-                        )
-                    )
-                    ru_sc_edt_writenum.text = review_str.length.toString() + " / 200"
-                } else {
+                //var review_str = ru_sc_edt.text.toString()
+                if(ru_sc_edt.text.toString().isEmpty()){
+                    ru_sc_btn_upload.isEnabled = false
                     ru_sc_edt_writenum.setTextColor(oldcolor)
-                    ru_sc_edt_writenum.text = review_str.length.toString() + " / 200"
+                    ru_sc_edt_writenum.text = ru_sc_edt.text.toString().length.toString() + " / 200"
+                }else{
+                    ru_sc_btn_upload.isEnabled = true
+                    if (ru_sc_edt.text.toString().length >= 200) {
+                        ru_sc_edt_writenum.setTextColor(
+                            ContextCompat.getColor(
+                                applicationContext,
+                                R.color.colorRed1
+                            )
+                        )
+                        ru_sc_edt_writenum.text = ru_sc_edt.text.toString().length.toString() + " / 200"
+                    } else {
+                        ru_sc_edt_writenum.setTextColor(oldcolor)
+                        ru_sc_edt_writenum.text = ru_sc_edt.text.toString().length.toString() + " / 200"
+                    }
                 }
             }
         })
@@ -110,6 +118,26 @@ class ReviewUploadActivity : AppCompatActivity() {
                 }
             }
         }
+
+        /*rusc_btn_test.setOnClickListener {
+            val itemer2 = hashMapOf(
+                "RestNo" to 96,
+                "RestTitle" to "RestTitle",
+                "RestPosx" to 37.63,
+                "RestFavoritesArray" to arrayListOf<String>()
+            )
+
+            fbdb!!.collection("tmp7vBasic").document("TESSE")
+                .set(itemer2)
+                .addOnSuccessListener {
+                    Log.d("TAG", "DocumentSnapshot successfully written!")
+                    //count_one++
+                }
+                .addOnFailureListener {
+                        e -> Log.w("TAG", "Error writing document", e) }
+        }*/
+
+
 
 
 

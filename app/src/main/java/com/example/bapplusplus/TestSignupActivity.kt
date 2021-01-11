@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_test_signup.*
 
@@ -27,7 +28,7 @@ class TestSignupActivity : AppCompatActivity() {
     var rname: String? = null
     var rpw: String? = null
     var rpwcheck: String? = null
-    var listfav: ArrayList<MapFavEl> = arrayListOf(MapFavEl(0, 9.9))
+    var listfav: ArrayList<MapFavEl> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,7 +81,9 @@ class TestSignupActivity : AppCompatActivity() {
                         val user = fbauth.currentUser
                         var gemail = user?.email
                         var guid = user?.uid
-                        //var gname = user?.displayName
+                        //val upreq = UserProfileChangeRequest.Builder().setDisplayName(rname).build()
+                        //user?.updateProfile(upreq)?.addOnCompleteListener {  }
+
 
 //                        var hashmap = HashMap<Object, String>()
 //                        hashmap.put("uid", guid)

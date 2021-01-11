@@ -18,6 +18,7 @@ import com.example.bapplusplus.Bn3ReviewsAdapter
 import com.example.bapplusplus.FBUserInfo
 import com.example.bapplusplus.R
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_bn3.*
 import kotlinx.android.synthetic.main.fragment_bn3.view.*
@@ -388,7 +389,7 @@ class BnFragment3 : Fragment() {
                             var rat1 = BN3Info_Review(map1.get("content").toString(), map1.get("date").toString(), map1.get("uid").toString())
                             ReviewArrayToUpdate.add(rat1)
                         }
-                        var mDateFor = SimpleDateFormat("yyyy-MM-dd")
+                        var mDateFor = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
                         var mDateStr = mDateFor.format(Date())
                         Log.d("Date Tag", mDateStr)
                         ReviewArrayToUpdate.add(BN3Info_Review(rootView.bn3_makerv_edt_input.text.toString(), mDateStr, get_uid))
@@ -405,7 +406,7 @@ class BnFragment3 : Fragment() {
                 Handler(Looper.getMainLooper()).postDelayed({
                     fbdb.collection("tmp5vStrings").document(get_documentId)
                         //.update("ValTest", "Right?")
-                        .update("RestReview", ReviewArrayToUpdate)
+                        .update("RestReview", FieldValue.arrayUnion(ReviewArrayToUpdate.get(ReviewArrayToUpdate.size-1)))
                         .addOnSuccessListener { Log.d("Update", "DocumentSnapshot successfully updated!") }
                         .addOnFailureListener { e -> Log.w("Update", "Error updating document", e) }
 

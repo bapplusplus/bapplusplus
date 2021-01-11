@@ -64,7 +64,8 @@ class NewLoginActivity : AppCompatActivity() {
 
         newl_btn_reg.setOnClickListener {
             val intent = Intent(this, NewRegisterActivity::class.java)
-            startActivity(intent)
+            //startActivity(intent)
+            startActivityForResult(intent, 16)
         }
 
         newl_btn_login2.setOnClickListener {
@@ -289,6 +290,14 @@ class NewLoginActivity : AppCompatActivity() {
         if(view != null) {
             val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when(resultCode){
+            16->finish()
         }
     }
 }

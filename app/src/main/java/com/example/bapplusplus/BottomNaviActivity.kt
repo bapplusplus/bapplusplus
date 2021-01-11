@@ -199,5 +199,5 @@ class BottomNaviActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-    
+
 }

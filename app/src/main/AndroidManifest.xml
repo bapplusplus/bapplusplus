@@ -3,9 +3,13 @@
     package="com.example.bapplusplus">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-feature android:name="android.hardware.location.gps" />
+    <uses-feature android:name="android.hardware.location.network" />
 
     <application
         android:allowBackup="true"
@@ -14,7 +18,7 @@
         android:roundIcon="@mipmap/ic_temp2_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".TestingActivity"></activity>
         <activity
             android:name=".TestSignupActivity"
             android:windowSoftInputMode="adjustResize" />
@@ -25,8 +29,6 @@
             android:name=".RestaurantList"
             android:label="@string/title_activity_restaurant_list"
             android:theme="@style/AppTheme.NoActionBar" />
-
-
         <activity android:name=".ShowMapActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -35,25 +37,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ReviewUploadActivity"
             android:theme="@style/AppThemeNew1"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".NewRegisterActivity"
             android:theme="@style/AppThemeNew1"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".NewLoginActivity"
             android:theme="@style/AppThemeNew1"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".FavoritesListActivity"
-            android:theme="@style/AppThemeNew1"></activity>
+            android:theme="@style/AppThemeNew1" />
         <activity
             android:name=".BottomNaviActivity"
-            android:theme="@style/AppThemeNew1"></activity>
+            android:theme="@style/AppThemeNew1" />
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
