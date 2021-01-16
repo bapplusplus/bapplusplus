@@ -124,11 +124,9 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
             }
         mapFragment.getMapAsync(this)*/
 
-        fbdb.collection("tmp3v")
-            .whereEqualTo("RestNo", RestNo)
+        fbdb.collection("tmp7vBasic").document("RestBasic"+RestNo.toString())
             .get()
-            .addOnSuccessListener { documents ->
-                for(document in documents)
+            .addOnSuccessListener { document ->
                     if (document != null) {
                         Log.d("TAG", "RRRR DocumentSnapshot data: ${document.data}")
                         RestPosx = document.getDouble("RestPosx")!!
@@ -171,7 +169,7 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
 
 
                     } else {
-                        Log.d("TAG", "No such document - Fragment1")
+                        Log.d("TAG", "No such document - Fragment2")
                     }
             }
             .addOnFailureListener { exception ->

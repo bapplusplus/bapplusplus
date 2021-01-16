@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_testing.*
 import kotlinx.coroutines.CoroutineScope
@@ -164,6 +165,31 @@ class TestingActivity : AppCompatActivity() {
             }
 
             Toast.makeText(applicationContext, "ArrayDone: "+testArray.size, Toast.LENGTH_SHORT).show()
+        }
+
+        tst_btn_arrayunion.setOnClickListener {
+            val toup = hashMapOf(
+                "one" to "a",
+                "two" to 37,
+                "three" to false
+            )
+            fbdb!!.collection("tmp6vTest").document("tmp6vDoc")
+                .update("6vArray", FieldValue.arrayUnion(toup))
+        }
+
+        tst_btn_arrayremove_str.setOnClickListener {
+            fbdb!!.collection("tmp6vTest").document("tmp6vDoc")
+                .update("6vArray", FieldValue.arrayRemove("6vtwo"))
+        }
+
+        tst_btn_arrayremove_map.setOnClickListener {
+            val torm = hashMapOf(
+                "one" to "a",
+                "two" to 37,
+                "three" to false
+            )
+            fbdb!!.collection("tmp6vTest").document("tmp6vDoc")
+                .update("6vArray", FieldValue.arrayRemove(torm))
         }
 
 

@@ -1,4 +1,4 @@
-package com.example.bapplusplus
+package com.example.bapplusplus.adapter
 
 import android.content.Context
 import android.util.Log
@@ -6,18 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.bapplusplus.R
 import com.example.bapplusplusTemp.fragment.BN3Info_Review
 import kotlinx.android.synthetic.main.bn3review_cell.view.*
 
 class Bn3ReviewsAdapter(val context: Context, val review_list: ArrayList<BN3Info_Review>, val uid: String) : RecyclerView.Adapter<Bn3ReviewsAdapter.Holder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Bn3ReviewsAdapter.Holder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(context).inflate(R.layout.bn3review_cell, parent, false)
         //println("listtrytest in recycler"+gni.get(5).RestTitle + " / " + gni.get(37).RestTitle)
         println("Bn3reviewAdapter size/ " + review_list.size)
         return Holder(view)
     }
 
-    override fun onBindViewHolder(holder: Bn3ReviewsAdapter.Holder, position: Int) {
+    override fun onBindViewHolder(holder: Holder, position: Int) {
         val item = review_list[position]
         holder.apply {
             bind(item)

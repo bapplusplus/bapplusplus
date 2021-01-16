@@ -1,4 +1,4 @@
-package com.example.bapplusplus
+package com.example.bapplusplus.data
 
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
@@ -59,6 +59,31 @@ class FBUserInfo {
             fbauth.signOut()
             fbuser = fbauth.currentUser
         }
+
+        suspend fun setWithdrawal(): Boolean{
+            try{
+                fbuser?.delete()?.await()
+                return true
+            }catch (e: Exception){
+                Log.e("fbu", "set withdrawal fail, "+e.printStackTrace())
+                return false
+            }
+        }
+
+        suspend fun setUserWithdrawal(): Boolean{
+            val withdrawResult = setWithdrawal()
+            if(withdrawResult){
+                try {
+                    fbdb.collection("AccountGroup").document(userUid).delete().await()
+                    return true
+                }catch (e: Exception){
+                    Log.e("fbu", "withdraw data delete fail, "+e.printStackTrace())
+                    return false
+                }
+            }
+
+            return false
+        }
     }
 
     //lateinit var fbauth : FirebaseAuth
@@ -70,8 +95,11 @@ class FBUserInfo {
         fbuser = fbauth.currentUser
 
         if(fbuser != null){
+            Log.d("fbu", "fbuser is not null"+ fbuser.toString()+": "+ fbuser!!.displayName.toString())
             userUid = fbuser!!.uid
-            val docRef = fbdb.collection("AccountGroup").document(userUid)
+            userName = fbuser!!.displayName.toString()
+            loginState = true
+            /*val docRef = fbdb.collection("AccountGroup").document(userUid)
             docRef.get()
                 .addOnSuccessListener { document ->
                     if (document != null) {
@@ -80,15 +108,17 @@ class FBUserInfo {
                         userName = fbuser!!.displayName.toString()
                         loginState = true
                     } else {
-                        Log.d("TAG", "No such document")
+                        Log.d("fbu", "No such document")
 
                     }
                 }.addOnFailureListener { exception ->
-                    Log.d("TAG", "get failed with ", exception)
+                    Log.d("fbu", "get failed with ", exception)
 
-                }
+                }*/
         }else{
-
+            loginState = false
+            userName ="initial_notLoggedIn"
+            Log.d("fbu", "fbuser is null "+ fbuser.toString())
         }
     }
 

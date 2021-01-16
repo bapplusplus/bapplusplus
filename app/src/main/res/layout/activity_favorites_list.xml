@@ -23,7 +23,7 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/fav_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="54dp"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="@style/ToolbarVer1"
                 app:subtitleTextColor="#FFFFFF"
@@ -38,10 +38,17 @@
                     android:textColor="@android:color/white"
                     android:textSize="18sp"
                     android:textStyle="bold"
+                    android:visibility="gone"
                     tools:layout_editor_absoluteX="16dp"
                     tools:layout_editor_absoluteY="18dp" />
 
+                <Spinner
+                    android:id="@+id/fav_toolbar_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
             </androidx.appcompat.widget.Toolbar>
+
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 

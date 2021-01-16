@@ -10,10 +10,9 @@
         android:id="@+id/btn_testingact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="12dp"
         android:layout_marginBottom="8dp"
-        android:text="Button"
-        android:visibility="gone"
+        android:text="Test(test)"
         app:layout_constraintBottom_toTopOf="@+id/btn_reviewupload"
         app:layout_constraintStart_toStartOf="parent" />
 

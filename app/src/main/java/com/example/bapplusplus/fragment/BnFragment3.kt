@@ -11,11 +11,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
-import com.example.bapplusplus.Bn3ReviewsAdapter
-import com.example.bapplusplus.FBUserInfo
+import com.example.bapplusplus.adapter.Bn3ReviewsAdapter
+import com.example.bapplusplus.data.FBUserInfo
 import com.example.bapplusplus.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue

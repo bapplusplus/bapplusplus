@@ -1,4 +1,4 @@
-package com.example.bapplusplus
+package com.example.bapplusplus.deprecated
 
 import android.content.Context
 import android.graphics.PointF
@@ -9,6 +9,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import com.example.bapplusplus.InfoTemp
+import com.example.bapplusplus.R
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.InfoWindow

@@ -7,6 +7,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.bapplusplus.fragment.BnFragment2
+import com.example.bapplusplus.fragment.BnFragment4
 import com.example.bapplusplusTemp.fragment.BnFragment1
 import com.example.bapplusplusTemp.fragment.BnFragment3
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -18,7 +19,8 @@ import kotlinx.android.synthetic.main.activity_bottom_navi.view.*
 class BottomNaviActivity : AppCompatActivity() {
     var frag1save: BnFragment1? = null
     var frag2save: BnFragment2? = null
-    var frag3save: BnFragment3? = null
+    //var frag3save: BnFragment3? = null
+    var frag3save: BnFragment4? = null
 
     var posx = 0.0
     var posy = 0.0
@@ -51,6 +53,7 @@ class BottomNaviActivity : AppCompatActivity() {
         RestNo = intent.getIntExtra("gni_num", 0)
 
         RestTitle = intent.getStringExtra("gni_title").toString()
+        RestCategory = intent.getStringExtra("gni_category").toString()
         println("btn restno" + RestNo + " btn_resttitle" + RestTitle)
         get_posx = itt.getDoubleExtra("pppx", 1.0)
         get_posy = itt.getDoubleExtra("pppy", 1.0)
@@ -61,6 +64,8 @@ class BottomNaviActivity : AppCompatActivity() {
             )
         )
         bundle.putInt("RestNo", RestNo)
+        bundle.putString("RestTitle", RestTitle)
+        bundle.putString("RestCategory", RestCategory)
         bundle.putDouble("pppx", itt.getDoubleExtra("pppx", 1.0))
         bundle.putDouble("pppy", itt.getDoubleExtra("pppy", 1.0))
 
@@ -158,7 +163,7 @@ class BottomNaviActivity : AppCompatActivity() {
                 }
                 R.id.navigation_menu3 -> {
                     if (frag3save == null) {
-                        frag3save = BnFragment3()
+                        frag3save = BnFragment4()
                         supportFragmentManager.beginTransaction().add(
                             R.id.bn_framelayout,
                             frag3save!!

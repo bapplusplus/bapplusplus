@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.bapplusplus.InfoTemp
 import com.example.bapplusplus.R
@@ -28,11 +29,11 @@ class BnFragment1 : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var rootview = inflater.inflate(R.layout.fragment_bn1, container, false)
         // Inflate the layout for this fragment
-        val progressDialog = ProgressDialog(context)
-        progressDialog.setMessage("ProgressDialog running...")
-        //progressDialog.setCancelable(true)
-        progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Horizontal)
-        progressDialog.show()
+        ////val progressDialog = ProgressDialog(context)
+        //progressDialog.setMessage("ProgressDialog running...")
+        ////progressDialog.setCancelable(true)
+        ////progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Horizontal)
+        ////progressDialog.show()
         val bundle = arguments
         //val infoTemp = bundle?.getParcelable<RestInfoTemp>("infotemp")
         RestNo = bundle?.getInt("RestNo") ?: 0
@@ -43,7 +44,7 @@ class BnFragment1 : Fragment() {
         val fbdb = FirebaseFirestore.getInstance()
 
 
-        fbdb.collection("tmp3v")
+        /*fbdb.collection("tmp7vBasic")
             .whereEqualTo("RestNo", RestNo)
             .get()
             .addOnSuccessListener { documents ->
@@ -72,6 +73,30 @@ class BnFragment1 : Fragment() {
             }
             .addOnFailureListener { exception ->
                 Log.d("TAG", "get failed with ", exception)
+            }*/
+
+        fbdb.collection("tmp7vBasic").document("RestBasic"+RestNo.toString()).get()
+            .addOnSuccessListener { document->
+                Log.d("TAG", "DocumentSnapshot data: ${document.data}")
+                RestTitle = document.getString("RestTitle").toString()
+                RestRoadAddress = document.getString("RestAddressRoad").toString()
+                RestCallNum = document.getString("RestCallNum").toString()
+                RestCategory = document.getString("RestCategory").toString()
+                //get_posx = document.getDouble("RestPosx")!!
+                //get_posy = document.getDouble("RestPosy")!!
+                rootview.findViewById<TextView>(R.id.bn1_title).text = RestTitle
+                rootview.findViewById<TextView>(R.id.bn1_category).text = RestCategory
+                rootview.findViewById<TextView>(R.id.bn1_address).text = RestRoadAddress
+                if(RestCallNum.equals("")){
+                    rootview.findViewById<TextView>(R.id.bn1_call).text = "Unavailable"
+                }else{
+                    rootview.findViewById<TextView>(R.id.bn1_call).text = RestCallNum
+                }
+
+                //progressDialog.dismiss()
+                rootview.findViewById<ProgressBar>(R.id.bn1_pbar_initial).visibility = View.GONE
+            }.addOnFailureListener { exception ->
+                Log.d("bn1", "get failed with ", exception)
             }
 
 //        rootview.findViewById<TextView>(R.id.bn1_title).text = bundle?.getString("RestTitle").toString()

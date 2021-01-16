@@ -8,9 +8,11 @@
     <color name="colorOrange2Dark">#E65100</color>
     <color name="colorOrange2Accent">#FFB300</color>
     <color name="colorWhite1">#FFFFFF</color>
+    <color name="colorWhiteAlpha1">#C4FFFFFF</color>
     <color name="colorRed1">#EC0202</color>
     <color name="colorGreen1">#07D505</color>
     <color name="colorGrey1">#717171</color>
     <color name="colorGrey2">#393939</color>
     <color name="colorBlue1">#04BEDF</color>
+
 </resources>

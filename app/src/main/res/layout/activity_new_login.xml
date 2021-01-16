@@ -36,9 +36,9 @@
 
             <Button
                 android:id="@+id/newl_btn_reg"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                style="@android:style/Widget.Material.Button.Borderless.Small"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="42dp"
                 android:layout_marginStart="4dp"
                 android:text="가입하기"
                 android:textColor="@color/colorOrange2Primary"
@@ -70,9 +70,9 @@
 
             <Button
                 android:id="@+id/newl_btn_forgotpw"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                style="@android:style/Widget.Material.Light.Button.Borderless.Small"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="42dp"
                 android:layout_marginStart="4dp"
                 android:text="비밀번호 찾기"
                 android:textColor="@color/colorOrange2Primary"
@@ -160,6 +160,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.63" />
+
+        <Button
+            android:id="@+id/newl_btn_withdraw"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="16dp"
+            android:text="회원 탈퇴"
+            android:textColor="@color/colorOrange2Primary"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/newl_btn_login2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

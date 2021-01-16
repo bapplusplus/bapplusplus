@@ -20,16 +20,16 @@
         android:theme="@style/AppTheme">
         <activity android:name=".TestingActivity"></activity>
         <activity
-            android:name=".TestSignupActivity"
+            android:name=".deprecated.TestSignupActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".TestLoginActivity"
+            android:name=".deprecated.TestLoginActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".RestaurantList"
             android:label="@string/title_activity_restaurant_list"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ShowMapActivity" />
+        <activity android:name=".deprecated.ShowMapActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

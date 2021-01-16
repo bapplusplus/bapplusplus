@@ -9,7 +9,8 @@
         android:id="@+id/ftb_search"
         android:icon="@android:drawable/ic_menu_search"
         android:title="onMap"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"/>
     <item
         android:id="@+id/ftb_maps"
         android:icon="@drawable/ic_place_white_24dp"

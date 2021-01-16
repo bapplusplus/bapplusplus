@@ -29,6 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Testone"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/ru_sc_tv_menu2"
                 app:layout_constraintStart_toEndOf="@+id/ru_sc_tv_menu2" />
 
@@ -106,7 +107,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="48dp"
                 android:text="리뷰 업로드"
@@ -115,7 +116,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/ru_sc_img_test"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ru_sc_btn_photo_one" />
+                app:layout_constraintTop_toBottomOf="@+id/ru_sc_btn_photodelete" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/ru_sc_btn_photo_one"
@@ -127,6 +128,19 @@
                 android:text="사진 선택"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ru_sc_const_foredt_new" />
+
+            <Button
+                android:id="@+id/ru_sc_btn_photodelete"
+                style="@android:style/Widget.Material.Light.Button.Borderless.Small"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="4dp"
+                android:text="삭제"
+                android:textColor="@color/colorRed1"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/ru_sc_btn_photo_one"
+                app:layout_constraintStart_toStartOf="@+id/ru_sc_btn_photo_one"
+                app:layout_constraintTop_toBottomOf="@+id/ru_sc_btn_photo_one" />
 
             <EditText
                 android:id="@+id/ru_sc_edt_menu"
@@ -202,13 +216,23 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/ru_sc_tv_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:textColor="@color/colorOrange2Dark"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/ru_sc_tv_one"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/ru_toolbar"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"

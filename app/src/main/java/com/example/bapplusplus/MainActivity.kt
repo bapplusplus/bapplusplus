@@ -1,11 +1,13 @@
 package com.example.bapplusplus
 
 import android.content.Intent
-import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.example.bapplusplus.data.FBUserInfo
+import com.example.bapplusplus.deprecated.ShowMapActivity
+import com.example.bapplusplus.deprecated.TestLoginActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main.*
@@ -82,6 +84,11 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(this, ReviewUploadActivity::class.java)
                 startActivity(intent)
             }
+        }
+
+        btn_testingact.setOnClickListener {
+            val intent = Intent(this, TestingActivity::class.java)
+            startActivity(intent)
         }
 
     }

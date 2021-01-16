@@ -16,7 +16,7 @@
     <item
         android:id="@+id/navigation_menu3"
 
-        android:icon="@android:drawable/btn_star_big_on"
+        android:icon="@drawable/iconstaroutline2"
         android:title="리뷰" />
 
 </menu>

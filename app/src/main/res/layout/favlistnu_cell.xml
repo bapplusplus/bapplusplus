@@ -16,19 +16,44 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/fnc_img_mylike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/fnc_item_title"
+            app:srcCompat="@drawable/red_heart_one" />
+
+        <ImageView
+            android:id="@+id/fnc_img_represent"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/outline_orange_rect" />
+
         <TextView
             android:id="@+id/fnc_tv_reviewnum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
             android:text="ReviewNum"
-            app:layout_constraintEnd_toEndOf="@+id/fnc_item_star"
-            app:layout_constraintTop_toBottomOf="@+id/fnc_item_star" />
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <ImageView
             android:id="@+id/fnc_item_star_img"
-            android:layout_width="32dp"
+            android:layout_width="20dp"
             android:layout_height="0dp"
+            android:layout_marginTop="1dp"
             android:layout_marginEnd="4dp"
+            android:layout_marginBottom="1dp"
             app:layout_constraintBottom_toBottomOf="@+id/fnc_item_star"
             app:layout_constraintEnd_toStartOf="@+id/fnc_item_star"
             app:layout_constraintTop_toTopOf="@+id/fnc_item_star"
@@ -38,37 +63,37 @@
             android:id="@+id/fnc_item_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:text="Category"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/fnc_item_title"
             app:layout_constraintTop_toBottomOf="@+id/fnc_item_title" />
 
         <TextView
             android:id="@+id/fnc_item_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="8dp"
             android:text="Title"
-            android:textColor="#FF5722"
-            android:textSize="17sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textColor="@color/colorOrange2Dark"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/fnc_tv_reviewnum"
+            app:layout_constraintStart_toEndOf="@+id/fnc_img_represent"
+            app:layout_constraintTop_toTopOf="@+id/fnc_img_represent" />
 
         <TextView
             android:id="@+id/fnc_item_star"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="12dp"
             android:text="3.5"
-            android:textSize="17sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/fnc_tv_reviewnum"
+            app:layout_constraintEnd_toStartOf="@+id/fnc_tv_reviewnum"
+            app:layout_constraintTop_toTopOf="@+id/fnc_tv_reviewnum" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

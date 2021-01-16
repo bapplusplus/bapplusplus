@@ -1,6 +1,7 @@
 package com.example.bapplusplus
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,9 +10,9 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import android.app.AlertDialog
 import androidx.core.content.ContextCompat
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
+import com.example.bapplusplus.data.FBUserInfo
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -56,6 +57,7 @@ class NewLoginActivity : AppCompatActivity() {
             newl_const_forgotpw.visibility = View.GONE
             //newl_tv_one.text = user!!.email.toString()
             newl_tv_one.text = FBUserInfo.userName
+            newl_btn_withdraw.visibility = View.VISIBLE
         }
 
         var shake_anim = AnimationUtils.loadAnimation(applicationContext, R.anim.shake1)
@@ -199,7 +201,30 @@ class NewLoginActivity : AppCompatActivity() {
             }
         }
 
+        newl_btn_withdraw.setOnClickListener {
+            var withdrawDialog = AlertDialog.Builder(this)
+            withdrawDialog.setTitle("회원 탈퇴").setMessage("탈퇴하시겠습니까? 유저 데이터가 즉시 삭제됩니다.")
+            withdrawDialog.setPositiveButton("확인", DialogInterface.OnClickListener { dialogInterface, which ->
+                CoroutineScope(Main).launch {
+                    val withdrawResult = FBUserInfo.setUserWithdrawal()
+
+                    if(withdrawResult){
+                        FBUserInfo.setSignOut()
+                        Toast.makeText(applicationContext, "탈퇴되었습니다.", Toast.LENGTH_SHORT).show()
+                        delay(2000)
+                        finish()
+                    }else{
+                        Toast.makeText(applicationContext, "탈퇴에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+            withdrawDialog.setNegativeButton("취소", null)
+            withdrawDialog.create()
+            withdrawDialog.show()
+        }
+
     }
+
 
     suspend fun tryLogin(get_email: String, get_pw: String){
         var resultcode = 0

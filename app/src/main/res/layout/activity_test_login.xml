@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingRight="4dp"
-    tools:context=".TestLoginActivity">
+    tools:context=".deprecated.TestLoginActivity">
 
     <ProgressBar
         android:id="@+id/tl_pbar"

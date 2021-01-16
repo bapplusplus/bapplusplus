@@ -1,4 +1,4 @@
-package com.example.bapplusplus
+package com.example.bapplusplus.deprecated
 
 import android.content.Context
 import android.content.Intent
@@ -12,6 +12,7 @@ import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.example.bapplusplus.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -101,7 +102,9 @@ class TestLoginActivity : AppCompatActivity() {
             } else{
                 tl_pbar.visibility=View.VISIBLE
                 tl_tv_one.text = "Please Wait..."
-                tl_tv_one.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorBlue1))
+                tl_tv_one.setTextColor(ContextCompat.getColor(applicationContext,
+                    R.color.colorBlue1
+                ))
                 fbauth.signInWithEmailAndPassword(lemail, lpw).addOnCompleteListener {
                     if(it.isSuccessful){
 
@@ -118,7 +121,9 @@ class TestLoginActivity : AppCompatActivity() {
                                     Handler().postDelayed({
                                         Toast.makeText(applicationContext, "Login Success",  Toast.LENGTH_SHORT).show()
                                         tl_pbar.visibility=View.GONE
-                                        tl_tv_one.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorGreen1))
+                                        tl_tv_one.setTextColor(ContextCompat.getColor(applicationContext,
+                                            R.color.colorGreen1
+                                        ))
                                         tl_tv_one.text = " Welcome, "+UserName+ " !"
                                         Handler().postDelayed({
                                             finish()
@@ -134,7 +139,9 @@ class TestLoginActivity : AppCompatActivity() {
                             }
                     }else{
                         tl_pbar.visibility=View.GONE
-                        tl_tv_one.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorRed1))
+                        tl_tv_one.setTextColor(ContextCompat.getColor(applicationContext,
+                            R.color.colorRed1
+                        ))
                         tl_tv_one.text = " ❗ Check Your E-mail or PW."
                         tl_tv_one.startAnimation(shake_anim)
                         //Toast.makeText(applicationContext, "Login failed. Please try again.",  Toast.LENGTH_SHORT).show()

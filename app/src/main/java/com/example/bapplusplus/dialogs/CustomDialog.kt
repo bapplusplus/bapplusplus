@@ -1,4 +1,4 @@
-package com.example.bapplusplus
+package com.example.bapplusplus.dialogs
 
 import android.content.Context
 import android.os.Handler
@@ -6,6 +6,7 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
+import com.example.bapplusplus.R
 import kotlinx.android.synthetic.main.custom_dialog_temp.view.*
 
 class CustomDialog(private val context: Context) {
