@@ -33,6 +33,7 @@ class BottomNaviActivity : AppCompatActivity() {
     var RestRoadAddress = ""
     var RestCallNum = ""
     var RestCategory = ""
+    var gni_my_like = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +55,7 @@ class BottomNaviActivity : AppCompatActivity() {
 
         RestTitle = intent.getStringExtra("gni_title").toString()
         RestCategory = intent.getStringExtra("gni_category").toString()
+        gni_my_like = intent.getBooleanExtra("gni_my_like", false)
         println("btn restno" + RestNo + " btn_resttitle" + RestTitle)
         get_posx = itt.getDoubleExtra("pppx", 1.0)
         get_posy = itt.getDoubleExtra("pppy", 1.0)
@@ -66,6 +68,9 @@ class BottomNaviActivity : AppCompatActivity() {
         bundle.putInt("RestNo", RestNo)
         bundle.putString("RestTitle", RestTitle)
         bundle.putString("RestCategory", RestCategory)
+        bundle.putBoolean("isMyLike", gni_my_like)
+        bundle.putInt("RestReviewNum", intent.getIntExtra("gni_review_num", -1))
+        bundle.putDouble("RestRatingAvg", intent.getDoubleExtra("gni_rating_avg", 0.4))
         bundle.putDouble("pppx", itt.getDoubleExtra("pppx", 1.0))
         bundle.putDouble("pppy", itt.getDoubleExtra("pppy", 1.0))
 

@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bapplusplus.adapter.Bn4ReviewsAdapter
@@ -36,7 +38,8 @@ data class BN4Info_Review(
     var uid: String,
     var star: Double,
     var reviewCode: String,
-    var photoPath: String
+    var photoPath: String,
+    var timeStamp: Timestamp
 ){
     fun findUidNums(uid: String?): Int{
         var to_return = 0
@@ -48,6 +51,8 @@ data class BN4Info_Review(
     }
 }
 
+
+
 class BnFragment4 : Fragment() {
     var restNo = 0
     var restTitle = ""
@@ -58,7 +63,7 @@ class BnFragment4 : Fragment() {
     val fbdb = FirebaseFirestore.getInstance()
     val fbauth = FirebaseAuth.getInstance()
     var adapter: Bn4ReviewsAdapter? = null
-    val reviewListOptionsArray = arrayListOf<String>("최신 순", "오래된 순", "평점 높은 순")
+    val reviewListOptionsArray = arrayListOf<String>("최신 순", "오래된 순", "평점 높은 순", "평점 낮은 순")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -143,6 +148,26 @@ class BnFragment4 : Fragment() {
         rootView.findViewById<Spinner>(R.id.bn4_spinner).onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 //p2 is position
+                when(p2){
+                    0->{
+                        restReviewArray.sortBy { data -> data.timeStamp }
+                        restReviewArray.reverse()
+                        adapter!!.notifyDataSetChanged()
+                    }
+                    1->{
+                        restReviewArray.sortBy { data -> data.timeStamp }
+                        adapter!!.notifyDataSetChanged()
+                    }
+                    2->{
+                        restReviewArray.sortBy { data -> data.star }
+                        restReviewArray.reverse()
+                        adapter!!.notifyDataSetChanged()
+                    }
+                    3->{
+                        restReviewArray.sortBy { data -> data.star }
+                        adapter!!.notifyDataSetChanged()
+                    }
+                }
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
 
@@ -173,7 +198,8 @@ class BnFragment4 : Fragment() {
                 var rev1 = BN4Info_Review(map1.get("ReviewContent").toString(), map1.get("ReviewMenu").toString(),
                     timestampToDateString(map1.get("ReviewTime") as Timestamp), map1.get("ReviewDisplayName").toString(), map1.get("ReviewUid").toString(),
                     //"1234568", map1.get("ReviewDisplayName").toString(), map1.get("ReviewUid").toString(),
-                    map1.get("ReviewRating").toString().toDouble(), map1.get("ReviewCode").toString(), map1.get("ReviewPhotoPathOne").toString())
+                    map1.get("ReviewRating").toString().toDouble(), map1.get("ReviewCode").toString(), map1.get("ReviewPhotoPathOne").toString(),
+                    map1.get("ReviewTime") as Timestamp)
                 my_review_count += rev1.findUidNums(FBUserInfo.fbuser?.uid)
                 restReviewArray.add(rev1)
             }
@@ -206,12 +232,20 @@ class BnFragment4 : Fragment() {
             15->{
                 CoroutineScope(Main).launch {
                     //bn4_recycler.visibility = View.INVISIBLE
-                    getRestReviewArray(restNo)
-                    adapter!!.notifyDataSetChanged()
+
+                    //getRestReviewArray(restNo)
+                    //adapter!!.notifyDataSetChanged()
+
                     //bn4_recycler.visibility = View.VISIBLE
                 }
+                refreshFragment(this, requireActivity().supportFragmentManager)
             }
         }
+    }
+
+    fun refreshFragment(fragment: Fragment, fragmentManager: FragmentManager) {
+        var ft: FragmentTransaction = fragmentManager.beginTransaction()
+        ft.detach(fragment).attach(fragment).commit()
     }
 
 

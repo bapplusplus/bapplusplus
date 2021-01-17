@@ -19,11 +19,15 @@ import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.bapplusplus.data.FBUserInfo
 import com.example.bapplusplus.deprecated.ShowMapActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.PropertyName
 import kotlinx.android.synthetic.main.activity_favorites_list.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
 
 
 data class GetNumsInfo(
@@ -174,6 +178,10 @@ class FavoritesListActivity : AppCompatActivity() {
 
             }
         }*/
+
+        CoroutineScope(IO).launch {
+            FBUserInfo.getMyLikesArray()
+        }
 
         //tmp7vList
         docRefNew.get().addOnCompleteListener{ task->
@@ -343,4 +351,5 @@ class FavoritesListActivity : AppCompatActivity() {
 
         return true
     }
+
 }

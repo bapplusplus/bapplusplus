@@ -27,7 +27,7 @@
             android:layout_gravity="left"
             android:text="BottomNaviActivity"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="18dp" />

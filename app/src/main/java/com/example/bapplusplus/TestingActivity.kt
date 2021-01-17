@@ -149,7 +149,9 @@ class TestingActivity : AppCompatActivity() {
                 val itemer = hashMapOf(
                     "RestNo" to RestNo,
                     "RestTitle" to RestTitle,
-                    "RestReviewArray" to RestFavoritesArray
+                    "RestReviewArray" to RestFavoritesArray,
+                    "RestRatingAvg" to 0, //added
+                    "RestReviewNum" to 0  //added
                 )
                 //testArray.add(itemer)
 

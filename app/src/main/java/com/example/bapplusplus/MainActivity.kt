@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             }else{
                 Log.d("Main User Info:", FBUserInfo.userName)
-                val intent = Intent(this, NewLoginActivity::class.java)
+                val intent = Intent(this, MyInfoActivity::class.java)
                 startActivity(intent)
 
             }

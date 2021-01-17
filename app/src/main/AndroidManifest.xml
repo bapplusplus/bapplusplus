@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/ic_temp2_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TestingActivity"></activity>
+        <activity android:name=".UserInfoModeActivity"></activity>
+        <activity android:name=".TestingActivity" />
         <activity
             android:name=".deprecated.TestSignupActivity"
             android:windowSoftInputMode="adjustResize" />
@@ -37,6 +38,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MyInfoActivity"
+            android:theme="@style/AppThemeNew1" />
         <activity
             android:name=".ReviewUploadActivity"
             android:theme="@style/AppThemeNew1"

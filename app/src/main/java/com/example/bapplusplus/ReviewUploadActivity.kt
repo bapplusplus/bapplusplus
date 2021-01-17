@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_review_upload.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.Main
@@ -215,29 +216,22 @@ class ReviewUploadActivity : AppCompatActivity() {
                             ru_sc_btn_upload.isEnabled = false
 
                             if (newUploadOne(reviewdata)) {
-                                Toast.makeText(
-                                    applicationContext,
-                                    "Review Upload Success!",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                Toast.makeText(applicationContext, "Review Upload Success!", Toast.LENGTH_SHORT).show()
                                 if (photoUri != null) {
                                     if (imageUploadTest(photocodeStr)) {
-                                        Toast.makeText(
-                                            applicationContext,
-                                            "Picture Upload Success!",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                        delay(800)
-                                        finishActivity(15)
+                                        Toast.makeText(applicationContext, "Picture Upload Success!", Toast.LENGTH_SHORT).show()
+
                                     } else {
                                         //image upload fail
-                                        Toast.makeText(
-                                            applicationContext,
-                                            "Picture Upload Fail...",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
+                                        Toast.makeText(applicationContext, "Picture Upload Fail...", Toast.LENGTH_SHORT).show()
                                     }
-                                    delay(800)
+                                    ru_sc_btn_upload.text = "업로드 성공!"
+                                    delay(600)
+                                    setResult(15)
+                                    finish()
+                                }else{
+                                    ru_sc_btn_upload.text = "업로드 성공!"
+                                    delay(600)
                                     setResult(15)
                                     finish()
                                 }

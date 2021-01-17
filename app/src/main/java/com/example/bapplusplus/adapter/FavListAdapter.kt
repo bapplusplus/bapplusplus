@@ -16,6 +16,7 @@ import android.widget.Filterable
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.example.bapplusplus.data.FBUserInfo
 import com.example.bapplusplus.data.HangulUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -133,6 +134,11 @@ class FavListAdapter(val context: Context, val gni: ArrayList<GetNumsInfo>) : Re
             intent.putExtra("gni_num", gni_item.RestNo)
             intent.putExtra("gni_title", gni_item.RestTitle)
             intent.putExtra("gni_category", gni_item.RestCategory)
+            if(FBUserInfo.myLikesArray.contains(gni_item.RestNo)){
+                intent.putExtra("gni_my_like", true)
+            }
+            intent.putExtra("gni_rating_avg", gni_item.RestRatingAvg)
+            intent.putExtra("gni_review_num", gni_item.RestReviewNum)
             intent.putExtra("BottomNaviNum", 1)
             context.startActivity(intent)
             //Handler(Looper.getMainLooper()).postDelayed(Runnable { context.startActivity(intent) }, 10)
@@ -164,6 +170,12 @@ class FavListAdapter(val context: Context, val gni: ArrayList<GetNumsInfo>) : Re
             star_f.text = gni.RestRatingAvg.toString()
             callnum_f.text = "Callnot not supported"
             itemView.fnc_tv_reviewnum.text = "리뷰 "+gni.RestReviewNum.toString()+"건"
+
+            if(FBUserInfo.myLikesArray.contains(gni.RestNo)){
+                itemView.fnc_img_mylike.visibility = View.VISIBLE
+            }else{
+                itemView.fnc_img_mylike.visibility = View.GONE
+            }
 
             container.setOnClickListener(listener)
         }

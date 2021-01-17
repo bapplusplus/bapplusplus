@@ -18,6 +18,7 @@ class FBUserInfo {
         var fbdb : FirebaseFirestore = FirebaseFirestore.getInstance()
         var fbuser : FirebaseUser? = fbauth.currentUser
         var loginState = fbuser != null
+        var myLikesArray = arrayListOf<Int>()
 
         suspend fun setLogin(get_email: String, get_pw: String): Boolean{
 
@@ -83,6 +84,16 @@ class FBUserInfo {
             }
 
             return false
+        }
+
+        suspend fun getMyLikesArray(){
+            myLikesArray.clear()
+            val doc = fbdb.collection("AccountGroup").document(userUid).get().await()
+            val listGetter = doc.get("MyFavoritesArray") as List<*>
+            for(cc in 0..listGetter.size-1){
+                var map1 = listGetter.get(cc) as HashMap<*, *>
+                myLikesArray.add((map1.get("RestNo") as Long).toInt())
+            }
         }
     }
 
