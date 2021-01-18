@@ -61,6 +61,7 @@ class MyInfoActivity : AppCompatActivity() {
         val id = item.itemId
         when (id) {
             android.R.id.home -> {
+                onBackPressed()
                 //finish()
                 //return true
             }

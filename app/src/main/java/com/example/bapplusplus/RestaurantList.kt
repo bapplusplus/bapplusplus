@@ -62,7 +62,7 @@ class RestaurantList : AppCompatActivity() {
                 finish()
                 return true
             }
-            R.id.ftb_maps ->{
+            /*R.id.ftb_maps ->{
                 Toast.makeText(this, "OnMap Button Clicked", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, ShowMapActivity::class.java)
                 intent.putExtra("infoArray", restList)
@@ -87,7 +87,7 @@ class RestaurantList : AppCompatActivity() {
                     }.setNegativeButton("CANCEL") {
                         Snackbar.make(rst_toolbar, "Canceled", Snackbar.LENGTH_SHORT).show()
                     }.show()
-            }
+            }*/
         }
         return super.onOptionsItemSelected(item)
     }

@@ -4,14 +4,18 @@ import android.Manifest
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
+import android.graphics.Rect
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.RatingBar.OnRatingBarChangeListener
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -34,6 +38,7 @@ import kotlinx.coroutines.tasks.await
 
 class ReviewUploadActivity : AppCompatActivity() {
 
+    private val REQUEST_READ_EXTERNAL_STORAGE = 1000
     //private var viewProfile: View? = null
     var pickImageFromAlbum = 0
     var fbstr: FirebaseStorage? = null
@@ -107,12 +112,41 @@ class ReviewUploadActivity : AppCompatActivity() {
                 arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
                 1
             )
-            clickSelect()
+
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                // 권한 승인이 안되어 있는 경우
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {     // true: 거부한 적이 있음
+                    // 이전에 이미 권한 거부가 있었을 경우 설명 (Anko 라이브러리를 쓰면 편하다)
+//                    alert("사진을 표시하려면 외부 저장소 권한이 필요합니다!", "권한이 필요한 이유") {
+//                        yesButton {
+//                            ActivityCompat.requestPermissions(   // 권한 요청
+//                                this@MainActivity,
+//                                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+//                                REQUEST_READ_EXTERNAL_STORAGE) // 권한 요청에 대한 분기 처리를 위해
+//                            // 만든 적당한 정수 값임
+//                        }
+//                        noButton {  }
+//                    }.show()
+                    Toast.makeText(this, "사진을 올리기 위해서 권한 승인이 필요합니다.", Toast.LENGTH_SHORT).show()
+
+                } else {
+
+                    // 이전에 권한 거부가 없었을 경우 권한 요청
+                    ActivityCompat.requestPermissions(this,
+                        arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                        REQUEST_READ_EXTERNAL_STORAGE)
+                }
+
+            } else {
+                // 권한이 이미 승인되어 있는 상태
+                clickSelect()
+            }
+
+            //clickSelect()
 
         }
 
         ru_sc_ratingbar_one.onRatingBarChangeListener = OnRatingBarChangeListener { ratingBar, rating, fromUser ->
-            // 저는 0개를 주기싫어서, 만약 1개미만이면 강제로 1개를 넣었습니다.
             if (ru_sc_ratingbar_one.rating < 1.0F) {
                 ru_sc_ratingbar_one.rating = 1F
             }
@@ -447,6 +481,22 @@ class ReviewUploadActivity : AppCompatActivity() {
             Log.e("ReviewUp", "Error: " + e.printStackTrace())
             return false
         }
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        val focusView = currentFocus
+        if (focusView != null) {
+            val rect = Rect()
+            focusView.getGlobalVisibleRect(rect)
+            val x = ev.x.toInt()
+            val y = ev.y.toInt()
+            if (!rect.contains(x, y)) {
+                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                imm?.hideSoftInputFromWindow(focusView.windowToken, 0)
+                focusView.clearFocus()
+            }
+        }
+        return super.dispatchTouchEvent(ev)
     }
 
 }

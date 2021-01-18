@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
+        android:background="?attr/selectableItemBackground"
         app:layout_constraintStart_toEndOf="@+id/mirvc_img_main"
         app:layout_constraintTop_toTopOf="@+id/mirvc_img_main">
 

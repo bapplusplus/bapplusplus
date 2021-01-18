@@ -1,23 +1,41 @@
 package com.example.bapplusplus
 
 import android.app.ProgressDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.widget.ImageButton
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import com.example.bapplusplus.data.FBUserInfo
 import com.example.bapplusplus.fragment.BnFragment2
 import com.example.bapplusplus.fragment.BnFragment4
 import com.example.bapplusplusTemp.fragment.BnFragment1
 import com.example.bapplusplusTemp.fragment.BnFragment3
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_bottom_navi.*
 import kotlinx.android.synthetic.main.activity_bottom_navi.view.*
+import kotlinx.android.synthetic.main.activity_favorites_list.*
 
 
-class BottomNaviActivity : AppCompatActivity() {
-    var frag1save: BnFragment1? = null
+class BottomNaviActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    companion object{
+        var frag1save: BnFragment1? = null
+
+        fun frag1SaveRefresh(){
+            frag1save!!.refreshFragment()
+        }
+    }
+
+
     var frag2save: BnFragment2? = null
     //var frag3save: BnFragment3? = null
     var frag3save: BnFragment4? = null
@@ -34,6 +52,8 @@ class BottomNaviActivity : AppCompatActivity() {
     var RestCallNum = ""
     var RestCategory = ""
     var gni_my_like = false
+
+    var bnDrawerLayout: DrawerLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,30 +95,6 @@ class BottomNaviActivity : AppCompatActivity() {
         bundle.putDouble("pppy", itt.getDoubleExtra("pppy", 1.0))
 
 
-
-
-        fbdb.collection("tmp3v")
-            .whereEqualTo("RestNo", RestNo)
-            .get()
-            .addOnSuccessListener { documents ->
-                for(document in documents)
-                    if (document != null) {
-                        Log.d("TAG", "DocumentSnapshot data: ${document.data}")
-                        bundle.putDouble("RestPosx", document.getDouble("RestPosx") ?: 0.0)
-                        bundle.putDouble("RestPosy", document.getDouble("RestPosy") ?: 0.0)
-//                        bundle.putString("RestTitle", document.getString("RestTitle").toString())
-//                        bundle.putString("RestRoadAddress", document.getString("RestRoadAddress").toString())
-//                        bundle.putString("RestCallNum", document.getString("RestCallNum").toString())
-//                        bundle.putString("RestCategory", document.getString("RestCategory").toString())
-                        //progressDialog.dismiss()
-                    } else {
-                        Log.d("TAG", "No such document")
-                    }
-            }
-            .addOnFailureListener { exception ->
-                Log.d("TAG", "get failed with ", exception)
-            }
-
         //val bundle = Bundle()
         bundle.putDouble("posx", posx)
         bundle.putDouble("posy", posy)
@@ -125,7 +121,21 @@ class BottomNaviActivity : AppCompatActivity() {
         val ab = supportActionBar!!
         ab.setDisplayShowTitleEnabled(false)
         ab.setDisplayHomeAsUpEnabled(true)
+        ab.setHomeAsUpIndicator(R.drawable.ic_dehaze_white_24dp)
         bn_toolbar.bn_toolbar_title.text = RestTitle +" 정보"
+        bnDrawerLayout = findViewById(R.id.bn_drawer)
+        bn_navi.setNavigationItemSelectedListener(this)
+
+        var bn_navi_view = bn_navi.getHeaderView(0)
+        bn_navi_view.findViewById<TextView>(R.id.navihead_title).text = FBUserInfo.fbauth.currentUser?.displayName ?: "로그인되지 않음"
+        bn_navi_view.findViewById<TextView>(R.id.navihead_subtitle).text = FBUserInfo.fbauth.currentUser?.email ?: "Guest"
+        bn_navi_view.findViewById<ImageButton>(R.id.navihead_btn_settings).setOnClickListener {
+            bnDrawerLayout!!.closeDrawers()
+            val itts = Intent(this, MyInfoActivity::class.java)
+            startActivity(itts)
+        }
+
+
 //        loadFragment(BnFragment1())
 
         val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener{
@@ -203,11 +213,46 @@ class BottomNaviActivity : AppCompatActivity() {
         val id = item.itemId
         when (id) {
             android.R.id.home -> {
-                finish()
+                //finish()
+                bnDrawerLayout!!.openDrawer(GravityCompat.START)
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.navimenu_one->{
+                this.finish()
+                val itt = Intent(this, MainActivity::class.java)
+                startActivity(itt)
+//                val itt = Intent(this, MainActivity::class.java)
+//                startActivity(itt)
+            }
+            R.id.navimenu_two->{
+                //onBackPressed()
+                //this.finish()
+                val itt = Intent(this, FavoritesListActivity::class.java)
+                itt.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                startActivity(itt)
+            }
+            R.id.navimenu_three->{
+                Toast.makeText(this, "Menu3", Toast.LENGTH_SHORT).show()
+
+                val itt = Intent(this, MyInfoActivity::class.java)
+                startActivity(itt)
+            }
+        }
+        return false
+    }
+
+    override fun onBackPressed() {
+        if(bnDrawerLayout!!.isDrawerOpen(GravityCompat.START)){
+            bnDrawerLayout!!.closeDrawers()
+        }else{
+            super.onBackPressed()
+        }
     }
 
 }

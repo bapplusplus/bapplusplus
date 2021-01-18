@@ -119,19 +119,23 @@ class MiReviewFragment : Fragment() {
                     0->{
                         myReviewArray.sortByDescending { data -> data.timeStamp }
                         //myReviewArray.reverse()
+                        rootView.mirv_recycler.smoothScrollToPosition(0)
                         adapter!!.notifyDataSetChanged()
                     }
                     1->{
                         myReviewArray.sortBy { data -> data.timeStamp }
+                        rootView.mirv_recycler.smoothScrollToPosition(0)
                         adapter!!.notifyDataSetChanged()
                     }
                     2->{
                         myReviewArray.sortByDescending { data -> data.star }
                         //myReviewArray.reverse()
+                        rootView.mirv_recycler.smoothScrollToPosition(0)
                         adapter!!.notifyDataSetChanged()
                     }
                     3->{
                         myReviewArray.sortBy { data -> data.star }
+                        rootView.mirv_recycler.smoothScrollToPosition(0)
                         adapter!!.notifyDataSetChanged()
                     }
                 }

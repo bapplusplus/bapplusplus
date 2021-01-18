@@ -1,16 +1,18 @@
 package com.example.bapplusplus
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import android.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.bapplusplus.data.FBUserInfo
 import com.google.firebase.auth.FirebaseAuth
@@ -20,6 +22,7 @@ import kotlinx.android.synthetic.main.activity_new_login.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
+
 
 class NewLoginActivity : AppCompatActivity() {
 
@@ -70,6 +73,10 @@ class NewLoginActivity : AppCompatActivity() {
             startActivityForResult(intent, 16)
         }
 
+        newl_scrollview.setOnClickListener {
+            CloseKeyboard()
+        }
+
         newl_btn_login2.setOnClickListener {
             //newl_pbar.visibility = View.GONE
             if(FBUserInfo.loginState == true){
@@ -87,12 +94,22 @@ class NewLoginActivity : AppCompatActivity() {
 
                 if(lemail.isEmpty()){
                     newl_pbar.visibility = View.GONE
-                    newl_tv_one.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorRed1))
+                    newl_tv_one.setTextColor(
+                        ContextCompat.getColor(
+                            applicationContext,
+                            R.color.colorRed1
+                        )
+                    )
                     newl_tv_one.text = " ❗ 이메일을 입력하세요."
                     newl_tv_one.startAnimation(shake_anim)
                 }else if(lpw.isEmpty()){
                     newl_pbar.visibility = View.GONE
-                    newl_tv_one.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorRed1))
+                    newl_tv_one.setTextColor(
+                        ContextCompat.getColor(
+                            applicationContext,
+                            R.color.colorRed1
+                        )
+                    )
                     newl_tv_one.text = " ❗ 비밀번호를 입력하세요."
                     newl_tv_one.startAnimation(shake_anim)
                 }else{
@@ -107,15 +124,29 @@ class NewLoginActivity : AppCompatActivity() {
                             if(loginResult != true){
                                 Log.d("func trylogin fail", "nosuchuser")
                                 newl_pbar.visibility = View.GONE
-                                newl_tv_one.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorRed1))
+                                newl_tv_one.setTextColor(
+                                    ContextCompat.getColor(
+                                        applicationContext,
+                                        R.color.colorRed1
+                                    )
+                                )
                                 newl_tv_one.text = " ❗ 이메일 또는 비밀번호가 틀렸습니다."
                                 newl_tv_one.startAnimation(shake_anim)
                             }else{
                                 newl_pbar.visibility = View.GONE
-                                newl_tv_one.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorGreen1))
+                                newl_tv_one.setTextColor(
+                                    ContextCompat.getColor(
+                                        applicationContext,
+                                        R.color.colorGreen1
+                                    )
+                                )
                                 newl_tv_one.text = FBUserInfo.userName + "(으)로 로그인"
                                 delay(600)
-                                finish()
+                                //finish()
+                                val ittd = Intent(applicationContext, MainActivity::class.java)
+                                ittd.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                Toast.makeText(applicationContext, "로그인 되었습니다.", Toast.LENGTH_SHORT).show()
+                                startActivity(ittd)
                             }
                         }
                     }
@@ -204,20 +235,24 @@ class NewLoginActivity : AppCompatActivity() {
         newl_btn_withdraw.setOnClickListener {
             var withdrawDialog = AlertDialog.Builder(this)
             withdrawDialog.setTitle("회원 탈퇴").setMessage("탈퇴하시겠습니까? 유저 데이터가 즉시 삭제됩니다.")
-            withdrawDialog.setPositiveButton("확인", DialogInterface.OnClickListener { dialogInterface, which ->
-                CoroutineScope(Main).launch {
-                    val withdrawResult = FBUserInfo.setUserWithdrawal()
+            withdrawDialog.setPositiveButton(
+                "확인",
+                DialogInterface.OnClickListener { dialogInterface, which ->
+                    CoroutineScope(Main).launch {
+                        val withdrawResult = FBUserInfo.setUserWithdrawal()
 
-                    if(withdrawResult){
-                        FBUserInfo.setSignOut()
-                        Toast.makeText(applicationContext, "탈퇴되었습니다.", Toast.LENGTH_SHORT).show()
-                        delay(2000)
-                        finish()
-                    }else{
-                        Toast.makeText(applicationContext, "탈퇴에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                        if (withdrawResult) {
+                            FBUserInfo.setSignOut()
+                            Toast.makeText(applicationContext, "탈퇴되었습니다.", Toast.LENGTH_SHORT)
+                                .show()
+                            delay(2000)
+                            finish()
+                        } else {
+                            Toast.makeText(applicationContext, "탈퇴에 실패하였습니다.", Toast.LENGTH_SHORT)
+                                .show()
+                        }
                     }
-                }
-            })
+                })
             withdrawDialog.setNegativeButton("취소", null)
             withdrawDialog.create()
             withdrawDialog.show()
@@ -322,7 +357,23 @@ class NewLoginActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         when(resultCode){
-            16->finish()
+            16 -> finish()
         }
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        val focusView = currentFocus
+        if (focusView != null) {
+            val rect = Rect()
+            focusView.getGlobalVisibleRect(rect)
+            val x = ev.x.toInt()
+            val y = ev.y.toInt()
+            if (!rect.contains(x, y)) {
+                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                imm?.hideSoftInputFromWindow(focusView.windowToken, 0)
+                focusView.clearFocus()
+            }
+        }
+        return super.dispatchTouchEvent(ev)
     }
 }

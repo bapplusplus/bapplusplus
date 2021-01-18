@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navihead_const"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorOrange3"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <ImageButton
+        android:id="@+id/navihead_btn_settings"
+        style="@android:style/Widget.Material.ImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/navihead_img"
+        app:srcCompat="@drawable/ic_settings_white_24dp" />
+
+    <ImageView
+        android:id="@+id/navihead_img"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="40dp"
+        android:contentDescription="NaviHeaderDesc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_temp2_round" />
+
+    <TextView
+        android:id="@+id/navihead_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:paddingTop="0dp"
+        android:text="NaviTitle"
+        android:textColor="@color/colorGrey2"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/navihead_btn_settings"
+        app:layout_constraintStart_toStartOf="@+id/navihead_img"
+        app:layout_constraintTop_toBottomOf="@+id/navihead_img" />
+
+    <TextView
+        android:id="@+id/navihead_subtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:text="NaviHeaderSubtitle"
+        android:textColor="@color/colorGrey2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/navihead_title"
+        app:layout_constraintStart_toStartOf="@+id/navihead_title"
+        app:layout_constraintTop_toBottomOf="@+id/navihead_title" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

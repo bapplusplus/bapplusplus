@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import com.example.bapplusplus.BottomNaviActivity
 import com.example.bapplusplus.adapter.Bn4ReviewsAdapter
 import com.example.bapplusplus.data.FBUserInfo
 import com.example.bapplusplus.R
@@ -152,19 +153,23 @@ class BnFragment4 : Fragment() {
                     0->{
                         restReviewArray.sortBy { data -> data.timeStamp }
                         restReviewArray.reverse()
+                        rootView.bn4_recycler.smoothScrollToPosition(0)
                         adapter!!.notifyDataSetChanged()
                     }
                     1->{
                         restReviewArray.sortBy { data -> data.timeStamp }
+                        rootView.bn4_recycler.smoothScrollToPosition(0)
                         adapter!!.notifyDataSetChanged()
                     }
                     2->{
                         restReviewArray.sortBy { data -> data.star }
                         restReviewArray.reverse()
+                        rootView.bn4_recycler.smoothScrollToPosition(0)
                         adapter!!.notifyDataSetChanged()
                     }
                     3->{
                         restReviewArray.sortBy { data -> data.star }
+                        rootView.bn4_recycler.smoothScrollToPosition(0)
                         adapter!!.notifyDataSetChanged()
                     }
                 }
@@ -239,13 +244,14 @@ class BnFragment4 : Fragment() {
                     //bn4_recycler.visibility = View.VISIBLE
                 }
                 refreshFragment(this, requireActivity().supportFragmentManager)
+                BottomNaviActivity.frag1SaveRefresh()
             }
         }
     }
 
     fun refreshFragment(fragment: Fragment, fragmentManager: FragmentManager) {
         var ft: FragmentTransaction = fragmentManager.beginTransaction()
-        ft.detach(fragment).attach(fragment).commit()
+        ft.detach(this).attach(this).commit()
     }
 
 

@@ -88,6 +88,9 @@ class FBUserInfo {
 
         suspend fun getMyLikesArray(){
             myLikesArray.clear()
+            if(fbauth.currentUser == null){
+                return
+            }
             val doc = fbdb.collection("AccountGroup").document(userUid).get().await()
             val listGetter = doc.get("MyFavoritesArray") as List<*>
             for(cc in 0..listGetter.size-1){

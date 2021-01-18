@@ -202,7 +202,7 @@ class FavListAdapter(val context: Context, val gni: ArrayList<GetNumsInfo>) : Re
                                 }
                             }
                             "패스트푸드/피자"->{
-                                if(item.RestCategory!!.contains("피") || item.RestCategory!!.contains("패스")){
+                                if(item.RestCategory!!.contains("피자") || item.RestCategory!!.contains("패스트푸드")){
                                     filteringList.add(item)
                                 }
                             }

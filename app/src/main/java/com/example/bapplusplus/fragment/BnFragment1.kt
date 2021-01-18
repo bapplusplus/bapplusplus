@@ -11,6 +11,8 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.graphics.drawable.toDrawable
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.example.bapplusplus.InfoTemp
 import com.example.bapplusplus.R
 import com.example.bapplusplus.RestInfoTemp
@@ -40,6 +42,10 @@ data class Bn1Info_Data(
 )
 
 class BnFragment1 : Fragment() {
+
+    companion object{
+
+    }
 
     val fbdb = FirebaseFirestore.getInstance()
     var likesArray = arrayListOf<String>()
@@ -128,7 +134,7 @@ class BnFragment1 : Fragment() {
 
                 if(FBUserInfo.fbauth.currentUser != null){
                     rootview.bn1_like_const.isEnabled = true
-                    if(isMyLike){
+                    if(likesArray.contains(FBUserInfo.fbauth.currentUser!!.uid)){
                         rootview.bn1_img_like.setImageDrawable(resources.getDrawable(R.drawable.red_heart_one, null))
                     }
                 }else{
@@ -217,7 +223,8 @@ class BnFragment1 : Fragment() {
                     doc.get("RestCallNum").toString(), doc.get("RestAddressOld").toString(), doc.get("RestAddressRoad").toString(),
                     doc.get("RestOrderTime").toString(), doc.get("RestPosx") as Double, doc.get("RestPosy") as Double)
             //likesArray = doc.data?.get("RestReviewArray") as Array<String?>
-            getLikesList(RestNo)
+            getLikesList(restNo)
+            getStringInfo(restNo)
             return true
         }catch (e: Exception){
             Log.e("BN1", "No such Doc: $restNo "+e.printStackTrace()+", "+e.localizedMessage)
@@ -245,6 +252,19 @@ class BnFragment1 : Fragment() {
             return true
         }catch (e: Exception){
             Log.e("BN1", "Likearray fail: $restNo "+e.printStackTrace()+", "+e.localizedMessage)
+            return false
+        }
+    }
+
+    suspend fun getStringInfo(restNo: Int): Boolean{
+        return try{
+            val doc = fbdb!!.collection("tmp7vString").document("RestString"+restNo.toString()).get().await()
+            RestRatingAvg = doc.get("RestRatingAvg").toString().toDouble()
+            RestReviewNum = (doc.get("RestReviewNum") as Long).toInt()
+
+            return true
+        }catch (e: Exception){
+            Log.e("BN1", "getstringinfo fail: $restNo "+e.printStackTrace()+", "+e.localizedMessage)
             return false
         }
     }
@@ -295,6 +315,11 @@ class BnFragment1 : Fragment() {
             Log.e("BN1", "Failed to addLike: "+e.localizedMessage)
             return false
         }
+    }
+
+    fun refreshFragment() {
+        var ft: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+        ft.detach(this).attach(this).commit()
     }
 
 }
