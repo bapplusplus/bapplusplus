@@ -13,12 +13,14 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.RatingBar.OnRatingBarChangeListener
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.bapplusplus.data.FBUserInfo
@@ -30,6 +32,7 @@ import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_review_upload.*
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -66,6 +69,11 @@ class ReviewUploadActivity : AppCompatActivity() {
         ru_sc_btn_upload.isEnabled = false
 
         ru_toolbar_title.text = restTitle+" 리뷰 작성"
+        val rutoolbar = ru_toolbar as Toolbar
+        setSupportActionBar(ru_toolbar)
+        val ab = supportActionBar!!
+        ab.setDisplayShowTitleEnabled(false)
+        ab.setDisplayHomeAsUpEnabled(true)
 
         //ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1)
 
@@ -497,6 +505,37 @@ class ReviewUploadActivity : AppCompatActivity() {
             }
         }
         return super.dispatchTouchEvent(ev)
+    }
+
+    override fun onBackPressed() {
+        //super.onBackPressed()
+
+        var calcelDialog = AlertDialog.Builder(this)
+        calcelDialog.setTitle("리뷰 취소").setMessage("리뷰 등록을 취소하시겠습니까?")
+        calcelDialog.setPositiveButton("확인", DialogInterface.OnClickListener { dialogInterface, which ->
+            CoroutineScope(Dispatchers.Main).launch {
+                //Toast.makeText(this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show()
+                //onBackPressed()
+                setResult(14)
+                finish()
+            }
+        })
+        calcelDialog.setNegativeButton("취소", null)
+        calcelDialog.create()
+        calcelDialog.show()
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        when (id) {
+            android.R.id.home -> {
+                onBackPressed()
+                //finish()
+                //return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 }

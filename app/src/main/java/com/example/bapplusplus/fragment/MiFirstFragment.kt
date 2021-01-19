@@ -98,20 +98,24 @@ class MiFirstFragment : Fragment() {
         }
 
         rootview.myinfo_btn_logout_temp.setOnClickListener {
-            Toast.makeText(requireContext(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show()
-            //fbauth.signOut()
-            //FBUserInfo.fbauth.signOut()
-            //FBUserInfo.loginState = false
-            FBUserInfo.setSignOut()
-            //requireActivity().finish()
-            val ittd = Intent(requireContext(), MainActivity::class.java)
-            //ittd.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivity(ittd)
+            var logoutDialog = AlertDialog.Builder(requireContext())
+            logoutDialog.setTitle("로그아웃").setMessage("로그아웃 하시겠습니까?")
+            logoutDialog.setPositiveButton("확인", DialogInterface.OnClickListener { dialogInterface, which ->
+                CoroutineScope(Dispatchers.Main).launch {
+                    Toast.makeText(requireContext(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show()
+                    FBUserInfo.setSignOut()
+                    val ittd = Intent(requireContext(), MainActivity::class.java)
+                    startActivity(ittd)
+                }
+            })
+            logoutDialog.setNegativeButton("취소", null)
+            logoutDialog.create()
+            logoutDialog.show()
         }
 
         rootview.myinfo_btn_withdraw_temp.setOnClickListener {
             var withdrawDialog = AlertDialog.Builder(requireContext())
-            withdrawDialog.setTitle("회원 탈퇴").setMessage("탈퇴하시겠습니까? 유저 데이터가 즉시 삭제됩니다.")
+            withdrawDialog.setTitle("회원 탈퇴").setMessage("탈퇴하시겠습니까?\n유저 데이터가 즉시 삭제됩니다.")
             withdrawDialog.setPositiveButton("확인", DialogInterface.OnClickListener { dialogInterface, which ->
                 CoroutineScope(Dispatchers.Main).launch {
                     val withdrawResult = FBUserInfo.setUserWithdrawal()

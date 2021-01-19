@@ -233,7 +233,10 @@ class BnFragment4 : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        when(requestCode){
+        when(resultCode){
+            14->{
+
+            }
             15->{
                 CoroutineScope(Main).launch {
                     //bn4_recycler.visibility = View.INVISIBLE
@@ -242,14 +245,15 @@ class BnFragment4 : Fragment() {
                     //adapter!!.notifyDataSetChanged()
 
                     //bn4_recycler.visibility = View.VISIBLE
+                    refreshFragment(requireActivity().supportFragmentManager)
+                    BottomNaviActivity.frag1SaveRefresh()
                 }
-                refreshFragment(this, requireActivity().supportFragmentManager)
-                BottomNaviActivity.frag1SaveRefresh()
+
             }
         }
     }
 
-    fun refreshFragment(fragment: Fragment, fragmentManager: FragmentManager) {
+    fun refreshFragment(fragmentManager: FragmentManager) {
         var ft: FragmentTransaction = fragmentManager.beginTransaction()
         ft.detach(this).attach(this).commit()
     }

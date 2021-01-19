@@ -308,10 +308,12 @@ class FavoritesListActivity : AppCompatActivity(), NavigationView.OnNavigationIt
                         return false
                     }
                     adapter!!.getFilter().filter(newText)
+                    fav_recycler.scrollToPosition(0)
                     println("stringisnull selviewpos is: "+selviewpos)
                     return false
                 }
                 adapter!!.getFilter().filter(newText)
+                fav_recycler.scrollToPosition(0)
                 println("still selviewpos is: "+selviewpos)
                 return false
             }
@@ -332,9 +334,9 @@ class FavoritesListActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.navimenu_one->{
-                this.finish()
-//                val itt = Intent(this, MainActivity::class.java)
-//                startActivity(itt)
+                //this.finish()
+                val itt = Intent(this, MainActivity::class.java)
+                startActivity(itt)
             }
             R.id.navimenu_two->{
                 Toast.makeText(this, "Menu2", Toast.LENGTH_SHORT).show()
@@ -344,8 +346,8 @@ class FavoritesListActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             R.id.navimenu_three->{
                 Toast.makeText(this, "Menu3", Toast.LENGTH_SHORT).show()
 
-                val itt = Intent(this, MainActivity::class.java)
-                startActivity(itt)
+//                val itt = Intent(this, MainActivity::class.java)
+//                startActivity(itt)
             }
         }
         return false
@@ -355,8 +357,8 @@ class FavoritesListActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         super.onSaveInstanceState(outState)
         val selitempos = fav_toolbar_spinner.selectedItemPosition
         val selrecpos = (fav_recycler.layoutManager!! as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
-        outState.putInt("sel_spinner_pos", selitempos)
-        outState.putInt("sel_item_pos", selrecpos)
+        //outState.putInt("sel_spinner_pos", selitempos)
+        //outState.putInt("sel_item_pos", selrecpos)
     }
 
 }

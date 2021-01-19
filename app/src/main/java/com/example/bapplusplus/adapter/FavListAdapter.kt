@@ -140,6 +140,7 @@ class FavListAdapter(val context: Context, val gni: ArrayList<GetNumsInfo>) : Re
             intent.putExtra("gni_rating_avg", gni_item.RestRatingAvg)
             intent.putExtra("gni_review_num", gni_item.RestReviewNum)
             intent.putExtra("BottomNaviNum", 1)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             context.startActivity(intent)
             //Handler(Looper.getMainLooper()).postDelayed(Runnable { context.startActivity(intent) }, 10)
 
