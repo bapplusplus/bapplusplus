@@ -16,6 +16,7 @@ import com.example.bapplusplus.fragment.MiReviewFragment
 import com.example.bapplusplus.fragment.MiReview_Data
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.favlistnu_cell.view.*
 import kotlinx.android.synthetic.main.fragment_mi_review.*
 import kotlinx.android.synthetic.main.mirv_cell.view.*
 import kotlinx.coroutines.CoroutineScope
@@ -110,6 +111,27 @@ class MiReviewAdapter(val context: Context, val review_list: ArrayList<MiReview_
                 itemView.mirvc_img_one.setImageResource(android.R.color.transparent)
                 itemView.mirvc_img_one.visibility = View.GONE
             }
+
+            itemView.mirvc_img_main.setImageResource(
+                when(info.restCategory){
+                    "한식"->R.drawable.korean_240_cut
+                    "일식"->R.drawable.sushi_240_cut
+                    "중식"->R.drawable.chinese_240_n
+                    "분식"->R.drawable.toppokki_240_cut
+                    "카페/찻집"->R.drawable.coffee_240_cut
+                    "경양식"->R.drawable.cutlet_240_cut
+                    "김밥(도시락)"->R.drawable.gimbap_240_cut
+                    "피자"->R.drawable.pizza_240_cut
+                    "패스트푸드"->R.drawable.burger_240_cut
+                    "치킨"->R.drawable.chicken_240_cut
+                    "호프/치킨"->R.drawable.hof_240_cut
+                    "정종/대포집/소주방"->R.drawable.glass_240_cut
+                    "패밀리레스트랑"->R.drawable.spaghetti_240_cut
+                    else->R.drawable.pizza_240_cut
+                }
+            )
+
+
 
         }
     }

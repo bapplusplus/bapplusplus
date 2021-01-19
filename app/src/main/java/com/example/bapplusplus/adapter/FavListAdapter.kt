@@ -178,6 +178,25 @@ class FavListAdapter(val context: Context, val gni: ArrayList<GetNumsInfo>) : Re
                 itemView.fnc_img_mylike.visibility = View.GONE
             }
 
+            itemView.fnc_img_represent.setImageResource(
+                when(gni.RestCategory){
+                    "한식"->R.drawable.korean_240_cut
+                    "일식"->R.drawable.sushi_240_cut
+                    "중식"->R.drawable.chinese_240_n
+                    "분식"->R.drawable.toppokki_240_cut
+                    "카페/찻집"->R.drawable.coffee_240_cut
+                    "경양식"->R.drawable.cutlet_240_cut
+                    "김밥(도시락)"->R.drawable.gimbap_240_cut
+                    "피자"->R.drawable.pizza_240_cut
+                    "패스트푸드"->R.drawable.burger_240_cut
+                    "치킨"->R.drawable.chicken_240_cut
+                    "호프/치킨"->R.drawable.hof_240_cut
+                    "정종/대포집/소주방"->R.drawable.glass_240_cut
+                    "패밀리레스토랑"->R.drawable.spaghetti_240_cut
+                    else->R.drawable.pizza_240_cut
+                }
+            )
+
             container.setOnClickListener(listener)
         }
     }
@@ -218,7 +237,7 @@ class FavListAdapter(val context: Context, val gni: ArrayList<GetNumsInfo>) : Re
                                 }
                             }
                             "기타"->{
-                                if(item.RestCategory!!.contains("기타") || item.RestCategory!!.contains("외국") || item.RestCategory!!.contains("레스토랑")){
+                                if(item.RestCategory!!.contains("기타") || item.RestCategory!!.contains("외국") || item.RestCategory!!.contains("패밀리")){
                                     filteringList.add(item)
                                 }
                             }

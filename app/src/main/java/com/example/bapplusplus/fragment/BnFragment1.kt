@@ -20,6 +20,7 @@ import com.example.bapplusplus.data.FBUserInfo
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.favlistnu_cell.view.*
 import kotlinx.android.synthetic.main.fragment_bn1.*
 import kotlinx.android.synthetic.main.fragment_bn1.view.*
 import kotlinx.coroutines.CoroutineScope
@@ -131,6 +132,25 @@ class BnFragment1 : Fragment() {
                 //rootview.bn1_delivery.text = basicInfo!!.rest
                 rootview.bn1_address.text = basicInfo!!.restAddressRoad
                 rootview.bn1_tv_like.text = "좋아요  "+likesArray.size.toString()
+
+                rootview.bn1_img_repres.setImageResource(
+                    when(basicInfo!!.restCategory){
+                        "한식"->R.drawable.korean_240_cut
+                        "일식"->R.drawable.sushi_240_cut
+                        "중식"->R.drawable.chinese_240_n
+                        "분식"->R.drawable.toppokki_240_cut
+                        "카페/찻집"->R.drawable.coffee_240_cut
+                        "경양식"->R.drawable.cutlet_240_cut
+                        "김밥(도시락)"->R.drawable.gimbap_240_cut
+                        "피자"->R.drawable.pizza_240_cut
+                        "패스트푸드"->R.drawable.burger_240_cut
+                        "치킨"->R.drawable.chicken_240_cut
+                        "호프/치킨"->R.drawable.hof_240_cut
+                        "정종/대포집/소주방"->R.drawable.glass_240_cut
+                        "패밀리레스토랑"->R.drawable.spaghetti_240_cut
+                        else->R.drawable.pizza_240_cut
+                    }
+                )
 
                 if(FBUserInfo.fbauth.currentUser != null){
                     rootview.bn1_like_const.isEnabled = true
