@@ -6,6 +6,52 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/btn_testingact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="8dp"
+        android:enabled="false"
+        android:text="Test(test)"
+        app:layout_constraintBottom_toTopOf="@+id/btn_reviewupload"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_reviewupload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="12dp"
+        android:enabled="false"
+        android:text="Review Up"
+        app:layout_constraintBottom_toTopOf="@+id/btn_newlogin"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_newlogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="12dp"
+        android:text="New Login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_loginact"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/buttonst02"
+        android:enabled="false"
+        android:text="로그인 (Test)"
+        android:textColor="@color/colorOrange1"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/navihead_subtitle" />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
@@ -15,13 +61,14 @@
         app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_temp2_round" />
+        app:srcCompat="@mipmap/ic_temp2" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/navihead_subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!"
+        android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -39,13 +86,16 @@
 
     <Button
         android:id="@+id/btn_favlist"
-        android:layout_width="120dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="12dp"
-        android:text="Favorites"
-        app:layout_constraintBottom_toTopOf="@+id/btn_botnavi"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_marginTop="12dp"
+        android:background="@drawable/buttonst02"
+        android:text="음식점 리스트"
+        android:textColor="@color/colorOrange1"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/btn_loginact"
+        app:layout_constraintStart_toStartOf="@+id/btn_loginact"
+        app:layout_constraintTop_toBottomOf="@+id/btn_loginact" />
 
     <Button
         android:id="@+id/btn_botnavi"

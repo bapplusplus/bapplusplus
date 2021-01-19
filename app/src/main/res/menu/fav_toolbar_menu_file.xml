@@ -2,16 +2,16 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="ftb_others" />
     <item
         android:id="@+id/ftb_search"
-        android:icon="@android:drawable/ic_menu_search"
-        android:title="onMap"
-        app:showAsAction="always" />
+        android:icon="@drawable/ic_search_white_24dp"
+        android:title="검색"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView" />
     <item
-        android:id="@+id/ftb_maps"
-        android:icon="@drawable/ic_place_white_24dp"
-        android:title="onMap"
-        app:showAsAction="always" />
+        android:id="@+id/ftb_filter"
+        android:icon="@drawable/ic_equalizer_white_24dp"
+        android:title="필터"
+        app:showAsAction="ifRoom|collapseActionView" />
 
 </menu>

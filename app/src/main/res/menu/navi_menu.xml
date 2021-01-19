@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/navimenu_group"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/navimenu_one"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:icon="@drawable/ic_bapplusplus_icon_white"
+            android:title="Main" />
+        <item
+            android:id="@+id/navimenu_two"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:icon="@drawable/ic_search_white_24dp"
+            android:title="Search" />
+        <item
+            android:id="@+id/navimenu_three"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:icon="@drawable/ic_launcher_foreground"
+            android:title="Dummy" />
+    </group>
+</menu>
