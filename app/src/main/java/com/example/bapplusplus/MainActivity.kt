@@ -7,11 +7,15 @@ import android.os.Bundle
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import android.util.Log
+import com.example.bapplusplus.data.App
 import com.example.bapplusplus.data.FBUserInfo
 import com.example.bapplusplus.deprecated.ShowMapActivity
 import com.example.bapplusplus.deprecated.TestLoginActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     var UserName: String = ""
@@ -24,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        FBUserInfo()
+        //FBUserInfo()
 
         testButton.setOnClickListener {
             Toast.makeText(this, "testing", Toast.LENGTH_SHORT).show()
@@ -94,6 +98,9 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onBackPressed() {
+        if(!App.prefs.isAutoLogin){
+            FBUserInfo.setSignOut()
+        }
         super.onBackPressed()
     }
 }

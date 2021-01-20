@@ -14,7 +14,12 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentTransaction
 import com.example.bapplusplus.data.FBUserInfo
+import com.example.bapplusplus.fragment.MiFavFragment
+import com.example.bapplusplus.fragment.MiFirstFragment
+import com.example.bapplusplus.fragment.NewFindPWFragment
+import com.example.bapplusplus.fragment.NewLoginFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -40,6 +45,7 @@ class NewLoginActivity : AppCompatActivity() {
     var userUid: String = ""
     var UserName =""
     var logincode = 0
+    var findPwFrag: NewFindPWFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +57,14 @@ class NewLoginActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_new_login)
 
+        var ftr = supportFragmentManager.beginTransaction()
+        ftr.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        ftr.replace(R.id.newl_frame, NewLoginFragment())
+        //ftr.addToBackStack(null)
+        ftr.commit()
+
+        //deprecated
+        /*
         //if(FBUserInfo.fbauth.currentUser != null){
         if(FBUserInfo.loginState == true){
             newl_btn_login2.text = "LOG OUT"
@@ -71,10 +85,6 @@ class NewLoginActivity : AppCompatActivity() {
             val intent = Intent(this, NewRegisterActivity::class.java)
             //startActivity(intent)
             startActivityForResult(intent, 16)
-        }
-
-        newl_scrollview.setOnClickListener {
-            CloseKeyboard()
         }
 
         newl_btn_login2.setOnClickListener {
@@ -258,6 +268,19 @@ class NewLoginActivity : AppCompatActivity() {
             withdrawDialog.show()
         }
 
+        newl_btn_forgotpw.setOnClickListener {
+            //val bundle = Bundle()
+            //findPwFrag = NewFindPWFragment()
+            //findPwFrag!!.arguments = bundle
+            //supportFragmentManager.beginTransaction().replace(R.id.newl_frame, findPwFrag!!, findPwFrag!!.javaClass.simpleName).commit()
+
+            var ftr = supportFragmentManager.beginTransaction()
+            ftr.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            ftr.replace(R.id.newl_frame, NewFindPWFragment())
+            ftr.addToBackStack(null)
+            ftr.commit()
+        }*/
+
     }
 
 
@@ -343,14 +366,6 @@ class NewLoginActivity : AppCompatActivity() {
         }
         //}
 
-    }
-
-    fun CloseKeyboard() {
-        var view = this.currentFocus
-        if(view != null) {
-            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

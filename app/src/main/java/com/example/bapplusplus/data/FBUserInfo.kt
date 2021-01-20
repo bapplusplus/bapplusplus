@@ -34,6 +34,8 @@ class FBUserInfo {
                 //Log.d("fbu Testing", userName)
                 loginState = true
 
+                //App.prefs.emailValue = get_email
+                //App.prefs.passwordValue = get_pw
                 return true
             }catch (e: Exception){
                 Log.d("fbu Testing", "fail")
@@ -56,8 +58,16 @@ class FBUserInfo {
             userName = "logoutname"
             userEmail = "logoutemail"
 
+            if(!App.prefs.isAutoLogin){
+                if(!App.prefs.isMaintainEmail){
+                    App.prefs.emailValue = ""
+                }
+                App.prefs.passwordValue = ""
+            }
+
             loginState = false
             fbauth.signOut()
+
             fbuser = fbauth.currentUser
         }
 
