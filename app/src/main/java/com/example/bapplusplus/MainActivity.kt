@@ -98,8 +98,9 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onBackPressed() {
-        if(!App.prefs.isAutoLogin){
+        if(!App.prefs.isAutoLogin && !App.prefs.passwordValue.isNullOrEmpty()){
             FBUserInfo.setSignOut()
+            Toast.makeText(this, "Logout, Finish", Toast.LENGTH_SHORT).show()
         }
         super.onBackPressed()
     }

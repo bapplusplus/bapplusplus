@@ -58,12 +58,12 @@ class FBUserInfo {
             userName = "logoutname"
             userEmail = "logoutemail"
 
-            if(!App.prefs.isAutoLogin){
-                if(!App.prefs.isMaintainEmail){
-                    App.prefs.emailValue = ""
-                }
-                App.prefs.passwordValue = ""
+            if(!App.prefs.isMaintainEmail){
+                App.prefs.emailValue = ""
             }
+
+            App.prefs.isAutoLogin = false
+            App.prefs.passwordValue = ""
 
             loginState = false
             fbauth.signOut()
@@ -101,7 +101,7 @@ class FBUserInfo {
             if(fbauth.currentUser == null){
                 return
             }
-            val doc = fbdb.collection("AccountGroup").document(userUid).get().await()
+            val doc = fbdb.collection("AccountGroup").document(fbauth.currentUser!!.uid).get().await()
             val listGetter = doc.get("MyFavoritesArray") as List<*>
             for(cc in 0..listGetter.size-1){
                 var map1 = listGetter.get(cc) as HashMap<*, *>

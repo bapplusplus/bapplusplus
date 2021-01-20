@@ -21,6 +21,7 @@ import android.view.animation.TranslateAnimation
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.res.ResourcesCompat
 import com.example.bapplusplus.R
 import com.example.bapplusplus.RestInfoTemp
 import com.google.android.gms.location.*
@@ -28,6 +29,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.PolylineOverlay
 import com.naver.maps.map.util.FusedLocationSource
 import kotlinx.android.synthetic.main.fragment_bn2.*
 import kotlin.math.roundToInt
@@ -241,14 +243,27 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
                 if(distanceEstimate > 1000){
 //                    toast_test.findViewById<TextView>(R.id.toastc1_tv).text = "Distance: "+Math.round((distanceEstimate/1000.0)).toString() +"km"
 //                    toast_test.findViewById<TextView>(R.id.toastc1_tv).text = "Distance: "+((distanceEstimate/1000.0)*10).roundToInt() / 10f + "km"
-                    bn_info_add_txt.text = "Distance: "+((distanceEstimate/1000.0)*10).roundToInt() / 10f + "km"
+                    bn_info_add_txt.text = "거리 "+((distanceEstimate/1000.0)*10).roundToInt() / 10f + "km"
 
                 }
                 else{
 //                    toast_test.findViewById<TextView>(R.id.toastc1_tv).text = "Distance: "+distanceEstimate.toString() +"m"
-                    bn_info_add_txt.text = "Distance: "+distanceEstimate.roundToInt().toString() +"m"
+                    bn_info_add_txt.text = "거리 "+distanceEstimate.roundToInt().toString() +"m"
                 }
                 bn_const_info_add.startAnimation(slideDownAndVanish3(bn_const_info_add))
+
+                PolylineOverlay().also {
+                    it.width = 10
+                    it.coords = listOf(LatLng(presentLoc!!), LatLng(RestPosy, RestPosx))
+                    it.color = ResourcesCompat.getColor(resources, R.color.colorBlue1, requireActivity().theme)
+                    it.map = naverMap
+                }.apply {
+                    mapN.locationTrackingMode = LocationTrackingMode.Face
+                    val position = CameraPosition(LatLng(presentLoc!!), 8.0)
+                    val animation = CameraAnimation.Easing
+                    naverMap.moveCamera(CameraUpdate.toCameraPosition(position).animate(animation, 2000))
+
+                }
 
 //                tst.setGravity(Gravity.TOP or Gravity.RIGHT, 50, 180)
 //                tst.duration = Toast.LENGTH_LONG
@@ -259,6 +274,8 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
             tag = 10
             map = mapN
         }
+
+
 
     }
 
@@ -321,19 +338,23 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
 
     fun slideDownAndVanish3(view: View): AnimationSet {
         var animset: AnimationSet = AnimationSet(true)
+        animset.isFillEnabled = true
+        animset.fillAfter = true
 //        view.visibility = View.VISIBLE
         var animate1 = TranslateAnimation(0F, 0F, -view.height.toFloat(), 0F)
+        animate1.startOffset = 0
         animate1.duration = 400
+        animate1.isFillEnabled = true
         animate1.fillAfter = true
 //        view.startAnimation(animate1)
 
-        var animate2 = TranslateAnimation(0F, 0F, 0F, -view.height.toFloat())
-        animate2.startOffset = 3200
-        animate2.duration = 400
-        animate2.fillAfter = true
+        //var animate2 = TranslateAnimation(0F, 0F, 0F, -view.height.toFloat())
+        //animate2.startOffset = 3200
+        //animate2.duration = 400
+        //animate2.fillAfter = true
 //        view.startAnimation(animate2)
         animset.addAnimation(animate1)
-        animset.addAnimation(animate2)
+        //animset.addAnimation(animate2)
 
         return animset
     }

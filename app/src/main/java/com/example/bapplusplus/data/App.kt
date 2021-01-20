@@ -14,12 +14,6 @@ class App : Application() {
     override fun onCreate() {
         prefs = MySharedPreferences(applicationContext)
 
-        if(prefs.isAutoLogin){
-            CoroutineScope(Dispatchers.IO).launch {
-                FBUserInfo.setLogin(prefs.emailValue, prefs.passwordValue)
-                println("App. Auto Login, "+prefs.emailValue+" / "+ prefs.passwordValue)
-            }
-        }
         super.onCreate()
     }
 }

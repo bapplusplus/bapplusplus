@@ -34,6 +34,16 @@
                 app:layout_constraintStart_toStartOf="@+id/newr_til_one"
                 app:layout_constraintTop_toBottomOf="@+id/newr_const_bdate">
 
+                <ImageButton
+                    android:id="@+id/newr_gender_btn_reset"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_close_white_24dp" />
+
                 <RadioGroup
                     android:id="@+id/newr_gender_rg"
                     android:layout_width="0dp"
@@ -80,6 +90,16 @@
                 app:layout_constraintStart_toStartOf="@+id/newr_til_one"
                 app:layout_constraintTop_toBottomOf="@+id/newr_til_four">
 
+                <ImageButton
+                    android:id="@+id/newr_bdate_btn_reset"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_close_white_24dp" />
+
                 <TextView
                     android:id="@+id/newr_bdate_tv_error"
                     android:layout_width="wrap_content"
@@ -110,12 +130,12 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="8dp"
                     android:ems="10"
                     android:inputType="number"
                     android:maxLength="4"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/newr_dbate_tv_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/newr_bdate_btn_reset" />
 
                 <TextView
                     android:id="@+id/newr_bdate_tv_day"
@@ -182,11 +202,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
                     android:text="생년월일"
                     android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/newr_bdate_btn_reset"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@+id/newr_bdate_btn_reset" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
