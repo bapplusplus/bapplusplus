@@ -2,10 +2,7 @@ package com.example.bapplusplus
 
 import android.content.Intent
 import android.graphics.Color
-import android.os.Bundle
-import android.os.Handler
-import android.os.Parcel
-import android.os.Parcelable
+import android.os.*
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -22,8 +19,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bapplusplus.data.FBUserInfo
 import com.example.bapplusplus.deprecated.ShowMapActivity
+import com.example.bapplusplus.fragment.BottomSheetListFilter
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.PropertyName
 import kotlinx.android.synthetic.main.activity_favorites_list.*
@@ -87,13 +86,17 @@ class FavoritesListActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     var adapter: FavListAdapter? = null
     var categorySelectAdapter : ArrayAdapter<String>? = null
     var mDrawerLayout: DrawerLayout? = null
+    var docRefNew: DocumentReference? = null
+
+    var bslfFilterMode = 0
+    var bslfSpinnerValue = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorites_list)
         var favlistnu: FavListNu
         val docRef = fbfs.collection("tmp5vValuesBeta").document("eb022c50-3005-11eb-bf1d-09863b642d3c")
-        val docRefNew = fbfs.collection("tmp7vList").document("bf6c7ba0-537c-11eb-85d6-f96783d0ff1e")
+        docRefNew = fbfs.collection("tmp7vList").document("bf6c7ba0-537c-11eb-85d6-f96783d0ff1e")
         val ddtt = fbfs.collection("FSTestDocs").document("tt1")
         adapter = FavListAdapter(this, listtry)
         /*val progressDialog = ProgressDialog(this)
@@ -102,6 +105,7 @@ class FavoritesListActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Horizontal)
         progressDialog.show()*/
         fav_appbar.visibility = View.GONE
+        fav_fab.visibility = View.GONE
 
         ddtt.get()
             .addOnSuccessListener { document ->
@@ -120,7 +124,7 @@ class FavoritesListActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         }
 
         //tmp7vList
-        docRefNew.get().addOnCompleteListener{ task->
+        docRefNew?.get()?.addOnCompleteListener{ task->
             if(task.isSuccessful){
                 var docc = task.getResult()!!
                 var list1 = docc.getData()!!.get("tmp7vArray") as List<*>
@@ -146,10 +150,11 @@ class FavoritesListActivity : AppCompatActivity(), NavigationView.OnNavigationIt
 
                 fav_progressbar.visibility = View.GONE
                 fav_appbar.visibility = View.VISIBLE
+                fav_fab.visibility = View.VISIBLE
                 adapter!!.notifyDataSetChanged()
                 //progressDialog.dismiss()
                 if(savedInstanceState!= null){
-                    fav_toolbar_spinner.setSelection(9)
+                    //fav_toolbar_spinner.setSelection(9)
                 }
 
             }
@@ -187,10 +192,14 @@ class FavoritesListActivity : AppCompatActivity(), NavigationView.OnNavigationIt
 
             val itts = Intent(this, MyInfoActivity::class.java)
             startActivity(itts)
-            Handler().postDelayed({
+            Handler(Looper.getMainLooper()).postDelayed({
                 mDrawerLayout!!.closeDrawers()
             }, 400)
 
+        }
+
+        fav_fab.setOnClickListener {
+            fav_recycler.smoothScrollToPosition(0)
         }
 
 
@@ -211,6 +220,7 @@ class FavoritesListActivity : AppCompatActivity(), NavigationView.OnNavigationIt
 //                    adapter!!.getSearchFilter().filter(categorySelectAdapter!!.getItem(p2))
 //                }
                 fav_recycler.scrollToPosition(0)
+                bslfSpinnerValue = fav_toolbar_spinner.selectedItemPosition
 
                 CoroutineScope(Main).launch {
                     adapter!!.getSearchFilter().filter(categorySelectAdapter!!.getItem(p2))
@@ -235,7 +245,57 @@ class FavoritesListActivity : AppCompatActivity(), NavigationView.OnNavigationIt
                 return true
             }
             R.id.ftb_filter->{
-                Toast.makeText(this, "Filter Clicked", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this, "Filter Clicked", Toast.LENGTH_SHORT).show()
+                val bslf = BottomSheetListFilter(bslfFilterMode){ itval ->
+                    when(itval){
+                        0 ->{
+                            //Toast.makeText(this, "기본", Toast.LENGTH_SHORT).show()
+                            bslfSpinnerValue = fav_toolbar_spinner.selectedItemPosition
+                            println("listtry 0: "+listtry.get(0).RestTitle)
+                            listtry.sortBy { it.RestNo }
+                            println("listtry 0: "+listtry.get(0).RestTitle)
+                            fav_recycler.scrollToPosition(0)
+                            adapter!!.notifyDataSetChanged()
+                            adapter!!.getSearchFilter().filter(categorySpinnerArray.get(bslfSpinnerValue))
+
+                            bslfFilterMode = 0
+                        }
+                        1 ->{
+                            //Toast.makeText(this, "별점 순", Toast.LENGTH_SHORT).show()
+                            bslfSpinnerValue = fav_toolbar_spinner.selectedItemPosition
+                            listtry.sortByDescending { it.RestRatingAvg }
+                            fav_recycler.scrollToPosition(0)
+                            adapter!!.notifyDataSetChanged()
+                            adapter!!.getSearchFilter().filter(categorySpinnerArray.get(bslfSpinnerValue))
+                            bslfFilterMode = 1
+                        }
+                        2 ->{
+                            //Toast.makeText(this, "리뷰 순", Toast.LENGTH_SHORT).show()
+                            bslfSpinnerValue = fav_toolbar_spinner.selectedItemPosition
+                            listtry.sortByDescending { it.RestReviewNum }
+                            fav_recycler.scrollToPosition(0)
+                            adapter!!.notifyDataSetChanged()
+                            adapter!!.getSearchFilter().filter(categorySpinnerArray.get(bslfSpinnerValue))
+                            bslfFilterMode = 2
+                        }
+                        3 ->{
+                            //Toast.makeText(this, "가나다 순", Toast.LENGTH_SHORT).show()
+                            bslfSpinnerValue = fav_toolbar_spinner.selectedItemPosition
+                            listtry.sortBy { it.RestTitle }
+                            fav_recycler.scrollToPosition(0)
+                            adapter!!.notifyDataSetChanged()
+                            adapter!!.getSearchFilter().filter(categorySpinnerArray.get(bslfSpinnerValue))
+
+                            bslfFilterMode = 3
+                        }
+                    }
+                    //adapter!!.notifyDataSetChanged()
+                }
+                bslf.show(supportFragmentManager, bslf.tag)
+                return true
+            }
+            R.id.ftb_refresh->{
+                listRefresh()
                 return true
             }
         }
@@ -359,6 +419,47 @@ class FavoritesListActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         val selrecpos = (fav_recycler.layoutManager!! as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
         //outState.putInt("sel_spinner_pos", selitempos)
         //outState.putInt("sel_item_pos", selrecpos)
+    }
+
+    fun listRefresh() {
+
+        listtry.clear()
+        adapter!!.notifyDataSetChanged()
+        fav_progressbar.visibility = View.VISIBLE
+        fav_recycler.visibility = View.INVISIBLE
+
+        docRefNew!!.get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                var docc = task.getResult()!!
+                var list1 = docc.getData()!!.get("tmp7vArray") as List<*>
+                for (kk in 0..list1.size - 1) {
+                    var map1 = list1.get(kk) as HashMap<*, *>
+                    var gni = GetNumsInfo(
+                        map1.get("RestNo").toString().toInt(),
+                        map1.get("RestTitle").toString(),
+                        map1.get("RestRatingAvg").toString().toDouble(),
+                        map1.get("RestReviewNum").toString().toInt(),
+                        map1.get("RestCategory").toString()
+                    )
+
+                    listtry.add(gni)
+                }
+                //listtry.sortedBy { it.RestNo } //as ArrayList<GetNumsInfo>
+                listtry.sortBy { it.RestNo }
+
+                println("listtrytest " + listtry.get(0).RestTitle + " / " + listtry.get(1).RestTitle)
+//                var favlistnu2 = docc!!.toObject(FavListNu::class.java)!!
+//                println("letssee0" + favlistnu2!!.resultList?.size.toString())
+//                println("letssee" + favlistnu2!!.resultList!![2].RestTitle)
+
+                fav_progressbar.visibility = View.GONE
+                //fav_appbar.visibility = View.VISIBLE
+                fav_recycler.visibility = View.VISIBLE
+                fav_recycler.scrollToPosition(0)
+                adapter!!.notifyDataSetChanged()
+                adapter!!.getSearchFilter().filter(categorySpinnerArray.get(bslfSpinnerValue))
+            }
+        }
     }
 
 }

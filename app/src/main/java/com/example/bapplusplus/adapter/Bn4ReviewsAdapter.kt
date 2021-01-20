@@ -1,20 +1,27 @@
 package com.example.bapplusplus.adapter
 
 import android.content.Context
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.bapplusplus.R
 import com.example.bapplusplus.data.FBUserInfo
 import com.example.bapplusplus.fragment.BN4Info_Review
+import com.example.bapplusplus.fragment.BottomSheetPhotoView
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.bn4review_cell.view.*
-import java.lang.Exception
 
-class Bn4ReviewsAdapter(val context: Context, val review_list: ArrayList<BN4Info_Review>) : RecyclerView.Adapter<Bn4ReviewsAdapter.Holder>(){
+
+class Bn4ReviewsAdapter(
+    val context: Context,
+    val review_list: ArrayList<BN4Info_Review>,
+    val fragmentManager: FragmentManager
+) : RecyclerView.Adapter<Bn4ReviewsAdapter.Holder>(){
     var fbstr = FirebaseStorage.getInstance()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -29,6 +36,7 @@ class Bn4ReviewsAdapter(val context: Context, val review_list: ArrayList<BN4Info
             bind(item)
             itemView.tag = position
         }
+
     }
 
     override fun getItemCount(): Int {
@@ -36,7 +44,8 @@ class Bn4ReviewsAdapter(val context: Context, val review_list: ArrayList<BN4Info
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView){
-
+        var botsheet: BottomSheetPhotoView? = null
+        var geturi: Uri? = null
         fun bind(info: BN4Info_Review){
             itemView.bn4c_tv_name.text = info.displayName
             itemView.bn4c_tv_time.text = info.timeValue
@@ -61,18 +70,34 @@ class Bn4ReviewsAdapter(val context: Context, val review_list: ArrayList<BN4Info
                 itemView.bn4c_tv_myreview.visibility = View.INVISIBLE
             }
 
+            var storageRef = fbstr?.reference
+
             if(!info.photoPath.isNullOrEmpty()){
                 itemView.bn4c_img_one.visibility = View.VISIBLE
-                var storageRef = fbstr?.reference
+                //botsheet = BottomSheetPhotoView(geturi)
+                //var storageRef = fbstr?.reference
                 storageRef?.child(info.photoPath)?.downloadUrl?.addOnSuccessListener {
                     Glide.with(context).load(it).centerCrop().into(itemView.bn4c_img_one)
-
+                    //botsheet = BottomSheetPhotoView(storageRef?.child(info.photoPath)?.downloadUrl?.result)
+                    //var bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver, it)
+                    geturi = it
                 }.addOnFailureListener {
-                    Log.e("BN4Adapter", it.toString()+" / Failed to load image: "+info.photoPath)
+                    Log.e(
+                        "BN4Adapter",
+                        it.toString() + " / Failed to load image: " + info.photoPath
+                    )
                 }
             }else{
                 itemView.bn4c_img_one.setImageResource(android.R.color.transparent)
                 itemView.bn4c_img_one.visibility = View.GONE
+            }
+
+            itemView.bn4c_img_one.setOnClickListener {
+
+                botsheet = BottomSheetPhotoView(geturi)
+                //Glide.with(context).load(it).into(botsheet.bodpv_pv)
+
+                botsheet!!.show(fragmentManager, botsheet!!.tag)
             }
 
         }

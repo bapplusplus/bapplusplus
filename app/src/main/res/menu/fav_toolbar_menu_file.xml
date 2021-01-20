@@ -9,6 +9,11 @@
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView" />
     <item
+        android:id="@+id/ftb_refresh"
+        android:icon="@drawable/ic_refresh_white_24dp"
+        android:title="필터"
+        app:showAsAction="ifRoom|collapseActionView" />
+    <item
         android:id="@+id/ftb_filter"
         android:icon="@drawable/ic_equalizer_white_24dp"
         android:title="필터"
