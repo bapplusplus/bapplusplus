@@ -16,4 +16,16 @@
     <color name="colorGrey2">#393939</color>
     <color name="colorBlue1">#04BEDF</color>
 
+    <color name="colorCorn">#FFF05A</color>
+    <color name="colorYellowCrayola">#FFD25A</color>
+    <color name="colorRajah">#FFAA5A</color>
+    <color name="colorOutrageousOrange">#FF785A</color>
+    <color name="colorParadisePink">#EC4067</color>
+    
+    <color name="colorRedishPink">#CD4545</color>
+    <color name="colorNewOrange">#F16821</color>
+    <color name="colorBlindOrange">#F3A333</color>
+    <color name="colorMacAndCheese">#FFC58E</color>
+    <color name="colorWarmYellow">#FFFE9A</color>
+
 </resources>
