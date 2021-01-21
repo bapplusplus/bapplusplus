@@ -78,15 +78,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn_reviewupload.setOnClickListener {
-            if(FBUserInfo.loginState == false){
-                Toast.makeText(this, "Not Logged In", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, ReviewUploadActivity::class.java)
-                startActivity(intent)
-            }else{
-                Toast.makeText(this, FBUserInfo.userName, Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, ReviewUploadActivity::class.java)
-                startActivity(intent)
-            }
+//            if(FBUserInfo.loginState == false){
+//                Toast.makeText(this, "Not Logged In", Toast.LENGTH_SHORT).show()
+//                val intent = Intent(this, ReviewUploadActivity::class.java)
+//                startActivity(intent)
+//            }else{
+//                Toast.makeText(this, FBUserInfo.userName, Toast.LENGTH_SHORT).show()
+//                val intent = Intent(this, ReviewUploadActivity::class.java)
+//                startActivity(intent)
+//            }
+
+            val intent = Intent(this, FavListRouletteActivity::class.java)
+            startActivity(intent)
         }
 
         btn_testingact.setOnClickListener {

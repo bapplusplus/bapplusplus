@@ -2,12 +2,9 @@ package com.example.bapplusplus
 
 import android.content.Context
 import android.content.Intent
-import android.os.Handler
-import android.os.Looper
 import android.os.Parcel
 import android.os.Parcelable
 import android.util.Log
-import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -162,14 +159,13 @@ class FavListAdapter(val context: Context, val gni: ArrayList<GetNumsInfo>) : Re
         val title_f = itemView.findViewById<TextView>(R.id.fnc_item_title)
         val category_f = itemView.findViewById<TextView>(R.id.fnc_item_category)
         val star_f = itemView.findViewById<TextView>(R.id.fnc_item_star)
-        val callnum_f = itemView.findViewById<TextView>(R.id.fnc_item_expand_call)
 
 
         fun bind(listener: View.OnClickListener, gni: GetNumsInfo){
+
             title_f.text = gni.RestTitle
             category_f.text = gni.RestCategory
             star_f.text = gni.RestRatingAvg.toString()
-            callnum_f.text = "Callnot not supported"
             itemView.fnc_tv_reviewnum.text = "리뷰 "+gni.RestReviewNum.toString()+"건"
 
             if(FBUserInfo.myLikesArray.contains(gni.RestNo)){

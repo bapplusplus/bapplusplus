@@ -30,6 +30,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
+import java.io.Serializable
 
 
 data class GetNumsInfo(
@@ -75,7 +76,19 @@ data class FavListNu(
     var resultList: ArrayList<GetNumsInfo>? = null
 )
 
-class FavoritesListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+
+class FavoritesListActivity() : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+
+    companion object{
+        var isrmode = false
+
+        @JvmName("setIsrmode1")
+        fun setIsrmode(b: Boolean){
+            isrmode = b
+        }
+    }
 
     var fbfs = FirebaseFirestore.getInstance()
     var fbauth = FirebaseAuth.getInstance()
@@ -107,6 +120,8 @@ class FavoritesListActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         fav_appbar.visibility = View.GONE
         fav_fab.visibility = View.GONE
 
+
+
         ddtt.get()
             .addOnSuccessListener { document ->
                if(document != null){
@@ -122,6 +137,8 @@ class FavoritesListActivity : AppCompatActivity(), NavigationView.OnNavigationIt
 
             FBUserInfo.getMyLikesArray()
         }
+
+
 
         //tmp7vList
         docRefNew?.get()?.addOnCompleteListener{ task->
@@ -311,6 +328,7 @@ class FavoritesListActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
         var selpos: Int = -1
         var selbool = false
         var selviewpos = -1

@@ -3,25 +3,20 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/ftb_search"
+        android:id="@+id/favro_search"
         android:icon="@drawable/ic_search_white_24dp"
         android:title="검색"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView" />
     <item
-        android:id="@+id/ftb_filter"
+        android:id="@+id/favro_filter"
         android:icon="@drawable/ic_equalizer_white_24dp"
         android:title="필터"
         app:showAsAction="ifRoom|collapseActionView" />
     <item
-        android:id="@+id/ftb_refresh"
+        android:id="@+id/favro_reset"
         android:icon="@drawable/ic_refresh_white_24dp"
-        android:title="갱신"
+        android:title="리셋"
         app:showAsAction="ifRoom|collapseActionView" />
-
-    <item
-        android:id="@+id/ftb_roulette"
-        android:icon="@drawable/ic_rotary_changes_white_24dp"
-        android:title="룰렛" />
 
 </menu>
