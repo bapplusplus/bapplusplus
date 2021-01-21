@@ -6,12 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".Roulette">
 
-    <Button
-        android:id="@+id/btb_set"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="set 5"
+    <TextView
+        android:id="@+id/title_roulette"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="#FF5722"
+        android:gravity="center"
+        android:text="오늘 뭐 먹지?"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,40 +22,58 @@
         android:id="@+id/img_pointer"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="75dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btb_set"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/pointer" />
 
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+    <LinearLayout
+        android:id="@+id/ll_roulette_parent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_pointer"
-        app:srcCompat="@drawable/roulette_base" />
+        app:layout_constraintTop_toBottomOf="@+id/img_pointer">
+
+        <com.example.bapplusplus.RouletteView
+            android:id="@+id/roulette_view"
+            android:layout_width="match_parent"
+            android:layout_height="320dp" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_rotate"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:text="rotate"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+        app:layout_constraintTop_toBottomOf="@+id/ll_roulette_parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/tv_result"
-        android:layout_width="wrap_content"
-        android:layout_height="38dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:text="Result : "
-        android:textSize="28dp"
+        android:id="@+id/title_list"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:background="#FF5722"
+        android:gravity="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_rotate" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_list" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

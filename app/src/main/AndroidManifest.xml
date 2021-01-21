@@ -67,6 +67,8 @@
             android:name=".BottomNaviActivity"
             android:theme="@style/AppThemeNew1" />
 
+        <activity android:name=".Roulette"></activity>
+
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="dxvjacpwa0" />
