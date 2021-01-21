@@ -34,6 +34,8 @@ class FBUserInfo {
                 //Log.d("fbu Testing", userName)
                 loginState = true
 
+                //App.prefs.emailValue = get_email
+                //App.prefs.passwordValue = get_pw
                 return true
             }catch (e: Exception){
                 Log.d("fbu Testing", "fail")
@@ -56,8 +58,16 @@ class FBUserInfo {
             userName = "logoutname"
             userEmail = "logoutemail"
 
+            if(!App.prefs.isMaintainEmail){
+                App.prefs.emailValue = ""
+            }
+
+            App.prefs.isAutoLogin = false
+            App.prefs.passwordValue = ""
+
             loginState = false
             fbauth.signOut()
+
             fbuser = fbauth.currentUser
         }
 
@@ -91,7 +101,7 @@ class FBUserInfo {
             if(fbauth.currentUser == null){
                 return
             }
-            val doc = fbdb.collection("AccountGroup").document(userUid).get().await()
+            val doc = fbdb.collection("AccountGroup").document(fbauth.currentUser!!.uid).get().await()
             val listGetter = doc.get("MyFavoritesArray") as List<*>
             for(cc in 0..listGetter.size-1){
                 var map1 = listGetter.get(cc) as HashMap<*, *>

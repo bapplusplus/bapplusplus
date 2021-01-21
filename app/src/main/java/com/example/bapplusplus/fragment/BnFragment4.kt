@@ -92,7 +92,7 @@ class BnFragment4 : Fragment() {
 
 
 
-        adapter = Bn4ReviewsAdapter(requireContext(), restReviewArray)
+        adapter = Bn4ReviewsAdapter(requireContext(), restReviewArray, requireActivity().supportFragmentManager)
         //rootView.findViewById<RecyclerView>(R.id.bn4_recycler).adapter = adapter
         rootView.bn4_recycler.adapter = adapter
         rootView.bn4_recycler.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))

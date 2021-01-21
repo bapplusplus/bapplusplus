@@ -82,7 +82,7 @@ class MiReviewFragment : Fragment() {
 
         requireActivity().myinfo_toolbar_title.text = "리뷰 관리"
 
-        adapter = MiReviewAdapter(requireContext(), myReviewArray)
+        adapter = MiReviewAdapter(requireContext(), myReviewArray, requireActivity().supportFragmentManager)
         //rootView.findViewById<RecyclerView>(R.id.bn4_recycler).adapter = adapter
         rootView.mirv_recycler.adapter = adapter
         rootView.mirv_recycler.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))

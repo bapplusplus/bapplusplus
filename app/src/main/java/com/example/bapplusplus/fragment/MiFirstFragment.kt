@@ -12,16 +12,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentTransaction
 import com.example.bapplusplus.MainActivity
-import com.example.bapplusplus.MyInfoActivity
 import com.example.bapplusplus.NewLoginActivity
 import com.example.bapplusplus.R
 import com.example.bapplusplus.data.FBUserInfo
 import kotlinx.android.synthetic.main.activity_my_info.*
-import kotlinx.android.synthetic.main.activity_user_info_mode.*
-import kotlinx.android.synthetic.main.fragment_mi_first.*
 import kotlinx.android.synthetic.main.fragment_mi_first.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -48,6 +44,8 @@ class MiFirstFragment : Fragment() {
 
         var toolbar = requireActivity().myinfo_toolbar
         requireActivity().myinfo_toolbar_title.text = "설정"
+
+        var otherlayout = layoutInflater.inflate(R.layout.bottom_dialog_photoview, null, false)
 
         rootview.findViewById<TextView>(R.id.myinfo_tv_user_name).text = FBUserInfo.fbuser?.displayName ?: "로그인되지 않음"
         rootview.findViewById<TextView>(R.id.myinfo_tv_user_email).text = FBUserInfo.fbuser?.email ?: "Guest\n눌러서 로그인하세요."
@@ -134,6 +132,14 @@ class MiFirstFragment : Fragment() {
             withdrawDialog.create()
             withdrawDialog.show()
         }
+
+        /*rootview.myinfo_btn_test.setOnClickListener {
+            val botsheet = BottomSheetPhotoView(R.drawable.burger_240_cut)
+            botsheet!!.setImage(R.drawable.coffee_240_cut)
+            val bodpv = otherlayout.findViewById<PhotoView>(R.id.bodpv_pv)
+            //bodpv.setImageResource(R.drawable.korean_240_cut)
+            botsheet.show(requireActivity().supportFragmentManager, botsheet.tag)
+        }*/
 
 
         return rootview

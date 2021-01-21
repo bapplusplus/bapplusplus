@@ -3,6 +3,8 @@ package com.example.bapplusplus
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.MenuItem
 import android.widget.ImageButton
@@ -130,9 +132,11 @@ class BottomNaviActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
         bn_navi_view.findViewById<TextView>(R.id.navihead_title).text = FBUserInfo.fbauth.currentUser?.displayName ?: "로그인되지 않음"
         bn_navi_view.findViewById<TextView>(R.id.navihead_subtitle).text = FBUserInfo.fbauth.currentUser?.email ?: "Guest"
         bn_navi_view.findViewById<ImageButton>(R.id.navihead_btn_settings).setOnClickListener {
-            bnDrawerLayout!!.closeDrawers()
             val itts = Intent(this, MyInfoActivity::class.java)
             startActivity(itts)
+            Handler(Looper.getMainLooper()).postDelayed({
+                bnDrawerLayout!!.closeDrawers()
+            }, 400)
         }
 
 

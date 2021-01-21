@@ -2,16 +2,19 @@ package com.example.bapplusplus.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.bapplusplus.BottomNaviActivity
 import com.example.bapplusplus.R
 import com.example.bapplusplus.data.FBUserInfo
+import com.example.bapplusplus.fragment.BottomSheetPhotoView
 import com.example.bapplusplus.fragment.MiReviewFragment
 import com.example.bapplusplus.fragment.MiReview_Data
 import com.google.firebase.firestore.FirebaseFirestore
@@ -23,7 +26,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 
-class MiReviewAdapter(val context: Context, val review_list: ArrayList<MiReview_Data>) : RecyclerView.Adapter<MiReviewAdapter.Holder>() {
+class MiReviewAdapter(val context: Context, val review_list: ArrayList<MiReview_Data>, val fragmentManager: FragmentManager) : RecyclerView.Adapter<MiReviewAdapter.Holder>() {
 
     var fbstr = FirebaseStorage.getInstance()
     var fbdb = FirebaseFirestore.getInstance()
@@ -77,6 +80,8 @@ class MiReviewAdapter(val context: Context, val review_list: ArrayList<MiReview_
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView){
+        var botsheet: BottomSheetPhotoView? = null
+        var geturi: Uri? = null
 
         fun bind(info: MiReview_Data){
             itemView.mirvc_tv_resttitle.text = info.restTitle
@@ -103,6 +108,7 @@ class MiReviewAdapter(val context: Context, val review_list: ArrayList<MiReview_
                 var storageRef = fbstr?.reference
                 storageRef?.child(info.photoPath)?.downloadUrl?.addOnSuccessListener {
                     Glide.with(context).load(it).centerCrop().into(itemView.mirvc_img_one)
+                    geturi = it
 
                 }.addOnFailureListener {
                     Log.e("MiReviewAdapter", it.toString()+" / Failed to load image: "+info.photoPath)
@@ -130,6 +136,11 @@ class MiReviewAdapter(val context: Context, val review_list: ArrayList<MiReview_
                     else->R.drawable.pizza_240_cut
                 }
             )
+
+            itemView.mirvc_img_one.setOnClickListener {
+                botsheet = BottomSheetPhotoView(geturi)
+                botsheet!!.show(fragmentManager, botsheet!!.tag)
+            }
 
 
 

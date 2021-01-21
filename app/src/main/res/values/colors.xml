@@ -8,6 +8,7 @@
     <color name="colorOrange2Dark">#E65100</color>
     <color name="colorOrange2Accent">#FFB300</color>
     <color name="colorOrange3">#BEFFE29C</color>
+    <color name="colorYellow1">#FFFFC4</color>
     <color name="colorWhite1">#FFFFFF</color>
     <color name="colorWhiteAlpha1">#C4FFFFFF</color>
     <color name="colorRed1">#EC0202</color>
@@ -15,6 +16,7 @@
     <color name="colorGrey1">#717171</color>
     <color name="colorGrey2">#393939</color>
     <color name="colorBlue1">#04BEDF</color>
+    <color name="colorBlack1">#D7000000</color>
 
     <color name="colorCorn">#FFF05A</color>
     <color name="colorYellowCrayola">#FFD25A</color>
