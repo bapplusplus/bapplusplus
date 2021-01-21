@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.FragmentTransaction
 import com.example.bapplusplus.R
 import com.example.bapplusplus.data.App
 import com.example.bapplusplus.data.FBUserInfo
@@ -54,7 +55,12 @@ class MiUsermodFragment : Fragment() {
         }
 
         rootview.miu_const_pwreset.setOnClickListener {
-            Toast.makeText(requireContext(), "PW_Change", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(requireContext(), "PW_Change", Toast.LENGTH_SHORT).show()
+            var ftr = requireActivity().supportFragmentManager.beginTransaction()
+            ftr.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            ftr.replace(R.id.myinfo_frame, MiChangePWFragment())
+            ftr.addToBackStack(null)
+            ftr.commit()
         }
 
         rootview.miu_const_withdraw.setOnClickListener {

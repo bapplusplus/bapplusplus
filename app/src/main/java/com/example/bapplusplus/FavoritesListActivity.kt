@@ -216,7 +216,7 @@ class FavoritesListActivity() : AppCompatActivity(), NavigationView.OnNavigation
         }
 
         fav_fab.setOnClickListener {
-            fav_recycler.smoothScrollToPosition(0)
+            fav_recycler.scrollToPosition(0)
         }
 
 

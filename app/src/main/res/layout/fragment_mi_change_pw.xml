@@ -14,6 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="현재 비밀번호를 입력해 주세요."
+        android:textColor="@color/colorOrange2Dark"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/micpw_til_original"
         app:layout_constraintStart_toStartOf="@+id/micpw_til_original" />
 
@@ -34,6 +36,8 @@
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="12dp"
+        app:boxBackgroundColor="@android:color/transparent"
+        app:passwordToggleEnabled="true"
         app:layout_constraintBottom_toTopOf="@+id/micpw_btn_original"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -42,51 +46,77 @@
             android:id="@+id/micpw_til_edt_original"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="현재 비밀번호" />
+            android:hint="현재 비밀번호"
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/micpw_inner_const"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/micpw_til_original"
+        app:layout_constraintStart_toStartOf="@+id/micpw_til_original"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.37">
+        app:layout_constraintVertical_bias="0.6">
+
+        <Button
+            android:id="@+id/micpw_btn_new"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            android:text="등록하기"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/micpw_til_new_two" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/micpw_til_new_two"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:boxBackgroundColor="@android:color/transparent"
+            app:layout_constraintTop_toBottomOf="@+id/micpw_til_new_one"
+            app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/micpw_til_edt_new_two"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="hint" />
+                android:background="@android:color/transparent"
+                android:hint="새로운 비밀번호 확인"
+                android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/micpw_tv_two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="TextView"
+            android:text="새로운 비밀번호를 입력해 주세요."
+            android:textColor="@color/colorOrange2Dark"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/micpw_til_new_one"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:boxBackgroundColor="@android:color/transparent"
+            app:layout_constraintTop_toBottomOf="@+id/micpw_tv_two"
+            app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/micpw_til_edt_new_one"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="hint" />
+                android:background="@android:color/transparent"
+                android:hint="새로운 비밀번호"
+                android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

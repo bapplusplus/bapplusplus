@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -105,20 +106,44 @@ class FavListRouletteAdapter(val context: Context, var gni: ArrayList<GetRoulett
                     notifyItemChanged(position)
                     set!!.remove(gni)
                     //FavListRouletteActivity.favroListSet!!.remove(gni)
-                    FavListRouletteActivity.changeText()
+                    FavListRouletteActivity.changeTextNew()
                     println("favrolistset size: "+FavListRouletteActivity.favroListSet.size.toString())
 
                     //itemView.favroc_check.isChecked = false
                     //itemView.favlistroulette_item_const.setBackgroundColor(ContextCompat.getColor(context, R.color.colorWhite1))
                 }else{
-                    gni.isChecked = true
+                    if(set!!.count() >= 10){
+                        Toast.makeText(context, "최대 10개까지 설정 가능합니다.", Toast.LENGTH_SHORT).show()
+                    }else{
+                        gni.isChecked = true
+                        notifyItemChanged(position)
+                        set?.add(gni)
+                        //FavListRouletteActivity.favroListSet!!.add(gni)
+                        FavListRouletteActivity.changeTextNew()
+                        println("favrolistset size: "+FavListRouletteActivity.favroListSet.size.toString())
+                        //itemView.favroc_check.isChecked = true
+                        //itemView.favlistroulette_item_const.setBackgroundColor(ContextCompat.getColor(context, R.color.colorYellow1))
+                    }
+                }
+            }
+
+            itemView.favroc_check.setOnClickListener {
+                if(gni.isChecked){
+                    gni.isChecked = false
                     notifyItemChanged(position)
-                    set?.add(gni)
-                    //FavListRouletteActivity.favroListSet!!.add(gni)
-                    FavListRouletteActivity.changeText()
-                    println("favrolistset size: "+FavListRouletteActivity.favroListSet.size.toString())
-                    //itemView.favroc_check.isChecked = true
-                    //itemView.favlistroulette_item_const.setBackgroundColor(ContextCompat.getColor(context, R.color.colorYellow1))
+                    set!!.remove(gni)
+                    FavListRouletteActivity.changeTextNew()
+                    println("favrolistset Checkbox size: "+FavListRouletteActivity.favroListSet.size.toString())
+                }else{
+                    if(set!!.count() >= 10){
+                        Toast.makeText(context, "최대 10개까지 설정 가능합니다.", Toast.LENGTH_SHORT).show()
+                    }else{
+                        gni.isChecked = true
+                        notifyItemChanged(position)
+                        set?.add(gni)
+                        FavListRouletteActivity.changeTextNew()
+                        println("favrolistset Checkbox size: "+FavListRouletteActivity.favroListSet.size.toString())
+                    }
                 }
             }
 
