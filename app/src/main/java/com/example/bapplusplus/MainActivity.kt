@@ -34,11 +34,11 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "testing", Toast.LENGTH_SHORT).show()
         }
 
-        btn_showmap.setOnClickListener {
-            val intent = Intent(this, ShowMapActivity::class.java)
-            intent.putExtra("infoArray", infoList)
-            startActivity(intent)
-        }
+//        btn_showmap.setOnClickListener {
+//            val intent = Intent(this, ShowMapActivity::class.java)
+//            intent.putExtra("infoArray", infoList)
+//            startActivity(intent)
+//        }
 
         btn_botnavi.setOnClickListener {
             val intent = Intent(this, BottomNaviActivity::class.java)
@@ -50,6 +50,11 @@ class MainActivity : AppCompatActivity() {
 
         btn_favlist.setOnClickListener {
             val intent = Intent(this, FavoritesListActivity::class.java)
+            startActivity(intent)
+        }
+
+        btn_roulette.setOnClickListener {
+            val intent = Intent(this, Roulette::class.java)
             startActivity(intent)
         }
 
