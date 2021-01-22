@@ -62,7 +62,7 @@ class MiFirstFragment : Fragment() {
 
 
         rootview.findViewById<ConstraintLayout>(R.id.myinfo_const_user).setOnClickListener {
-            Toast.makeText(requireContext(), "User Clicked", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(requireContext(), "User Clicked", Toast.LENGTH_SHORT).show()
             if(FBUserInfo.fbuser == null){
                 val ittl = Intent(requireActivity(), NewLoginActivity::class.java)
                 startActivity(ittl)
@@ -78,7 +78,7 @@ class MiFirstFragment : Fragment() {
 
 
         rootview.findViewById<ConstraintLayout>(R.id.myinfo_const_review).setOnClickListener {
-            Toast.makeText(requireContext(), "Review Clicked", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(requireContext(), "Review Clicked", Toast.LENGTH_SHORT).show()
             var ftr = requireActivity().supportFragmentManager.beginTransaction()
             ftr.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             ftr.replace(R.id.myinfo_frame, MiReviewFragment())
@@ -87,7 +87,7 @@ class MiFirstFragment : Fragment() {
         }
 
         rootview.myinfo_const_favs.setOnClickListener {
-            Toast.makeText(requireContext(), "Favs Clicked", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(requireContext(), "Favs Clicked", Toast.LENGTH_SHORT).show()
             var ftr = requireActivity().supportFragmentManager.beginTransaction()
             ftr.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             ftr.replace(R.id.myinfo_frame, MiFavFragment())

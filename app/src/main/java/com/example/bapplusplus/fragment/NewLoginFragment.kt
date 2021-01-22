@@ -83,12 +83,12 @@ class NewLoginFragment : Fragment() {
         rootview.newlog_btn_login2.setOnClickListener {
             //rootview.newlog_pbar.visibility = View.GONE
             if(FBUserInfo.loginState == true){
-                Toast.makeText(requireContext(), "LogoutButtonPressed", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(), "LogoutButtonPressed", Toast.LENGTH_SHORT).show()
 
                 FBUserInfo.setSignOut()
                 requireActivity().finish()
             }else{
-                Toast.makeText(requireContext(), "LoginButtonPressed", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(), "LoginButtonPressed", Toast.LENGTH_SHORT).show()
 
                 lemail = rootview.newlog_til_edt_email.text.toString().trim()
                 lpw = rootview.newlog_til_edt_pw.text.toString().trim()

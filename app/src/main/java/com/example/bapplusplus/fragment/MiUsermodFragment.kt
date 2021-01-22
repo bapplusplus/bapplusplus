@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
+import com.example.bapplusplus.MainActivity
 import com.example.bapplusplus.R
 import com.example.bapplusplus.data.App
 import com.example.bapplusplus.data.FBUserInfo
@@ -74,6 +75,7 @@ class MiUsermodFragment : Fragment() {
                     if(withdrawResult){
                         FBUserInfo.setSignOut()
                         Toast.makeText(requireContext(), "탈퇴되었습니다.", Toast.LENGTH_SHORT).show()
+                        MainActivity.loginbtn.visibility = View.VISIBLE
                         delay(2000)
                         requireActivity().finish()
                     }else{
