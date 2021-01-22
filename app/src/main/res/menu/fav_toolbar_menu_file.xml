@@ -19,9 +19,4 @@
         android:title="갱신"
         app:showAsAction="ifRoom|collapseActionView" />
 
-    <item
-        android:id="@+id/ftb_roulette"
-        android:icon="@drawable/ic_rotary_changes_white_24dp"
-        android:title="룰렛" />
-
 </menu>

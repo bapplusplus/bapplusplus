@@ -419,7 +419,7 @@
                     android:id="@+id/newr_til_edt_three"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="비밀번호 (최대 20자리)"
+                    android:hint="비밀번호 (8~20자)"
                     android:inputType="textPassword"
                     android:maxLength="20" />
             </com.google.android.material.textfield.TextInputLayout>

@@ -129,10 +129,13 @@ class NewLoginFragment : Fragment() {
                                 rootview.newlog_tv_one.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorGreen1))
                                 rootview.newlog_tv_one.text = FBUserInfo.userName + "(으)로 로그인"
                                 delay(600)
+                                requireActivity().setResult(19)
                                 //finish()
                                 val ittd = Intent(requireContext(), MainActivity::class.java)
                                 ittd.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                ittd.putExtra("login", 10)
                                 Toast.makeText(requireContext(), "로그인 되었습니다.", Toast.LENGTH_SHORT).show()
+                                MainActivity.loginbtn.visibility = View.GONE
                                 startActivity(ittd)
                             }
                         }

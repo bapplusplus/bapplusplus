@@ -228,8 +228,8 @@ class NewRegisterActivity : AppCompatActivity() {
                 newr_tv_progress.text = "이메일 형식이 잘못되었습니다."
                 newr_tv_progress.visibility = View.VISIBLE
                 newr_til_two.error = "이메일 형식이 잘못되었습니다."
-            }else if (newr_til_edt_three.text.toString().length < 6){
-                newr_tv_progress.text = "비밀번호를 다시 입력하세요 (6자 이상)."
+            }else if (newr_til_edt_three.text.toString().length < 8){
+                newr_tv_progress.text = "비밀번호를 다시 입력하세요 (8자 이상)."
                 newr_tv_progress.visibility = View.VISIBLE
                 newr_til_three.error = "비밀번호가 잘못되었습니다."
             }else if (!newr_til_edt_four.text.toString().equals(newr_til_edt_three.text.toString())){

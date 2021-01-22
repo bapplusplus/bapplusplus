@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mhc_const"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:background="?attr/selectableItemBackground"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/main_hot_const_one">
+
+    <ImageView
+        android:id="@+id/mhc_img_star"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/mhc_tv_rating"
+        app:layout_constraintEnd_toStartOf="@+id/mhc_tv_rating"
+        app:layout_constraintTop_toTopOf="@+id/mhc_tv_rating"
+        app:srcCompat="@drawable/iconstaroutline2" />
+
+    <TextView
+        android:id="@+id/mhc_tv_lead"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="2위"
+        android:textColor="@color/colorOrange2Primary"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/mhc_tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="TextView"
+        android:textColor="@color/colorGrey2"
+        app:layout_constraintBottom_toBottomOf="@+id/mhc_tv_lead"
+        app:layout_constraintEnd_toStartOf="@+id/mhc_img_star"
+        app:layout_constraintStart_toEndOf="@+id/mhc_tv_lead"
+        app:layout_constraintTop_toTopOf="@+id/mhc_tv_lead" />
+
+    <TextView
+        android:id="@+id/mhc_tv_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="5.0"
+        android:textColor="@color/colorGrey1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

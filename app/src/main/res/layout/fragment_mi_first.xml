@@ -29,6 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:text="회원 탈퇴"
+                android:visibility="gone"
                 app:layout_constraintStart_toEndOf="@+id/myinfo_btn_logout_temp"
                 app:layout_constraintTop_toTopOf="@+id/myinfo_btn_logout_temp" />
 

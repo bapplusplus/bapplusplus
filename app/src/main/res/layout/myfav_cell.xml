@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/myfavc_const"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/myfavc_const_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        app:layout_constraintStart_toEndOf="@+id/myfavc_img_main"
+        app:layout_constraintTop_toTopOf="@+id/myfavc_img_main">
+
+        <ImageView
+            android:id="@+id/myfavc_img_goto"
+            android:layout_width="16dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/myfavc_tv_resttitle"
+            app:layout_constraintStart_toEndOf="@+id/myfavc_tv_resttitle"
+            app:layout_constraintTop_toTopOf="@+id/myfavc_tv_resttitle"
+            app:srcCompat="@drawable/to_select_button_img" />
+
+        <TextView
+            android:id="@+id/myfavc_tv_resttitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RestTitle"
+            android:textColor="@color/colorOrange2Dark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/myfavc_img_main"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back_gray_rect" />
+
+    <Button
+        android:id="@+id/myfavc_btn_delete"
+        style="@android:style/Widget.Material.Button.Borderless.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:text="삭제"
+        android:textColor="@color/colorRed1"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/myfavc_tv_category"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
+        android:text="Category"
+        app:layout_constraintEnd_toStartOf="@+id/myfavc_btn_delete"
+        app:layout_constraintStart_toStartOf="@+id/myfavc_const_title"
+        app:layout_constraintTop_toBottomOf="@+id/myfavc_const_title" />
+
+    <TextView
+        android:id="@+id/myfavc_tv_address"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="10dp"
+        android:text="Address"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/myfavc_btn_delete"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/myfavc_const_title"
+        app:layout_constraintTop_toBottomOf="@+id/myfavc_tv_category" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

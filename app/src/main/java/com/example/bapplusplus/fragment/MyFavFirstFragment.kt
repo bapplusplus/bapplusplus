@@ -12,13 +12,16 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.bapplusplus.*
+import com.example.bapplusplus.adapter.MyFavFirstAdapter
 import com.example.bapplusplus.data.FBUserInfo
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_bottom_navi.*
 import kotlinx.android.synthetic.main.activity_my_favorites.*
 import kotlinx.android.synthetic.main.fragment_myfav_first.*
+import kotlinx.android.synthetic.main.fragment_myfav_first.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -82,6 +85,7 @@ class MyFavFirstFragment : Fragment() {
 
     var myFavNewArray = arrayListOf<MyFav_Data>()
     var fbdb = FirebaseFirestore.getInstance()
+    lateinit var adapter: MyFavFirstAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,11 +97,35 @@ class MyFavFirstFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         var rootview = inflater.inflate(R.layout.fragment_myfav_first, container, false)
+        rootview.mff_recycler.visibility = View.GONE
+        rootview.mff_sep_line.visibility = View.GONE
+        rootview.mff_tv_nolike.visibility = View.GONE
+        rootview.mff_tv_likenum.visibility = View.GONE
+        requireActivity().myfav_toolbar.visibility = View.GONE
+
+        adapter = MyFavFirstAdapter(requireContext(), myFavNewArray)
+        rootview.mff_recycler.adapter = adapter
+        rootview.mff_recycler.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
+
+
         CoroutineScope(IO).launch {
-            FBUserInfo.getMyLikesArray()
+            //FBUserInfo.getMyLikesArray()
             getFavsData(FBUserInfo.fbauth.currentUser!!.uid)
             withContext(Main){
-                mff_tv_likenum.text = myFavNewArray.count().toString()+"개"
+                rootview.mff_progress.visibility = View.GONE
+                requireActivity().myfav_toolbar.visibility = View.VISIBLE
+
+                if(myFavNewArray.isNullOrEmpty()){
+                    rootview.mff_tv_nolike.visibility = View.VISIBLE
+                    requireActivity().myfav_toolbar.menu.clear()
+                }else{
+                    rootview.mff_tv_likenum.text = "좋아요 항목 "+myFavNewArray.count().toString()+"개"
+                    rootview.mff_recycler.visibility = View.VISIBLE
+                    rootview.mff_sep_line.visibility = View.VISIBLE
+                    rootview.mff_tv_likenum.visibility = View.VISIBLE
+                    adapter.notifyDataSetChanged()
+                }
+
             }
         }
 
@@ -210,7 +238,7 @@ class MyFavFirstFragment : Fragment() {
         CoroutineScope(IO).launch {
             FBUserInfo.getMyLikesArray()
             var ft: FragmentTransaction = requireActivity()!!.supportFragmentManager.beginTransaction()
-            ft.detach(MyFavFirstFragment()).attach(MyFavFirstFragment()).commit()
+            ft.detach(this@MyFavFirstFragment).attach(this@MyFavFirstFragment).commit()
         }
     }
 
