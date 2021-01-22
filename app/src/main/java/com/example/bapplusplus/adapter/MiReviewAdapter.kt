@@ -53,12 +53,12 @@ class MiReviewAdapter(val context: Context, val review_list: ArrayList<MiReview_
             }
 
             itemView.mirvc_btn_delete.setOnClickListener {
-                Toast.makeText(context, "Delete Request", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "삭제 중...", Toast.LENGTH_SHORT).show()
                 CoroutineScope(Main).launch {
                     if(MiReviewFragment.newDeleteOne(item)){
-                        Toast.makeText(context, "Delete Success", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "삭제되었습니다.", Toast.LENGTH_SHORT).show()
                         review_list.removeAt(position)
-                        notifyItemRemoved(position)
+                        notifyDataSetChanged()
                         MiReviewFragment.tvNumTextSetter(review_list.size)
                         if(review_list.size == 0){
                             MiReviewFragment.spinnerview?.isEnabled = false

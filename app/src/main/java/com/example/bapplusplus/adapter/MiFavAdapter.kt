@@ -34,7 +34,7 @@ class MiFavAdapter(val context: Context, val fav_list: ArrayList<MiFav_Data>) : 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val item = fav_list[position]
         holder.apply {
-            bind(item)
+            bind(item, position)
             itemView.tag = position
 
             itemView.mifavc_const_title.setOnClickListener {
@@ -46,31 +46,12 @@ class MiFavAdapter(val context: Context, val fav_list: ArrayList<MiFav_Data>) : 
                 context.startActivity(intent)
             }
 
-            itemView.mifavc_btn_delete.setOnClickListener {
-                Toast.makeText(context, "Like Delete Request", Toast.LENGTH_SHORT).show()
-                CoroutineScope(Main).launch {
-                    if(MiFavFragment.likeCancel(item, item.restNo, FBUserInfo.fbauth.currentUser!!.uid)){
-                        fav_list.removeAt(position)
-                        Toast.makeText(context, "좋아요 목록에서 삭제되었습니다.", Toast.LENGTH_SHORT).show()
-                        MiFavFragment.mifavtvnum?.text = "좋아요 항목 "+fav_list.size.toString()+"개"
-                        if(fav_list.isEmpty()){
-                            MiFavFragment.mifavtvnum?.visibility = View.GONE
-                            MiFavFragment.mifavsepline?.visibility = View.GONE
-                            MiFavFragment.mifavtvnofav?.visibility = View.VISIBLE
-                        }else{
-                            notifyItemRemoved(position)
-                        }
-                    }else{
-                        Toast.makeText(context, "Like Delete fail", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
         }
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
-        fun bind(info: MiFav_Data){
+        fun bind(info: MiFav_Data, position: Int){
             itemView.mifavc_tv_resttitle.text = info.restTitle
             itemView.mifavc_tv_category.text = info.restCategory
             itemView.mifavc_tv_address.text = info.restAddressRoad
@@ -93,6 +74,30 @@ class MiFavAdapter(val context: Context, val fav_list: ArrayList<MiFav_Data>) : 
                     else->R.drawable.pizza_240_cut
                 }
             )
+
+            itemView.mifavc_btn_delete.setOnClickListener {
+                //Toast.makeText(context, "Like Delete Request", Toast.LENGTH_SHORT).show()
+                CoroutineScope(Main).launch {
+                    if(MiFavFragment.likeCancel(info, info.restNo, FBUserInfo.fbauth.currentUser!!.uid)){
+                        fav_list.removeAt(position)
+                        Toast.makeText(context, "좋아요 목록에서 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                        MiFavFragment.mifavtvnum?.text = "좋아요 항목 "+fav_list.size.toString()+"개"
+                        //notifyItemRemoved(position)
+                        notifyDataSetChanged()
+                        if(fav_list.isEmpty()){
+                            MiFavFragment.mifavtvnum?.visibility = View.GONE
+                            MiFavFragment.mifavsepline?.visibility = View.GONE
+                            MiFavFragment.mifavtvnofav?.visibility = View.VISIBLE
+                        }else{
+                            //notifyItemRemoved(position)
+                        }
+                    }else{
+                        Toast.makeText(context, "Like Delete fail", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+
         }
     }
 

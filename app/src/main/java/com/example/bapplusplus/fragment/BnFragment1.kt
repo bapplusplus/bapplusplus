@@ -1,34 +1,28 @@
 package com.example.bapplusplusTemp.fragment
 
-import android.app.ProgressDialog
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
-import android.widget.TextView
 import android.widget.Toast
-import androidx.core.graphics.drawable.toDrawable
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import com.example.bapplusplus.InfoTemp
 import com.example.bapplusplus.R
-import com.example.bapplusplus.RestInfoTemp
 import com.example.bapplusplus.data.FBUserInfo
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.favlistnu_cell.view.*
 import kotlinx.android.synthetic.main.fragment_bn1.*
 import kotlinx.android.synthetic.main.fragment_bn1.view.*
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.util.*
+
 
 data class Bn1Info_Data(
     var restNo: Int,
@@ -64,7 +58,11 @@ class BnFragment1 : Fragment() {
     var RestReviewNum = -2
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         var rootview = inflater.inflate(R.layout.fragment_bn1, container, false)
         // Inflate the layout for this fragment
 
@@ -114,8 +112,6 @@ class BnFragment1 : Fragment() {
         rootview.bn1_call_img.visibility = View.GONE
         rootview.bn1_address.visibility = View.GONE
         rootview.bn1_address_img.visibility = View.GONE
-        rootview.bn1_delivery.visibility = View.GONE
-        rootview.bn1_delivery_img.visibility = View.GONE
         rootview.bn1_time.visibility = View.GONE
         rootview.bn1_time_img.visibility = View.GONE
 
@@ -127,35 +123,46 @@ class BnFragment1 : Fragment() {
                 rootview.bn1_ratingbar.rating = RestRatingAvg.toFloat()
                 rootview.bn1_title.text = basicInfo!!.restTitle
                 rootview.bn1_category.text = basicInfo!!.restCategory
-                rootview.bn1_call.text = basicInfo!!.restCallNum
+                if(basicInfo!!.restCallNum.isNullOrEmpty()){
+                    rootview.bn1_call.text = "번호정보 없음"
+                }else{
+                    rootview.bn1_call.text = basicInfo!!.restCallNum
+                }
+
                 //rootview.bn1_time.text = basicInfo!!.rest
                 //rootview.bn1_delivery.text = basicInfo!!.rest
-                rootview.bn1_address.text = basicInfo!!.restAddressRoad
+                rootview.bn1_address.text = "지번 주소: "+basicInfo!!.restAddressOld
+                rootview.bn1_time.text = basicInfo!!.restAddressRoad
                 rootview.bn1_tv_like.text = "좋아요  "+likesArray.size.toString()
 
                 rootview.bn1_img_repres.setImageResource(
-                    when(basicInfo!!.restCategory){
-                        "한식"->R.drawable.korean_240_cut
-                        "일식"->R.drawable.sushi_240_cut
-                        "중식"->R.drawable.chinese_240_n
-                        "분식"->R.drawable.toppokki_240_cut
-                        "카페/찻집"->R.drawable.coffee_240_cut
-                        "경양식"->R.drawable.cutlet_240_cut
-                        "김밥(도시락)"->R.drawable.gimbap_240_cut
-                        "피자"->R.drawable.pizza_240_cut
-                        "패스트푸드"->R.drawable.burger_240_cut
-                        "치킨"->R.drawable.chicken_240_cut
-                        "호프/치킨"->R.drawable.hof_240_cut
-                        "정종/대포집/소주방"->R.drawable.glass_240_cut
-                        "패밀리레스토랑"->R.drawable.spaghetti_240_cut
-                        else->R.drawable.pizza_240_cut
+                    when (basicInfo!!.restCategory) {
+                        "한식" -> R.drawable.korean_240_cut
+                        "일식" -> R.drawable.sushi_240_cut
+                        "중식" -> R.drawable.chinese_240_n
+                        "분식" -> R.drawable.toppokki_240_cut
+                        "카페/찻집" -> R.drawable.coffee_240_cut
+                        "경양식" -> R.drawable.cutlet_240_cut
+                        "김밥(도시락)" -> R.drawable.gimbap_240_cut
+                        "피자" -> R.drawable.pizza_240_cut
+                        "패스트푸드" -> R.drawable.burger_240_cut
+                        "치킨" -> R.drawable.chicken_240_cut
+                        "호프/치킨" -> R.drawable.hof_240_cut
+                        "정종/대포집/소주방" -> R.drawable.glass_240_cut
+                        "패밀리레스토랑" -> R.drawable.spaghetti_240_cut
+                        else -> R.drawable.pizza_240_cut
                     }
                 )
 
                 if(FBUserInfo.fbauth.currentUser != null){
                     rootview.bn1_like_const.isEnabled = true
                     if(likesArray.contains(FBUserInfo.fbauth.currentUser!!.uid)){
-                        rootview.bn1_img_like.setImageDrawable(resources.getDrawable(R.drawable.red_heart_one, null))
+                        rootview.bn1_img_like.setImageDrawable(
+                            resources.getDrawable(
+                                R.drawable.red_heart_one,
+                                null
+                            )
+                        )
                     }
                 }else{
                     rootview.bn1_like_const.isEnabled = false
@@ -175,12 +182,17 @@ class BnFragment1 : Fragment() {
                 rootview.bn1_call_img.visibility = View.VISIBLE
                 rootview.bn1_address.visibility = View.VISIBLE
                 rootview.bn1_address_img.visibility = View.VISIBLE
-                rootview.bn1_delivery.visibility = View.VISIBLE
-                rootview.bn1_delivery_img.visibility = View.VISIBLE
                 rootview.bn1_time.visibility = View.VISIBLE
                 rootview.bn1_time_img.visibility = View.VISIBLE
 
 
+            }
+        }
+
+        rootview.bn1_call.setOnClickListener {
+            if(!basicInfo!!.restCallNum.isNullOrEmpty()){
+                val ctt = Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+basicInfo!!.restCallNum))
+                startActivity(ctt)
             }
         }
 
@@ -194,8 +206,7 @@ class BnFragment1 : Fragment() {
 //        }else{
 //            rootview.findViewById<TextView>(R.id.bn1_call).text = bundle?.getString("RestCallNum").toString()
 //        }
-        rootview.findViewById<TextView>(R.id.bn1_time).text = "Unavailable"
-        rootview.findViewById<TextView>(R.id.bn1_delivery).text = "Unavailable"
+        //rootview.findViewById<TextView>(R.id.bn1_time).text = "Unavailable"
 
         rootview.bn1_like_const.setOnClickListener {
             //Toast.makeText(requireContext(), "Like View Clicked", Toast.LENGTH_SHORT).show()
@@ -205,7 +216,12 @@ class BnFragment1 : Fragment() {
                     likeCancel(RestNo, FBUserInfo.fbauth.currentUser!!.uid)
                     getLikesList(RestNo)
 
-                    rootview.bn1_img_like.setImageDrawable(resources.getDrawable(R.drawable.heart_outline, null))
+                    rootview.bn1_img_like.setImageDrawable(
+                        resources.getDrawable(
+                            R.drawable.heart_outline,
+                            null
+                        )
+                    )
                     rootview.bn1_tv_like.text = "좋아요  "+likesArray.size.toString()
                     isMyLike = false
                     Toast.makeText(requireContext(), "좋아요를 취소하였습니다.", Toast.LENGTH_SHORT).show()
@@ -219,7 +235,12 @@ class BnFragment1 : Fragment() {
                     likeAdd(RestNo, FBUserInfo.fbauth.currentUser!!.uid)
 
                     getLikesList(RestNo)
-                    rootview.bn1_img_like.setImageDrawable(resources.getDrawable(R.drawable.red_heart_one, null))
+                    rootview.bn1_img_like.setImageDrawable(
+                        resources.getDrawable(
+                            R.drawable.red_heart_one,
+                            null
+                        )
+                    )
                     rootview.bn1_tv_like.text = "좋아요  "+likesArray.size.toString()
                     isMyLike = true
                     Toast.makeText(requireContext(), "좋아요 목록에 등록되었습니다.", Toast.LENGTH_SHORT).show()
@@ -237,24 +258,33 @@ class BnFragment1 : Fragment() {
 
     suspend fun getBasicData(restNo: Int): Boolean{
         return try{
-            val doc = fbdb!!.collection("tmp7vBasic").document("RestBasic"+restNo.toString()).get().await()
+            val doc = fbdb!!.collection("tmp7vBasic").document("RestBasic" + restNo.toString()).get().await()
             basicInfo = Bn1Info_Data(
-                (doc.get("RestNo") as Long).toInt(), doc.get("RestCategory").toString(), doc.get("RestTitle").toString(),
-                    doc.get("RestCallNum").toString(), doc.get("RestAddressOld").toString(), doc.get("RestAddressRoad").toString(),
-                    doc.get("RestOrderTime").toString(), doc.get("RestPosx") as Double, doc.get("RestPosy") as Double)
+                (doc.get("RestNo") as Long).toInt(),
+                doc.get("RestCategory").toString(),
+                doc.get("RestTitle").toString(),
+                doc.get("RestCallNum").toString(),
+                doc.get("RestAddressOld").toString(),
+                doc.get(
+                    "RestAddressRoad"
+                ).toString(),
+                doc.get("RestOrderTime").toString(),
+                doc.get("RestPosx") as Double,
+                doc.get("RestPosy") as Double
+            )
             //likesArray = doc.data?.get("RestReviewArray") as Array<String?>
             getLikesList(restNo)
             getStringInfo(restNo)
             return true
         }catch (e: Exception){
-            Log.e("BN1", "No such Doc: $restNo "+e.printStackTrace()+", "+e.localizedMessage)
+            Log.e("BN1", "No such Doc: $restNo " + e.printStackTrace() + ", " + e.localizedMessage)
             return false
         }
     }
 
     suspend fun getLikesList(restNo: Int): Boolean{
         return try {
-            val doc = fbdb!!.collection("tmp7vBasic").document("RestBasic"+restNo.toString()).get().await()
+            val doc = fbdb!!.collection("tmp7vBasic").document("RestBasic" + restNo.toString()).get().await()
             likesArray.clear()
             var listGetter = doc.data!!.get("RestFavoritesArray") as List<*>
 
@@ -271,20 +301,26 @@ class BnFragment1 : Fragment() {
 
             return true
         }catch (e: Exception){
-            Log.e("BN1", "Likearray fail: $restNo "+e.printStackTrace()+", "+e.localizedMessage)
+            Log.e(
+                "BN1",
+                "Likearray fail: $restNo " + e.printStackTrace() + ", " + e.localizedMessage
+            )
             return false
         }
     }
 
     suspend fun getStringInfo(restNo: Int): Boolean{
         return try{
-            val doc = fbdb!!.collection("tmp7vString").document("RestString"+restNo.toString()).get().await()
+            val doc = fbdb!!.collection("tmp7vString").document("RestString" + restNo.toString()).get().await()
             RestRatingAvg = doc.get("RestRatingAvg").toString().toDouble()
             RestReviewNum = (doc.get("RestReviewNum") as Long).toInt()
 
             return true
         }catch (e: Exception){
-            Log.e("BN1", "getstringinfo fail: $restNo "+e.printStackTrace()+", "+e.localizedMessage)
+            Log.e(
+                "BN1",
+                "getstringinfo fail: $restNo " + e.printStackTrace() + ", " + e.localizedMessage
+            )
             return false
         }
     }
@@ -302,13 +338,13 @@ class BnFragment1 : Fragment() {
                 "RestPosx" to basicInfo!!.restPosx,
                 "RestPosy" to basicInfo!!.restPosy,
             )
-            fbdb!!.collection("tmp7vBasic").document("RestBasic"+restNo.toString())
+            fbdb!!.collection("tmp7vBasic").document("RestBasic" + restNo.toString())
                 .update("RestFavoritesArray", FieldValue.arrayRemove(uid)).await()
             fbdb!!.collection("AccountGroup").document(uid)
                 .update("MyFavoritesArray", FieldValue.arrayRemove(toDeleteMap)).await()
             return true
         }catch (e: Exception){
-            Log.e("BN1", "Failed to cancelLike: "+e.localizedMessage)
+            Log.e("BN1", "Failed to cancelLike: " + e.localizedMessage)
             return false
         }
     }
@@ -326,13 +362,13 @@ class BnFragment1 : Fragment() {
                 "RestPosx" to basicInfo!!.restPosx,
                 "RestPosy" to basicInfo!!.restPosy,
             )
-            fbdb!!.collection("tmp7vBasic").document("RestBasic"+restNo.toString())
+            fbdb!!.collection("tmp7vBasic").document("RestBasic" + restNo.toString())
                 .update("RestFavoritesArray", FieldValue.arrayUnion(uid)).await()
             fbdb!!.collection("AccountGroup").document(uid)
                 .update("MyFavoritesArray", FieldValue.arrayUnion(toAddMap)).await()
             return true
         }catch (e: Exception){
-            Log.e("BN1", "Failed to addLike: "+e.localizedMessage)
+            Log.e("BN1", "Failed to addLike: " + e.localizedMessage)
             return false
         }
     }

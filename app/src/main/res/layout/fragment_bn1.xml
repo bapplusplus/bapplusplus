@@ -106,33 +106,12 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bn1_tv_reviewnum"
             app:srcCompat="@drawable/fill_oragne_temp" />
-
-        <TextView
-            android:id="@+id/bn1_delivery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="TextView"
-            android:textColor="@color/colorGrey2"
-            android:textSize="17sp"
-            app:layout_constraintStart_toEndOf="@+id/bn1_delivery_img"
-            app:layout_constraintTop_toTopOf="@+id/bn1_delivery_img" />
-
-        <ImageView
-            android:id="@+id/bn1_delivery_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bn1_address"
-            app:srcCompat="@android:drawable/ic_menu_send" />
 
         <TextView
             android:id="@+id/bn1_address"
@@ -153,7 +132,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="30dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bn1_time"
             app:srcCompat="@android:drawable/ic_menu_mylocation" />
@@ -163,7 +142,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="30dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bn1_line_sep"
             app:srcCompat="@android:drawable/ic_menu_call" />
@@ -210,20 +189,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="30dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bn1_call"
-            app:srcCompat="@android:drawable/ic_menu_recent_history" />
+            app:srcCompat="@android:drawable/ic_menu_mylocation" />
 
         <TextView
             android:id="@+id/bn1_time"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="24dp"
             android:inputType="textMultiLine"
             android:text="TextView"
             android:textColor="@color/colorGrey2"
             android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/bn1_time_img"
             app:layout_constraintTop_toTopOf="@+id/bn1_time_img" />
     </androidx.constraintlayout.widget.ConstraintLayout>

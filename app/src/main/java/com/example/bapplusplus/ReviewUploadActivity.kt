@@ -199,11 +199,7 @@ class ReviewUploadActivity : AppCompatActivity() {
             if(contentStr.isNullOrEmpty()){
                 Toast.makeText(this, "내용을 입력해 주세요.", Toast.LENGTH_SHORT).show()
             }else{
-                Toast.makeText(
-                    this,
-                    restNo.toString() + " / " + restTitle + " / " + restCategory,
-                    Toast.LENGTH_SHORT
-                ).show()
+                //Toast.makeText(this, restNo.toString() + " / " + restTitle + " / " + restCategory, Toast.LENGTH_SHORT).show()
                 var uploadDialog = AlertDialog.Builder(this)
                 uploadDialog.setTitle("리뷰 등록")
                 if(menuStr.isNullOrEmpty()){
@@ -258,31 +254,29 @@ class ReviewUploadActivity : AppCompatActivity() {
                             ru_sc_btn_upload.isEnabled = false
 
                             if (newUploadOne(reviewdata)) {
-                                Toast.makeText(applicationContext, "Review Upload Success!", Toast.LENGTH_SHORT).show()
+                                //Toast.makeText(applicationContext, "Review Upload Success!", Toast.LENGTH_SHORT).show()
                                 if (photoUri != null) {
                                     if (imageUploadTest(photocodeStr)) {
-                                        Toast.makeText(applicationContext, "Picture Upload Success!", Toast.LENGTH_SHORT).show()
+                                        //Toast.makeText(applicationContext, "Picture Upload Success!", Toast.LENGTH_SHORT).show()
 
                                     } else {
                                         //image upload fail
-                                        Toast.makeText(applicationContext, "Picture Upload Fail...", Toast.LENGTH_SHORT).show()
+                                        //Toast.makeText(applicationContext, "Picture Upload Fail...", Toast.LENGTH_SHORT).show()
                                     }
                                     ru_sc_btn_upload.text = "업로드 성공!"
+                                    Toast.makeText(this@ReviewUploadActivity, "리뷰가 업로드 되었습니다.", Toast.LENGTH_SHORT).show()
                                     delay(600)
                                     setResult(15)
                                     finish()
                                 }else{
                                     ru_sc_btn_upload.text = "업로드 성공!"
+                                    Toast.makeText(this@ReviewUploadActivity, "리뷰가 업로드 되었습니다.", Toast.LENGTH_SHORT).show()
                                     delay(600)
                                     setResult(15)
                                     finish()
                                 }
                             } else {
-                                Toast.makeText(
-                                    applicationContext,
-                                    "Review Upload Fail...",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                //Toast.makeText( applicationContext, "Review Upload Fail...", Toast.LENGTH_SHORT ).show()
                             }
                         }
                     })
