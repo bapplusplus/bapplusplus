@@ -70,7 +70,7 @@
             android:name=".BottomNaviActivity"
             android:theme="@style/AppThemeNew1" />
         <activity
-            android:name=".Roulette"
+            android:name=".RouletteActivity"
             android:theme="@style/AppThemeNew2" />
 
         <meta-data

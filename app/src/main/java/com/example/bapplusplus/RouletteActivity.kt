@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.activity_roulette.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-class Roulette : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class RouletteActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     val random = Random()
 
