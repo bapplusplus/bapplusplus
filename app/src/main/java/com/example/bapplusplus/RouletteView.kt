@@ -31,9 +31,11 @@ class RouletteView: View {
 
 
     var numberOfItems = 1
+    var itemListCopy: ArrayList<GetRouletteItemInfo> = ArrayList()
 
-    fun setRoulette(i: Int){
-        numberOfItems = i
+    fun setRoulette(gri: ArrayList<GetRouletteItemInfo>) {
+        itemListCopy = gri
+        numberOfItems = itemListCopy.size
     }
 
     // todo: color list 만들기
@@ -41,6 +43,7 @@ class RouletteView: View {
 
     var startAngle = 0f
     var sweepAngle = 360f / numberOfItems
+    var tempString = ""
 
     var currentAngle = 0f
         set(value) {
@@ -85,8 +88,20 @@ class RouletteView: View {
             canvas?.rotate(startAngle.applyAngle(), midX, midY)
             canvas?.drawArc(rect, 0f, sweepAngle, true, pnt)
 
-            canvas?.rotate(90 + sweepAngle/2f, midX, midY)
-            canvas?.drawText((i+1).toString(), midX - 20f, midY - 300f, pntText) //
+//            canvas?.rotate(90 + sweepAngle/2f, midX, midY)
+//            canvas?.drawText((i+1).toString(), midX - 20f, midY - 300f, pntText) //
+//            canvas?.restore()
+//            canvas?.save()
+
+            if(itemListCopy[i].RestTitle!!.length > 4) {
+                tempString = itemListCopy[i].RestTitle!!.slice(IntRange(0, 4)) + ".."
+            }
+            else {
+                tempString = itemListCopy[i].RestTitle!!
+            }
+
+            canvas?.rotate(sweepAngle/2f, midX, midY)
+            canvas?.drawText(tempString, midX + 100f, midY + 20f, pntText) //
             canvas?.restore()
             canvas?.save()
         }

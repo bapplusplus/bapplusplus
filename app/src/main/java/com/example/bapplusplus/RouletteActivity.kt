@@ -79,7 +79,7 @@ class RouletteActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             val lm = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
             rouletteRestList.layoutManager = lm
 
-            roulette_view.setRoulette(rouletteRestListSet.size)
+            roulette_view.setRoulette(rouletteRestListSet)
         }
 
         btnSelect.setOnClickListener {
