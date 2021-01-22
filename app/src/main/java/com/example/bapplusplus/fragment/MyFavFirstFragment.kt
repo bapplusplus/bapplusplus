@@ -131,7 +131,7 @@ class MyFavFirstFragment : Fragment() {
                 }
                 R.id.navimenu_two->{
                     //Roulette
-                    val intent = Intent(requireContext(), Roulette::class.java)
+                    val intent = Intent(requireContext(), RouletteActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                     startActivity(intent)
                 }

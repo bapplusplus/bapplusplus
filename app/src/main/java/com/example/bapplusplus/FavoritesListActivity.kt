@@ -421,7 +421,7 @@ class FavoritesListActivity() : AppCompatActivity(), NavigationView.OnNavigation
                 //Roulette
                 //startActivity to Roulette
                 //this.finish()
-                val intent = Intent(this, Roulette::class.java)
+                val intent = Intent(this, RouletteActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(intent)
             }
