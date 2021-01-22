@@ -1,5 +1,6 @@
 package com.example.bapplusplus
 
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -189,6 +190,14 @@ class FavListRouletteActivity : AppCompatActivity() {
 
         favro_fab.setOnClickListener {
             favro_recycler.smoothScrollToPosition(0)
+        }
+
+        // 모든 음식점 선택 완료 후
+        btn_select_done.setOnClickListener {
+            val ittToRoulette = Intent(this, Roulette::class.java)
+            ittToRoulette.putParcelableArrayListExtra("listSet", favroListSet)
+            ittToRoulette.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(ittToRoulette);
         }
 
         favroCategorySelectAdapter = ArrayAdapter(
@@ -416,6 +425,5 @@ class FavListRouletteActivity : AppCompatActivity() {
         favro_appbar.visibility = View.VISIBLE
         favro_fab.visibility = View.VISIBLE
     }
-
 
 }

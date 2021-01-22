@@ -30,7 +30,11 @@ class RouletteView: View {
     val midY: Float = radius
 
 
-    val numberOfItems = 6
+    var numberOfItems = 1
+
+    fun setRoulette(i: Int){
+        numberOfItems = i
+    }
 
     // todo: color list 만들기
     var colorList = mutableListOf<Int>(R.color.colorCorn, R.color.colorYellowCrayola, R.color.colorRajah, R.color.colorOutrageousOrange, R.color.colorParadisePink, R.color.colorRedishPink, R.color.colorNewOrange, R.color.colorBlindOrange, R.color.colorMacAndCheese, R.color.colorWarmYellow)
@@ -64,6 +68,8 @@ class RouletteView: View {
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
+
+        sweepAngle = 360f / numberOfItems
 
         pntText.textSize = 50f
         pntText.color = Color.BLACK
