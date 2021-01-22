@@ -157,6 +157,7 @@ class BnFragment1 : Fragment() {
                 if(FBUserInfo.fbauth.currentUser != null){
                     rootview.bn1_like_const.isEnabled = true
                     if(likesArray.contains(FBUserInfo.fbauth.currentUser!!.uid)){
+                        isMyLike = true
                         rootview.bn1_img_like.setImageDrawable(
                             resources.getDrawable(
                                 R.drawable.red_heart_one,
