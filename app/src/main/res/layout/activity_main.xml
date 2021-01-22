@@ -6,15 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageView
         android:id="@+id/img_logo"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginTop="100dp"
         android:background="@drawable/round_logo"
         android:src="@drawable/ic_bapplusplus_icon_white"
-        app:civ_border_color="#FF000000"
-        app:civ_border_width="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
