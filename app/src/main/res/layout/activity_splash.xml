@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/splash_const"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorOrange2Primary"
+    tools:context=".SplashActivity">
+
+    <TextView
+        android:id="@+id/splash_tv_bot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
+        android:letterSpacing="0.15"
+        android:text="POWERED BY EOS"
+        android:textColor="@color/colorWhite1"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/splash_tv_two"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:letterSpacing="0.05"
+        android:text="밥은 먹고 다니냐?"
+        android:textColor="@color/colorWhite1"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/splash_img" />
+
+    <TextView
+        android:id="@+id/splash_tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="밥++"
+        android:textColor="@color/colorWhite1"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/splash_img"
+        app:layout_constraintStart_toEndOf="@+id/splash_img"
+        app:layout_constraintTop_toTopOf="@+id/splash_img" />
+
+    <ImageView
+        android:id="@+id/splash_img"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="150dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_bapplusplus_icon_white" />
+</androidx.constraintlayout.widget.ConstraintLayout>

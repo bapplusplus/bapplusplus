@@ -4,16 +4,28 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.MenuItem
 import android.view.View
+import android.widget.ImageButton
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bapplusplus.adapter.RouletteAdapter
+import com.example.bapplusplus.data.FBUserInfo
+import com.google.android.material.navigation.NavigationView
+import kotlinx.android.synthetic.main.activity_favorites_list.*
+import kotlinx.android.synthetic.main.activity_my_favorites.*
 import kotlinx.android.synthetic.main.activity_roulette.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-class Roulette : AppCompatActivity() {
+class Roulette : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     val random = Random()
 
@@ -24,6 +36,7 @@ class Roulette : AppCompatActivity() {
     var dataSetFlag: Int = 0
 
     lateinit var rouletteRestListSet: ArrayList<GetRouletteItemInfo>
+    var mDrawerLayout: DrawerLayout? = null
 
 //    var roulettetAdapter: RouletteAdapter ?= null
 
@@ -79,6 +92,34 @@ class Roulette : AppCompatActivity() {
             Toast.makeText(this, "pressed", Toast.LENGTH_SHORT).show()
         }
 
+
+        //set Toolbar
+        val rou_toolbar = roulette_toolbar as Toolbar
+        setSupportActionBar(rou_toolbar)
+
+        val ab = supportActionBar!!
+        ab.setDisplayShowTitleEnabled(false)
+        ab.setDisplayHomeAsUpEnabled(true)
+        ab.setHomeAsUpIndicator(R.drawable.ic_dehaze_white_24dp)
+
+        //set Drawer
+        mDrawerLayout = findViewById(R.id.roulette_drawer)
+        roulette_navi.setNavigationItemSelectedListener(this)
+
+        var roulette__navi_view = roulette_navi.getHeaderView(0)
+        roulette__navi_view.findViewById<TextView>(R.id.navihead_title).text = FBUserInfo.fbauth.currentUser?.displayName ?: "로그인되지 않음"
+        roulette__navi_view.findViewById<TextView>(R.id.navihead_subtitle).text = FBUserInfo.fbauth.currentUser?.email ?: "Guest"
+        roulette__navi_view.findViewById<ImageButton>(R.id.navihead_btn_settings).setOnClickListener {
+
+            val itts = Intent(this, MyInfoActivity::class.java)
+            startActivity(itts)
+            Handler(Looper.getMainLooper()).postDelayed({
+                mDrawerLayout!!.closeDrawers()
+            }, 400)
+
+        }
+
+
     }
 
     override fun onResume() {
@@ -89,6 +130,63 @@ class Roulette : AppCompatActivity() {
 //            intent.putParcelableArrayListExtra("listSet", rouletteRestListSet)
             startActivity(intent)
 
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        when (id) {
+            android.R.id.home -> {
+                //finish()
+                mDrawerLayout!!.openDrawer(GravityCompat.START)
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.navimenu_one->{
+                //Main
+                //this.finish()
+                val itt = Intent(this, MainActivity::class.java)
+                startActivity(itt)
+            }
+            R.id.navimenu_two->{
+                //Roulette
+                //Do Nothing
+                mDrawerLayout!!.closeDrawers()
+            }
+            R.id.navimenu_three->{
+                //MyLike
+                //Toast.makeText(this, "Menu3", Toast.LENGTH_SHORT).show()
+                if(FBUserInfo.fbauth.currentUser == null){
+                    Toast.makeText(this, "로그인 후 이용할 수 있습니다.", Toast.LENGTH_SHORT).show()
+                }else{
+                    this.finish()
+                    val itt = Intent(this, MyFavoritesActivity::class.java)
+                    startActivity(itt)
+                }
+
+            }
+            R.id.navimenu_four->{
+                //Toast.makeText(this, "Menu4", Toast.LENGTH_SHORT).show()
+                //search list == this
+                //this.finish()
+                val itt = Intent(this, FavoritesListActivity::class.java)
+                itt.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                startActivity(itt)
+            }
+        }
+        return false
+    }
+
+    override fun onBackPressed() {
+        if(mDrawerLayout!!.isDrawerOpen(GravityCompat.START)){
+            mDrawerLayout!!.closeDrawers()
+        }else{
+            super.onBackPressed()
         }
     }
 }
