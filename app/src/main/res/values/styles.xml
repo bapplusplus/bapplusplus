@@ -33,6 +33,7 @@
         <item name="colorPrimary">@color/colorOrange2Primary</item>
         <item name="colorPrimaryDark">@color/colorOrange2Dark</item>
         <item name="colorAccent">@color/colorOrange2Accent</item>
+        <item name="android:windowDisablePreview">true</item>
     </style>
 
     <style name="AppThemeNew2" parent="Theme.AppCompat.DayNight.NoActionBar">

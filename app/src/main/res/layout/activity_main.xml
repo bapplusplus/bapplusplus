@@ -1,121 +1,264 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:fillViewport="true">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/img_logo"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="100dp"
-        android:background="@drawable/round_logo"
-        android:src="@drawable/ic_bapplusplus_icon_white"
-        app:civ_border_color="#FF000000"
-        app:civ_border_width="2dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main_const"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/iv_setting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_settings_white_24dp" />
+        <ProgressBar
+            android:id="@+id/main_hot_progress"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:indeterminateTint="@color/colorOrange2Accent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_hot_tv" />
 
-    <Button
-        android:id="@+id/btn_login"
-        android:layout_width="60dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/round_orange_button"
-        android:text="로그인"
-        android:textColor="@color/colorWhite1"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/iv_setting"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/main_hot_sep_line"
+            android:layout_width="0dp"
+            android:layout_height="1.5dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_hot_tv"
+            app:srcCompat="@drawable/back_gray_rect" />
 
-    <ImageView
-        android:id="@+id/iv_roulette"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="50dp"
-        app:layout_constraintEnd_toStartOf="@+id/iv_search"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_logo"
-        app:srcCompat="@drawable/orange_roulette" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main_const_bot"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_hot_sep_line">
 
-    <TextView
-        android:id="@+id/tv_roulette"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="오늘뭐먹지?"
-        android:textAlignment="center"
-        android:textColor="@color/colorOrange2Primary"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/iv_roulette"
-        app:layout_constraintStart_toStartOf="@+id/iv_roulette"
-        app:layout_constraintTop_toBottomOf="@+id/iv_roulette" />
+            <FrameLayout
+                android:id="@+id/main_hot_frame"
+                android:layout_width="0dp"
+                android:layout_height="300dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/outline_grey_rect"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_hot_recycler">
 
-    <ImageView
-        android:id="@+id/iv_search"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintEnd_toStartOf="@+id/iv_heart"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/iv_roulette"
-        app:layout_constraintTop_toBottomOf="@+id/img_logo"
-        app:srcCompat="@drawable/orange_search" />
+            </FrameLayout>
 
-    <TextView
-        android:id="@+id/tv_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="검색"
-        android:textAlignment="center"
-        android:textColor="@color/colorOrange2Primary"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/iv_search"
-        app:layout_constraintStart_toStartOf="@+id/iv_search"
-        app:layout_constraintTop_toBottomOf="@+id/iv_search" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/main_hot_recycler"
+                android:layout_width="0dp"
+                android:layout_height="130dp"
+                android:layout_marginTop="4dp"
+                android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_search2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="좋아요"
-        android:textAlignment="center"
-        android:textColor="@color/colorOrange2Primary"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/iv_heart"
-        app:layout_constraintStart_toStartOf="@+id/iv_heart"
-        app:layout_constraintTop_toBottomOf="@+id/iv_heart" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/main_hot_const_one"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="4dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/iv_heart"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/iv_search"
-        app:layout_constraintTop_toBottomOf="@+id/img_logo"
-        app:srcCompat="@drawable/orange_heart_outline" />
+                <ImageView
+                    android:id="@+id/main_hot_two_img_star"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="4dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/main_hot_two_tv_rating"
+                    app:layout_constraintEnd_toStartOf="@+id/main_hot_two_tv_rating"
+                    app:layout_constraintTop_toTopOf="@+id/main_hot_two_tv_rating"
+                    app:srcCompat="@drawable/iconstaroutline2" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/main_hot_two_tv_lead"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="1위"
+                    android:textColor="@color/colorOrange2Primary"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/main_hot_two_tv_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="TextView"
+                    android:textColor="@color/colorGrey2"
+                    app:layout_constraintBottom_toBottomOf="@+id/main_hot_two_tv_lead"
+                    app:layout_constraintEnd_toStartOf="@+id/main_hot_two_img_star"
+                    app:layout_constraintStart_toEndOf="@+id/main_hot_two_tv_lead"
+                    app:layout_constraintTop_toTopOf="@+id/main_hot_two_tv_lead" />
+
+                <TextView
+                    android:id="@+id/main_hot_two_tv_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="5.0"
+                    android:textColor="@color/colorGrey1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/main_hot_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="60dp"
+            android:text="밥++ 추천 BEST 3"
+            android:textColor="@color/colorOrange2Dark"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_roulette" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_logo"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="100dp"
+            android:background="@drawable/round_logo"
+            android:src="@drawable/ic_bapplusplus_icon_white"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_settings_white_24dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_login"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/round_orange_button"
+            android:text="로그인"
+            android:textColor="@color/colorWhite1"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/iv_setting"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_roulette"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="50dp"
+            app:layout_constraintEnd_toStartOf="@+id/iv_search"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_logo"
+            app:srcCompat="@drawable/orange_roulette" />
+
+        <TextView
+            android:id="@+id/tv_roulette"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="오늘뭐먹지?"
+            android:textAlignment="center"
+            android:textColor="@color/colorOrange2Primary"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/iv_roulette"
+            app:layout_constraintStart_toStartOf="@+id/iv_roulette"
+            app:layout_constraintTop_toBottomOf="@+id/iv_roulette" />
+
+        <ImageView
+            android:id="@+id/iv_search"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toStartOf="@+id/iv_heart"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/iv_roulette"
+            app:layout_constraintTop_toBottomOf="@+id/img_logo"
+            app:srcCompat="@drawable/orange_search" />
+
+        <TextView
+            android:id="@+id/tv_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="검색"
+            android:textAlignment="center"
+            android:textColor="@color/colorOrange2Primary"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/iv_search"
+            app:layout_constraintStart_toStartOf="@+id/iv_search"
+            app:layout_constraintTop_toBottomOf="@+id/iv_search" />
+
+        <TextView
+            android:id="@+id/tv_search2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="좋아요"
+            android:textAlignment="center"
+            android:textColor="@color/colorOrange2Primary"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/iv_heart"
+            app:layout_constraintStart_toStartOf="@+id/iv_heart"
+            app:layout_constraintTop_toBottomOf="@+id/iv_heart" />
+
+        <ImageView
+            android:id="@+id/iv_heart"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/iv_search"
+            app:layout_constraintTop_toBottomOf="@+id/img_logo"
+            app:srcCompat="@drawable/orange_heart_outline" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
+

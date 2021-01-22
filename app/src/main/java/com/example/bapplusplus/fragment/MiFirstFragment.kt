@@ -103,6 +103,8 @@ class MiFirstFragment : Fragment() {
                     Toast.makeText(requireContext(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show()
                     FBUserInfo.setSignOut()
                     val ittd = Intent(requireContext(), MainActivity::class.java)
+                    ittd.putExtra("login", 5)
+                    MainActivity.loginbtn.visibility = View.VISIBLE
                     startActivity(ittd)
                 }
             })
