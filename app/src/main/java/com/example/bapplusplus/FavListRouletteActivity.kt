@@ -1,5 +1,4 @@
 package com.example.bapplusplus
-
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
@@ -238,6 +237,14 @@ class FavListRouletteActivity : AppCompatActivity() {
 
         favro_fab.setOnClickListener {
             favro_recycler.scrollToPosition(0)
+        }
+
+        // 모든 음식점 선택 완료 후
+        btn_select_done.setOnClickListener {
+            val ittToRoulette = Intent(this, Roulette::class.java)
+            ittToRoulette.putParcelableArrayListExtra("listSet", favroListSet)
+            ittToRoulette.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(ittToRoulette);
         }
 
         favroCategorySelectAdapter = ArrayAdapter(

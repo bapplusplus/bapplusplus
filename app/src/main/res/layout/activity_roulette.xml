@@ -13,7 +13,8 @@
         android:background="#FF5722"
         android:gravity="center"
         android:text="오늘 뭐 먹지?"
-        android:textSize="18sp"
+        android:textSize="24sp"
+        android:textColor="@color/colorWhite1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -47,13 +48,13 @@
         android:id="@+id/btn_rotate"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_marginTop="10dp"
-        android:text="rotate"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="330dp"
+        android:background="@drawable/outline_orange_round_rect"
+        android:text="돌려돌려"
+        android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll_roulette_parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/img_pointer" />
 
     <TextView
         android:id="@+id/title_list"
@@ -62,18 +63,66 @@
         android:layout_marginTop="10dp"
         android:background="#FF5722"
         android:gravity="center"
+        android:text="어느 곳을 가볼까요?"
         android:textSize="18sp"
+        android:textColor="@color/colorWhite1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_rotate" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rouletteRestListConst"
         android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_list">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rouletteRestList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tvNoData"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:text="아직 선택되지 않았습니다."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_pointer" />
+
+    <Button
+        android:id="@+id/btnSelect"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/outline_orange_round_rect"
+        android:text="가게 고르러 가기"
+        android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_list" />
+
+    <Button
+        android:id="@+id/btnReSelect"
+        android:layout_width="115dp"
+        android:layout_height="30dp"
+        android:background="@drawable/outline_orange_round_rect"
+        android:text="가게 다시 고르기"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/title_list"
+        app:layout_constraintEnd_toEndOf="@+id/title_list"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/title_list" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
