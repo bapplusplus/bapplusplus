@@ -186,6 +186,7 @@
         android:layout_height="40dp"
         android:background="@drawable/round_orange_button"
         android:text="선택 완료"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

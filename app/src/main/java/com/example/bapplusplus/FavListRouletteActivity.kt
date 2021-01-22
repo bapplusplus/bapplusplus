@@ -183,13 +183,6 @@ class FavListRouletteActivity : AppCompatActivity() {
             true
         }
 
-        favro_bs_try.setOnClickListener {
-            Toast.makeText(this, "개수: "+ favroListSet.count().toString(), Toast.LENGTH_SHORT).show()
-            var ittf = Intent(this, MyFavoritesActivity::class.java)
-            ittf.putParcelableArrayListExtra("sendtry", favroListSet)
-            startActivity(ittf)
-        }
-
         //ab.setHomeAsUpIndicator(R.drawable.ic_dehaze_white_24dp)
 
         CoroutineScope(Main).launch {
@@ -240,11 +233,17 @@ class FavListRouletteActivity : AppCompatActivity() {
         }
 
         // 모든 음식점 선택 완료 후
-        btn_select_done.setOnClickListener {
+        /*btn_select_done.setOnClickListener {
             val ittToRoulette = Intent(this, Roulette::class.java)
             ittToRoulette.putParcelableArrayListExtra("listSet", favroListSet)
             ittToRoulette.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(ittToRoulette);
+        }*/
+        favro_bs_try.setOnClickListener {
+            val ittToRoulette = Intent(this, Roulette::class.java)
+            ittToRoulette.putParcelableArrayListExtra("listSet", favroListSet)
+            ittToRoulette.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(ittToRoulette)
         }
 
         favroCategorySelectAdapter = ArrayAdapter(
