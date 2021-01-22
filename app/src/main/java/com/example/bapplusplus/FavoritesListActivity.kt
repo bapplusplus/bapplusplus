@@ -216,7 +216,7 @@ class FavoritesListActivity() : AppCompatActivity(), NavigationView.OnNavigation
         }
 
         fav_fab.setOnClickListener {
-            fav_recycler.smoothScrollToPosition(0)
+            fav_recycler.scrollToPosition(0)
         }
 
 
@@ -412,20 +412,31 @@ class FavoritesListActivity() : AppCompatActivity(), NavigationView.OnNavigation
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.navimenu_one->{
+                //Main
                 //this.finish()
                 val itt = Intent(this, MainActivity::class.java)
                 startActivity(itt)
             }
             R.id.navimenu_two->{
-                Toast.makeText(this, "Menu2", Toast.LENGTH_SHORT).show()
-                //search list == this
-                mDrawerLayout!!.closeDrawers()
+                //Roulette
+                //startActivity to Roulette
             }
             R.id.navimenu_three->{
-                Toast.makeText(this, "Menu3", Toast.LENGTH_SHORT).show()
+                //MyLike
+                //Toast.makeText(this, "Menu3", Toast.LENGTH_SHORT).show()
+                if(FBUserInfo.fbauth.currentUser == null){
+                    Toast.makeText(this, "로그인 후 이용할 수 있습니다.", Toast.LENGTH_SHORT).show()
+                }else{
+                    this.finish()
+                    val itt = Intent(this, MyFavoritesActivity::class.java)
+                    startActivity(itt)
+                }
 
-//                val itt = Intent(this, MainActivity::class.java)
-//                startActivity(itt)
+            }
+            R.id.navimenu_four->{
+                //Toast.makeText(this, "Menu4", Toast.LENGTH_SHORT).show()
+                //search list == this
+                mDrawerLayout!!.closeDrawers()
             }
         }
         return false

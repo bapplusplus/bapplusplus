@@ -228,23 +228,28 @@ class BottomNaviActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.navimenu_one->{
-                this.finish()
+                //Main
+                //this.finish()
                 val itt = Intent(this, MainActivity::class.java)
                 startActivity(itt)
-//                val itt = Intent(this, MainActivity::class.java)
-//                startActivity(itt)
             }
             R.id.navimenu_two->{
+                //Roulette
+            }
+            R.id.navimenu_three->{
+                if(FBUserInfo.fbauth.currentUser == null){
+                    Toast.makeText(this, "로그인 후 이용할 수 있습니다.", Toast.LENGTH_SHORT).show()
+                }else{
+                    this.finish()
+                    val itt = Intent(this, MyFavoritesActivity::class.java)
+                    startActivity(itt)
+                }
+            }
+            R.id.navimenu_four->{
                 //onBackPressed()
                 //this.finish()
                 val itt = Intent(this, FavoritesListActivity::class.java)
                 itt.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                startActivity(itt)
-            }
-            R.id.navimenu_three->{
-                Toast.makeText(this, "Menu3", Toast.LENGTH_SHORT).show()
-
-                val itt = Intent(this, MyInfoActivity::class.java)
                 startActivity(itt)
             }
         }

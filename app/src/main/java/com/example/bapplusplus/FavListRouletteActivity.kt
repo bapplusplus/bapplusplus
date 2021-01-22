@@ -1,5 +1,6 @@
 package com.example.bapplusplus
-
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -7,27 +8,25 @@ import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bapplusplus.adapter.FavListRouletteAdapter
 import com.example.bapplusplus.data.FBUserInfo
+import com.example.bapplusplus.fragment.BottomSheetFavroItems
 import com.example.bapplusplus.fragment.BottomSheetListFilter
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_fav_list_roulette.*
-import kotlinx.android.synthetic.main.activity_favorites_list.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
@@ -92,8 +91,12 @@ class FavListRouletteActivity : AppCompatActivity() {
 
     companion object {
         lateinit var favroListSet: ArrayList<GetRouletteItemInfo>
-
+        //lateinit var bsfavro: BottomSheetFavroItems
         lateinit var tvvv : TextView
+
+        lateinit var bstitle: TextView
+        lateinit var bscontent: TextView
+        lateinit var bstry: Button
 
         fun changeText(){
             val sb = StringBuilder()
@@ -110,6 +113,30 @@ class FavListRouletteActivity : AppCompatActivity() {
 
             println(sb.toString())
             tvvv.text = sb.toString()
+
+            //bsfavro.setContentText(favroListSet.count(), sb.toString())
+        }
+
+        fun changeTextNew(){
+            val sb = StringBuilder()
+            if (favroListSet.isEmpty()){
+                sb.append("룰렛에 넣을 음식점을 추가해 주세요.")
+                bstry.visibility = View.GONE
+            }else{
+                for (cc in 0..favroListSet.size-1){
+                    //tsss.plus(favroListSet?.get(cc)?.RestTitle+"\n")
+                    //tsss = favroListSet.get(0).RestTitle.toString()
+                    sb.append(favroListSet?.get(cc)?.RestTitle+"\n")
+                }
+                bstry.visibility = View.VISIBLE
+            }
+
+            println(sb.toString())
+            bscontent.text = sb.toString()
+            bstitle.text = "선택한 개수 : "+ favroListSet.count().toString()
+
+
+            //bsfavro.setContentText(favroListSet.count(), sb.toString())
         }
     }
 
@@ -121,14 +148,18 @@ class FavListRouletteActivity : AppCompatActivity() {
 
         favro_appbar.visibility = View.GONE
         favro_fab.visibility = View.GONE
+        favro_frame_bs.visibility = View.GONE
 
         val itt = intent
         //favroListAll = itt.getParcelableArrayListExtra<GetNumsInfo>("listtry") as ArrayList<GetNumsInfo>
         favroListSet = itt.getParcelableArrayListExtra("listSet") ?: arrayListOf<GetRouletteItemInfo>()
 
         favroAdapter = FavListRouletteAdapter(this, favroListAll, favroListSet)
-        favro_toolbar_title.text = "음식점 선택"
+        //favro_toolbar_title.text = "음식점 선택"
         tvvv = findViewById(R.id.favro_tv_test)
+        bstitle = findViewById(R.id.favro_bs_title)
+        bscontent = findViewById(R.id.favro_bs_content)
+        bstry = findViewById(R.id.favro_bs_try)
 
         //setting 1
         favro_recycler.addItemDecoration(
@@ -147,6 +178,11 @@ class FavListRouletteActivity : AppCompatActivity() {
         val ab = supportActionBar!!
         ab.setDisplayShowTitleEnabled(false)
         ab.setDisplayHomeAsUpEnabled(true)
+
+        favro_frame_bs.setOnTouchListener { view, motionEvent ->
+            true
+        }
+
         //ab.setHomeAsUpIndicator(R.drawable.ic_dehaze_white_24dp)
 
         CoroutineScope(Main).launch {
@@ -157,10 +193,14 @@ class FavListRouletteActivity : AppCompatActivity() {
 
             if(!favroListSet.isNullOrEmpty()){
                 getFavroListSet()
+                changeTextNew()
             }else{
                 favro_progressbar.visibility = View.GONE
                 favro_appbar.visibility = View.VISIBLE
                 favro_fab.visibility = View.VISIBLE
+                favro_frame_bs.visibility = View.VISIBLE
+                favro_bs_try.visibility = View.GONE
+                changeTextNew()
                 favroAdapter!!.notifyDataSetChanged()
                 Log.d("FAVR", "Favroset is empty")
             }
@@ -189,15 +229,21 @@ class FavListRouletteActivity : AppCompatActivity() {
         }*/
 
         favro_fab.setOnClickListener {
-            favro_recycler.smoothScrollToPosition(0)
+            favro_recycler.scrollToPosition(0)
         }
 
         // 모든 음식점 선택 완료 후
-        btn_select_done.setOnClickListener {
+        /*btn_select_done.setOnClickListener {
             val ittToRoulette = Intent(this, Roulette::class.java)
             ittToRoulette.putParcelableArrayListExtra("listSet", favroListSet)
             ittToRoulette.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(ittToRoulette);
+        }*/
+        favro_bs_try.setOnClickListener {
+            val ittToRoulette = Intent(this, Roulette::class.java)
+            ittToRoulette.putParcelableArrayListExtra("listSet", favroListSet)
+            ittToRoulette.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(ittToRoulette)
         }
 
         favroCategorySelectAdapter = ArrayAdapter(
@@ -238,7 +284,16 @@ class FavListRouletteActivity : AppCompatActivity() {
         val id = item.itemId
         when (id) {
             android.R.id.home -> {
-                finish()
+                var logoutDialog = AlertDialog.Builder(this)
+                logoutDialog.setTitle("선택 취소").setMessage("만들던 목록을 취소하고 돌아가시겠습니까?")
+                logoutDialog.setPositiveButton("예", DialogInterface.OnClickListener { dialogInterface, which ->
+                    CoroutineScope(Dispatchers.Main).launch {
+                        finish()
+                    }
+                })
+                logoutDialog.setNegativeButton("아니오", null)
+                logoutDialog.create()
+                logoutDialog.show()
                 return true
             }
             R.id.favro_filter->{
@@ -302,7 +357,7 @@ class FavListRouletteActivity : AppCompatActivity() {
                 }
                 favroListSet.clear()
                 favroAdapter!!.notifyDataSetChanged()
-                changeText()
+                changeTextNew()
                 return true
             }
         }
@@ -425,5 +480,21 @@ class FavListRouletteActivity : AppCompatActivity() {
         favro_appbar.visibility = View.VISIBLE
         favro_fab.visibility = View.VISIBLE
     }
+
+    override fun onBackPressed() {
+        var logoutDialog = AlertDialog.Builder(this)
+        logoutDialog.setTitle("선택 취소").setMessage("만들던 목록을 취소하고 돌아가시겠습니까?")
+        logoutDialog.setPositiveButton("예", DialogInterface.OnClickListener { dialogInterface, which ->
+            CoroutineScope(Dispatchers.Main).launch {
+                finish()
+            }
+        })
+        logoutDialog.setNegativeButton("아니오", null)
+        logoutDialog.create()
+        logoutDialog.show()
+
+        //super.onBackPressed()
+    }
+
 
 }

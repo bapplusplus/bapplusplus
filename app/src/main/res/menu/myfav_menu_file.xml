@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/mafav_menu_map"
+        android:icon="@drawable/ic_place_white_24dp"
+        android:title="지도"
+        app:showAsAction="ifRoom|collapseActionView" />
+    <item
+        android:id="@+id/mafav_menu_set"
+        android:icon="@drawable/ic_settings_white_two_24dp"
+        android:title="관리"
+        app:showAsAction="ifRoom|collapseActionView" />
+
+</menu>

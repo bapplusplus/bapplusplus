@@ -17,4 +17,7 @@
     <string name="appbar_scrolling_view_behavior" translatable="false">
         com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior
     </string>
+
+    <string name="format_info_window_on_marker">""</string>
+    <string name="format_info_window_on_map">""</string>
 </resources>

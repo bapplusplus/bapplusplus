@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mfm_coordi"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.MyFavMapFragment">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mfm_const"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/mfm_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/mfm_frame_downside"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttonst02"
+        app:behavior_hideable="false"
+        app:behavior_peekHeight="auto"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mfmf_const"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/mfmf_tv_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:text="9km"
+                android:textColor="@color/colorOrange2Dark"
+                app:layout_constraintEnd_toStartOf="@+id/mfmf_btn_details"
+                app:layout_constraintTop_toTopOf="@+id/mfmf_tv_title" />
+
+            <Button
+                android:id="@+id/mfmf_btn_details"
+                style="@android:style/Widget.Material.Light.Button.Borderless.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:text="자세히"
+                android:textColor="@color/colorOrange2Primary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/mfmf_tv_address"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:text="Address"
+                android:textColor="@color/colorGrey2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/mfmf_btn_details"
+                app:layout_constraintStart_toStartOf="@+id/mfmf_tv_title"
+                app:layout_constraintTop_toBottomOf="@+id/mfmf_tv_title" />
+
+            <TextView
+                android:id="@+id/mfmf_tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="10dp"
+                android:text="Title"
+                android:textColor="@color/colorOrange2Dark"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
