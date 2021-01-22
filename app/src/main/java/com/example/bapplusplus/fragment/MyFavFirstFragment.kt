@@ -131,10 +131,14 @@ class MyFavFirstFragment : Fragment() {
                 }
                 R.id.navimenu_two->{
                     //Roulette
+                    val intent = Intent(requireContext(), Roulette::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    startActivity(intent)
                 }
                 R.id.navimenu_three->{
                     //MyFavorites
                     //Do Nothing
+                    requireActivity().mafav_drawer.closeDrawers()
                 }
                 R.id.navimenu_four->{
                     //Search

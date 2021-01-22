@@ -1,128 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/roulette_drawer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Roulette">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/title_roulette"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:background="#FF5722"
-        android:gravity="center"
-        android:text="오늘 뭐 먹지?"
-        android:textSize="24sp"
-        android:textColor="@color/colorWhite1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/img_pointer"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="75dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/pointer" />
-
-    <LinearLayout
-        android:id="@+id/ll_roulette_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/roulette_const"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_pointer">
+        android:layout_height="match_parent"
+        tools:context=".Roulette">
 
-        <com.example.bapplusplus.RouletteView
-            android:id="@+id/roulette_view"
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/roulette_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="320dp" />
-    </LinearLayout>
+            android:layout_height="50dp"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/btn_rotate"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginTop="330dp"
-        android:background="@drawable/outline_orange_round_rect"
-        android:text="돌려돌려"
-        android:textSize="14dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_pointer" />
+        </androidx.appcompat.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/title_list"
-        android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="10dp"
-        android:background="#FF5722"
-        android:gravity="center"
-        android:text="어느 곳을 가볼까요?"
-        android:textSize="18sp"
-        android:textColor="@color/colorWhite1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_rotate" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/rouletteRestListConst"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_list">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rouletteRestList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <TextView
+            android:id="@+id/roulette_toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="오늘 뭐 먹지?"
+            android:textColor="@color/colorWhite1"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/title_roulette"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:background="#FF5722"
+            android:gravity="center"
+            android:text="오늘 뭐 먹지?"
+            android:textColor="@color/colorWhite1"
+            android:textSize="24sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_pointer"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="75dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/pointer" />
+
+        <LinearLayout
+            android:id="@+id/ll_roulette_parent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_pointer">
+
+            <com.example.bapplusplus.RouletteView
+                android:id="@+id/roulette_view"
+                android:layout_width="match_parent"
+                android:layout_height="320dp" />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_rotate"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginTop="330dp"
+            android:background="@drawable/outline_orange_round_rect"
+            android:text="돌려돌려"
+            android:textSize="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_pointer" />
+
+        <TextView
+            android:id="@+id/title_list"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorOrange2Primary"
+            android:gravity="center"
+            android:text="어느 곳을 가볼까요?"
+            android:textColor="@color/colorWhite1"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_rotate" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/rouletteRestListConst"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_list">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rouletteRestList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tvNoData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            android:text="아직 선택되지 않았습니다."
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_pointer" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnSelect"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/outline_orange_round_rect"
+            android:text="가게 고르러 가기"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_list" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnReSelect"
+            android:layout_width="115dp"
+            android:layout_height="30dp"
+            android:background="@drawable/outline_orange_round_rect"
+            android:text="가게 다시 고르기"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="@+id/title_list"
+            app:layout_constraintEnd_toEndOf="@+id/title_list"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/title_list" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/tvNoData"
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/roulette_navi"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        android:text="아직 선택되지 않았습니다."
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_pointer" />
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/navi_header"
+        app:menu="@menu/navi_menu">
+    </com.google.android.material.navigation.NavigationView>
 
-    <Button
-        android:id="@+id/btnSelect"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/outline_orange_round_rect"
-        android:text="가게 고르러 가기"
-        android:textSize="14dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_list" />
+</androidx.drawerlayout.widget.DrawerLayout>
 
-    <Button
-        android:id="@+id/btnReSelect"
-        android:layout_width="115dp"
-        android:layout_height="30dp"
-        android:background="@drawable/outline_orange_round_rect"
-        android:text="가게 다시 고르기"
-        android:textSize="12dp"
-        app:layout_constraintBottom_toBottomOf="@+id/title_list"
-        app:layout_constraintEnd_toEndOf="@+id/title_list"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/title_list" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>

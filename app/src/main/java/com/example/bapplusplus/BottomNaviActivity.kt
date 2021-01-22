@@ -235,6 +235,10 @@ class BottomNaviActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
             }
             R.id.navimenu_two->{
                 //Roulette
+                this.finish()
+                val intent = Intent(this, Roulette::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                startActivity(intent)
             }
             R.id.navimenu_three->{
                 if(FBUserInfo.fbauth.currentUser == null){

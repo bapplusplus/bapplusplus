@@ -420,6 +420,10 @@ class FavoritesListActivity() : AppCompatActivity(), NavigationView.OnNavigation
             R.id.navimenu_two->{
                 //Roulette
                 //startActivity to Roulette
+                //this.finish()
+                val intent = Intent(this, Roulette::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                startActivity(intent)
             }
             R.id.navimenu_three->{
                 //MyLike

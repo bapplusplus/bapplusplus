@@ -28,7 +28,7 @@ class RouletteAdapter(val context: Context, val rouletteItemList: ArrayList<GetR
         val singleItem = rouletteItemList[position]
 
         holder.apply {
-            bind(singleItem)
+            bind(singleItem, position)
         }
 //        holder.bind(rouletteItemList[position])
     }
@@ -42,9 +42,9 @@ class RouletteAdapter(val context: Context, val rouletteItemList: ArrayList<GetR
 
         val container = itemView.findViewById<ConstraintLayout>(R.id.roulette_container)
 
-        fun bind(getRouletteItemInfo: GetRouletteItemInfo) {
+        fun bind(getRouletteItemInfo: GetRouletteItemInfo, position: Int) {
 //            itemView.tvCellNum.text = getRouletteItemInfo.RestNo.toString()
-            itemView.tvCellNum.text = (countItem++).toString()
+            itemView.tvCellNum.text = (position+1).toString()
             itemView.tvRestName.text = getRouletteItemInfo.RestTitle
 
             // 해당 cell을 누르면 detail로 넘어갈 수 있게 만들기 -> 시간 되면
