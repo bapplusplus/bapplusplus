@@ -26,25 +26,28 @@ class MainActivity : AppCompatActivity() {
         //FBUserInfo()
 
 
-
         iv_roulette.setOnClickListener {
             val intent = Intent(this, RouletteActivity::class.java)
             startActivity(intent)
         }
 
         iv_search.setOnClickListener {
-
+            val intent = Intent(this, FavoritesListActivity::class.java)
+            startActivity(intent)
         }
 
         iv_heart.setOnClickListener {
-
+            // todo
         }
 
         iv_setting.setOnClickListener {
-
+            val intent = Intent(this, MyInfoActivity::class.java)
+            startActivity(intent)
         }
 
-        btn_login
+        btn_login.setOnClickListener {
+            // todo
+        }
 
 //        btn_newlogin.setOnClickListener {
 //            val fbuser = FirebaseAuth.getInstance().currentUser?.uid
@@ -56,28 +59,7 @@ class MainActivity : AppCompatActivity() {
 //                Log.d("Main User Info:", FBUserInfo.userName)
 //                val intent = Intent(this, MyInfoActivity::class.java)
 //                startActivity(intent)
-//
 //            }
-//        }
-
-//        btn_reviewupload.setOnClickListener {
-//            if(FBUserInfo.loginState == false){
-//                Toast.makeText(this, "Not Logged In", Toast.LENGTH_SHORT).show()
-//                val intent = Intent(this, ReviewUploadActivity::class.java)
-//                startActivity(intent)
-//            }else{
-//                Toast.makeText(this, FBUserInfo.userName, Toast.LENGTH_SHORT).show()
-//                val intent = Intent(this, ReviewUploadActivity::class.java)
-//                startActivity(intent)
-//            }
-//
-//            val intent = Intent(this, FavListRouletteActivity::class.java)
-//            startActivity(intent)
-//        }
-//
-//        btn_testingact.setOnClickListener {
-//            val intent = Intent(this, TestingActivity::class.java)
-//            startActivity(intent)
 //        }
 
     }
