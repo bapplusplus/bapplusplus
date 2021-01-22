@@ -240,7 +240,7 @@ class FavListRouletteActivity : AppCompatActivity() {
             startActivity(ittToRoulette);
         }*/
         favro_bs_try.setOnClickListener {
-            val ittToRoulette = Intent(this, Roulette::class.java)
+            val ittToRoulette = Intent(this, RouletteActivity::class.java)
             ittToRoulette.putParcelableArrayListExtra("listSet", favroListSet)
             ittToRoulette.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(ittToRoulette)

@@ -1,7 +1,6 @@
 package com.example.bapplusplus
 
 import android.content.Intent
-import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -9,13 +8,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 import android.util.Log
 import com.example.bapplusplus.data.App
 import com.example.bapplusplus.data.FBUserInfo
-import com.example.bapplusplus.deprecated.ShowMapActivity
 import com.example.bapplusplus.deprecated.TestLoginActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     var UserName: String = ""
@@ -30,82 +25,42 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         //FBUserInfo()
 
-        testButton.setOnClickListener {
-            Toast.makeText(this, "testing", Toast.LENGTH_SHORT).show()
-        }
 
-//        btn_showmap.setOnClickListener {
-//            val intent = Intent(this, ShowMapActivity::class.java)
-//            intent.putExtra("infoArray", infoList)
-//            startActivity(intent)
-//        }
-
-        btn_botnavi.setOnClickListener {
-            val intent = Intent(this, BottomNaviActivity::class.java)
-            intent.putExtra("infoList", infoList[0])
-            intent.putExtra("posx", infoList[0].pos_x)
-            intent.putExtra("posy", infoList[0].pos_y)
+        iv_roulette.setOnClickListener {
+            val intent = Intent(this, RouletteActivity::class.java)
             startActivity(intent)
         }
 
-        btn_favlist.setOnClickListener {
+        iv_search.setOnClickListener {
             val intent = Intent(this, FavoritesListActivity::class.java)
             startActivity(intent)
         }
 
-        btn_roulette.setOnClickListener {
-            val intent = Intent(this, Roulette::class.java)
+        iv_heart.setOnClickListener {
+            // todo
+        }
+
+        iv_setting.setOnClickListener {
+            val intent = Intent(this, MyInfoActivity::class.java)
             startActivity(intent)
         }
 
-        btn_list.setOnClickListener {
-            val intent = Intent(this, RestaurantList::class.java)
-            startActivity(intent)
+        btn_login.setOnClickListener {
+            // todo
         }
 
-        btn_loginact.setOnClickListener {
-            val intent = Intent(this, TestLoginActivity::class.java)
-            startActivity(intent)
-        }
-
-        btn_newlogin.setOnClickListener {
-            val fbuser = FirebaseAuth.getInstance().currentUser?.uid
-            val fbdb = FirebaseFirestore.getInstance()
-            if(fbuser == null){
-                val intent = Intent(this, NewLoginActivity::class.java)
-                startActivity(intent)
-            }else{
-                Log.d("Main User Info:", FBUserInfo.userName)
-                val intent = Intent(this, MyInfoActivity::class.java)
-                startActivity(intent)
-
-            }
-        }
-
-        btn_reviewupload.setOnClickListener {
-//            if(FBUserInfo.loginState == false){
-//                Toast.makeText(this, "Not Logged In", Toast.LENGTH_SHORT).show()
-//                val intent = Intent(this, ReviewUploadActivity::class.java)
+//        btn_newlogin.setOnClickListener {
+//            val fbuser = FirebaseAuth.getInstance().currentUser?.uid
+//            val fbdb = FirebaseFirestore.getInstance()
+//            if(fbuser == null){
+//                val intent = Intent(this, NewLoginActivity::class.java)
 //                startActivity(intent)
 //            }else{
-//                Toast.makeText(this, FBUserInfo.userName, Toast.LENGTH_SHORT).show()
-//                val intent = Intent(this, ReviewUploadActivity::class.java)
+//                Log.d("Main User Info:", FBUserInfo.userName)
+//                val intent = Intent(this, MyInfoActivity::class.java)
 //                startActivity(intent)
 //            }
-
-            val intent = Intent(this, FavListRouletteActivity::class.java)
-            startActivity(intent)
-        }
-
-        btn_myfavorites.setOnClickListener {
-            val intent = Intent(this, MyFavoritesActivity::class.java)
-            startActivity(intent)
-        }
-
-        /*btn_testingact.setOnClickListener {
-            val intent = Intent(this, TestingActivity::class.java)
-            startActivity(intent)
-        }*/
+//        }
 
     }
 
