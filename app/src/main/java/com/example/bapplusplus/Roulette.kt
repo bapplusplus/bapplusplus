@@ -1,10 +1,13 @@
 package com.example.bapplusplus
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bapplusplus.adapter.RouletteAdapter
 import kotlinx.android.synthetic.main.activity_roulette.*
 import java.util.*
@@ -22,7 +25,7 @@ class Roulette : AppCompatActivity() {
 
     lateinit var rouletteRestListSet: ArrayList<GetRouletteItemInfo>
 
-    var roulettetAdapter: RouletteAdapter ?= null
+//    var roulettetAdapter: RouletteAdapter ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +51,7 @@ class Roulette : AppCompatActivity() {
             roulette_view.visibility = View.GONE
             tvNoData.visibility = View.VISIBLE
             btnSelect.visibility = View.VISIBLE
-            rouletteRestList.visibility = View.GONE
+//            rouletteRestList.visibility = View.GONE
             btnReSelect.visibility = View.GONE
         } else {
             roulette_view.visibility = View.VISIBLE
@@ -57,8 +60,12 @@ class Roulette : AppCompatActivity() {
             rouletteRestList.visibility = View.VISIBLE
             btnReSelect.visibility = View.VISIBLE
 
-            roulettetAdapter = RouletteAdapter(this, rouletteRestListSet)
+            val roulettetAdapter = RouletteAdapter(this, rouletteRestListSet)
             rouletteRestList.adapter = roulettetAdapter
+
+            val lm = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            rouletteRestList.layoutManager = lm
+
             roulette_view.setRoulette(rouletteRestListSet.size)
         }
 
@@ -68,7 +75,9 @@ class Roulette : AppCompatActivity() {
             val intent = Intent(this, FavListRouletteActivity::class.java)
             startActivity(intent)
         }
-
+        rouletteRestList.setOnClickListener {
+            Toast.makeText(this, "pressed", Toast.LENGTH_SHORT).show()
+        }
 
     }
 
