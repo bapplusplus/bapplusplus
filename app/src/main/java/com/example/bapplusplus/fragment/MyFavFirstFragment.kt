@@ -201,7 +201,7 @@ class MyFavFirstFragment : Fragment() {
                 requireActivity().mafav_drawer.openDrawer(GravityCompat.START)
             }
             R.id.mafav_menu_map->{
-                if(FBUserInfo.myLikesArray.isEmpty()){
+                if(myFavNewArray.isNullOrEmpty()){
                     Toast.makeText(requireContext(), "좋아요를 추가 후 이용할 수 있습니다.", Toast.LENGTH_SHORT).show()
                 }else{
                     var ftr = requireActivity().supportFragmentManager.beginTransaction()

@@ -21,6 +21,7 @@ import android.view.animation.TranslateAnimation
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.example.bapplusplus.R
 import com.example.bapplusplus.RestInfoTemp
@@ -56,6 +57,8 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
     private lateinit var RestLoc: Location
     var currentLatLng: Location? = null
     lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var permissionCheck: Int = -100
+    private val REQUEST_ACCESS_FIND_LOCATION = 1000
 
 
 
@@ -81,50 +84,8 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
         RestLoc.longitude = getPosx
         lm = activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-
-        //positionX = bundle?.getDouble("posx") ?: 36.5613999
-        //positionY = bundle?.getDouble("posy") ?: 127.0384896
-        //getinfopar = bundle?.getParcelable<RestInfoTemp>("infotemp")!!
-        //positionX = getinfopar.locpos?.latitude ?: 33.333333
-        //positionY = getinfopar.locpos?.longitude ?: 127.127127
-        //RestPosx = bundle?.getDouble("RestPosx")!!
-        //RestPosy = bundle?.getDouble("RestPosy")!!
-        //RestLoc = Location("provider")
-//        RestLoc.latitude = RestPosx
-//        RestLoc.longitude = RestPosy
-        var mapFragment : MapFragment? //= childFragmentManager.findFragmentById(R.id.bn_frame_2) as MapFragment?
-            /*?: run {
-                println("mapfr")
-                /*fbdb.collection("tmp3v")
-                    .whereEqualTo("RestNo", RestNo)
-                    .get()
-                    .addOnSuccessListener { documents ->
-                        for(document in documents)
-                            if (document != null) {
-                                Log.d("TAG", "DocumentSnapshot data: ${document.data}")
-                                RestPosx = document.getDouble("RestPosx")!!
-                                RestPosy = document.getDouble("RestPosy")!!
-                                RestLoc = Location("provider")
-                                RestLoc.latitude = RestPosx
-                                RestLoc.longitude = RestPosy
-                                println("Bn3x "+ RestPosx)
-                                println("Bn3y "+ RestPosy)
-                            } else {
-                                Log.d("TAG", "No such document - Fragment1")
-                            }
-                    }
-                    .addOnFailureListener { exception ->
-                        Log.d("TAG", "get failed with ", exception)
-                    }*/
-
-                val options = NaverMapOptions()
-                    .camera(CameraPosition(LatLng(RestPosx, RestPosy), 16.0, 0.0, 0.0))
-                    .locationButtonEnabled(true)
-                MapFragment.newInstance(options).also {
-                    childFragmentManager.beginTransaction().add(R.id.bn_frame_2, it).commit()
-                }
-            }
-        mapFragment.getMapAsync(this)*/
+        permissionCheck = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+        var mapFragment : MapFragment?
 
         fbdb.collection("tmp7vBasic").document("RestBasic"+RestNo.toString())
             .get()
@@ -138,27 +99,6 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
                             mapFragment = childFragmentManager.findFragmentById(R.id.bn_frame_2) as MapFragment?
                                 ?:run {
                                 println("mapfr")
-                                /*fbdb.collection("tmp3v")
-                                    .whereEqualTo("RestNo", RestNo)
-                                    .get()
-                                    .addOnSuccessListener { documents ->
-                                        for(document in documents)
-                                            if (document != null) {
-                                                Log.d("TAG", "DocumentSnapshot data: ${document.data}")
-                                                RestPosx = document.getDouble("RestPosx")!!
-                                                RestPosy = document.getDouble("RestPosy")!!
-                                                RestLoc = Location("provider")
-                                                RestLoc.latitude = RestPosx
-                                                RestLoc.longitude = RestPosy
-                                                println("Bn3x "+ RestPosx)
-                                                println("Bn3y "+ RestPosy)
-                                            } else {
-                                                Log.d("TAG", "No such document - Fragment1")
-                                            }
-                                    }
-                                    .addOnFailureListener { exception ->
-                                        Log.d("TAG", "get failed with ", exception)
-                                    }*/
 
                                 val options = NaverMapOptions()
                                     .camera(CameraPosition(LatLng(RestPosy, RestPosx), 16.0, 0.0, 0.0))
@@ -197,6 +137,7 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
         grantResults: IntArray
     ) {
         if (locationSource.onRequestPermissionsResult(requestCode, permissions, grantResults)) {
+            permissionCheck = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
             if (!locationSource.isActivated) {
                 mapN.locationTrackingMode = LocationTrackingMode.None
             }
@@ -227,49 +168,64 @@ class BnFragment2 : Fragment(), OnMapReadyCallback {
 
         val marker = Marker().apply {
             position = LatLng(RestPosy, RestPosx)
-            setOnClickListener {
-//                mapN.locationTrackingMode = LocationTrackingMode.None
-//                distanceEstimate = locationSource.lastLocation!!.distanceTo(locpos).toDouble()
 
-                var presentLoc = getCurrentLocationNu()
-                //locationSource.isCompassEnabled = true
-                //distanceEstimate = presentLoc?.distanceTo(RestLoc)?.toDouble() ?: 111.0
-                distanceEstimate = getCurrentLocationNu()?.distanceTo(RestLoc)?.toDouble() ?: 111.0
+            setOnClickListener {
+
+                if(permissionCheck == PackageManager.PERMISSION_DENIED){
+                    ActivityCompat.requestPermissions(requireActivity(),
+                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                        REQUEST_ACCESS_FIND_LOCATION)
+
+                    permissionCheck = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                    true
+                }else{
+                    var presentLoc = getCurrentLocationNu()
+                    //locationSource.isCompassEnabled = true
+                    //distanceEstimate = presentLoc?.distanceTo(RestLoc)?.toDouble() ?: 111.0
+                    distanceEstimate = getCurrentLocationNu()?.distanceTo(RestLoc)?.toDouble() ?: 111.0
 //                Toast.makeText(activity, distanceEstimate.toString(), Toast.LENGTH_SHORT).show()
 //                var toast_test = View.inflate(requireContext(), R.layout.toast_custom_1, null)
 //                var tst = Toast(requireContext())
 //                tst.view = toast_test
 //                toastc1_tv.text = "Distance: "+distanceEstimate.toString()
-                if(distanceEstimate > 1000){
+                    if(distanceEstimate > 1000){
 //                    toast_test.findViewById<TextView>(R.id.toastc1_tv).text = "Distance: "+Math.round((distanceEstimate/1000.0)).toString() +"km"
 //                    toast_test.findViewById<TextView>(R.id.toastc1_tv).text = "Distance: "+((distanceEstimate/1000.0)*10).roundToInt() / 10f + "km"
-                    bn_info_add_txt.text = "거리 "+((distanceEstimate/1000.0)*10).roundToInt() / 10f + "km"
+                        bn_info_add_txt.text = "거리 "+((distanceEstimate/1000.0)*10).roundToInt() / 10f + "km"
 
-                }
-                else{
+                    }
+                    else{
 //                    toast_test.findViewById<TextView>(R.id.toastc1_tv).text = "Distance: "+distanceEstimate.toString() +"m"
-                    bn_info_add_txt.text = "거리 "+distanceEstimate.roundToInt().toString() +"m"
-                }
-                bn_const_info_add.startAnimation(slideDownAndVanish3(bn_const_info_add))
+                        bn_info_add_txt.text = "거리 "+distanceEstimate.roundToInt().toString() +"m"
+                    }
+                    println(distanceEstimate)
+                    bn_const_info_add.startAnimation(slideDownAndVanish3(bn_const_info_add))
 
-                PolylineOverlay().also {
-                    it.width = 10
-                    it.coords = listOf(LatLng(presentLoc!!), LatLng(RestPosy, RestPosx))
-                    it.color = ResourcesCompat.getColor(resources, R.color.colorBlue1, requireActivity().theme)
-                    it.map = naverMap
-                }.apply {
-                    mapN.locationTrackingMode = LocationTrackingMode.Face
-                    val position = CameraPosition(LatLng(presentLoc!!), 8.0)
-                    val animation = CameraAnimation.Easing
-                    naverMap.moveCamera(CameraUpdate.toCameraPosition(position).animate(animation, 2000))
+                    PolylineOverlay().also {
+                        it.width = 10
+                        it.coords = listOf(LatLng(presentLoc!!), LatLng(RestPosy, RestPosx))
+                        it.color = ResourcesCompat.getColor(resources, R.color.colorBlue1, requireActivity().theme)
+                        it.map = naverMap
+                    }.apply {
+                        mapN.locationTrackingMode = LocationTrackingMode.Face
+                        val position = CameraPosition(LatLng(presentLoc!!), 8.0)
+                        val animation = CameraAnimation.Easing
+                        naverMap.moveCamera(CameraUpdate.toCameraPosition(position).animate(animation, 2000))
 
-                }
+                    }
 
 //                tst.setGravity(Gravity.TOP or Gravity.RIGHT, 50, 180)
 //                tst.duration = Toast.LENGTH_LONG
 //                tst.show()
-                Toast.makeText(context, "LatLng Marker "+ RestPosx +" / " + RestPosy, Toast.LENGTH_SHORT).show()
-                true
+                    //Toast.makeText(context, "LatLng Marker "+ RestPosx +" / " + RestPosy, Toast.LENGTH_SHORT).show()
+                    true
+                }
+
+                //mapN.locationTrackingMode = LocationTrackingMode.Face
+//                mapN.locationTrackingMode = LocationTrackingMode.None
+//                distanceEstimate = locationSource.lastLocation!!.distanceTo(locpos).toDouble()
+
+
             }
             tag = 10
             map = mapN
