@@ -28,6 +28,15 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
+        android:id="@+id/btn_myfavorites"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="myfav"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_newlogin"
+        app:layout_constraintStart_toEndOf="@+id/btn_newlogin"
+        app:layout_constraintTop_toTopOf="@+id/btn_newlogin" />
+
+    <Button
         android:id="@+id/btn_newlogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

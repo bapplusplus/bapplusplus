@@ -83,6 +83,8 @@ class MiFavFragment : Fragment() {
             }
         }
 
+        requireActivity().setResult(13)
+
         return rootview
     }
 

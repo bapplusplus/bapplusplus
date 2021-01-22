@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.bapplusplus.data.FBUserInfo
+import com.example.bapplusplus.fragment.MiFavFragment
 import com.example.bapplusplus.fragment.MiFirstFragment
 import kotlinx.android.synthetic.main.activity_my_info.*
 import kotlinx.android.synthetic.main.activity_my_info.view.*
@@ -14,7 +15,9 @@ import kotlinx.android.synthetic.main.activity_my_info.view.*
 class MyInfoActivity : AppCompatActivity() {
 
     var firstFrag: MiFirstFragment? = null
+    lateinit var customModeFrag: MiFavFragment
     var fm = supportFragmentManager
+    var mode = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,10 +38,21 @@ class MyInfoActivity : AppCompatActivity() {
             Toast.makeText(this, "Review Clicked", Toast.LENGTH_SHORT).show()
         }*/
 
-        val bundle = Bundle()
-        firstFrag = MiFirstFragment()
-        firstFrag!!.arguments = bundle
-        supportFragmentManager.beginTransaction().replace(R.id.myinfo_frame, firstFrag!!, firstFrag!!.javaClass.simpleName).commit()
+        mode = intent.getIntExtra("Mode", -2)
+
+        if(mode > 10){
+            val bundle = Bundle()
+            customModeFrag = MiFavFragment()
+            customModeFrag!!.arguments = bundle
+            supportFragmentManager.beginTransaction().replace(R.id.myinfo_frame, customModeFrag!!, customModeFrag!!.javaClass.simpleName).commit()
+        }else{
+            val bundle = Bundle()
+            firstFrag = MiFirstFragment()
+            firstFrag!!.arguments = bundle
+            supportFragmentManager.beginTransaction().replace(R.id.myinfo_frame, firstFrag!!, firstFrag!!.javaClass.simpleName).commit()
+        }
+
+
 
         val mi_toolbar = myinfo_toolbar as Toolbar
         setSupportActionBar(mi_toolbar)

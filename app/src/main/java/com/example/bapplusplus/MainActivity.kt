@@ -97,6 +97,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        btn_myfavorites.setOnClickListener {
+            val intent = Intent(this, MyFavoritesActivity::class.java)
+            startActivity(intent)
+        }
+
         btn_testingact.setOnClickListener {
             val intent = Intent(this, TestingActivity::class.java)
             startActivity(intent)

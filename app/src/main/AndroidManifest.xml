@@ -19,7 +19,6 @@
         android:roundIcon="@mipmap/ic_temp2_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".UserInfoModeActivity" />
         <activity android:name=".TestingActivity" />
         <activity
@@ -42,8 +41,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".FavListRouletteActivity"
+            android:theme="@style/AppThemeNew1" />
+        <activity
+            android:name=".MyFavoritesActivity"
             android:theme="@style/AppThemeNew1" />
         <activity
             android:name=".MyInfoActivity"
@@ -66,8 +69,7 @@
         <activity
             android:name=".BottomNaviActivity"
             android:theme="@style/AppThemeNew1" />
-
-        <activity android:name=".Roulette"></activity>
+        <activity android:name=".Roulette" />
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"

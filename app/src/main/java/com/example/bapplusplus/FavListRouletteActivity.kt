@@ -186,6 +186,9 @@ class FavListRouletteActivity : AppCompatActivity() {
 
         favro_bs_try.setOnClickListener {
             Toast.makeText(this, "개수: "+ favroListSet.count().toString(), Toast.LENGTH_SHORT).show()
+            var ittf = Intent(this, MyFavoritesActivity::class.java)
+            ittf.putParcelableArrayListExtra("sendtry", favroListSet)
+            startActivity(ittf)
         }
 
         //ab.setHomeAsUpIndicator(R.drawable.ic_dehaze_white_24dp)
