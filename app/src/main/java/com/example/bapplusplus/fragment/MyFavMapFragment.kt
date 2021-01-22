@@ -8,26 +8,25 @@ import android.location.Location
 import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.os.bundleOf
+import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
 import com.example.bapplusplus.BottomNaviActivity
+import com.example.bapplusplus.MyFavoritesActivity
 import com.example.bapplusplus.R
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.InfoWindow
 import com.naver.maps.map.overlay.Marker
-import com.naver.maps.map.overlay.PolylineOverlay
 import com.naver.maps.map.util.FusedLocationSource
-import kotlinx.android.synthetic.main.fragment_bn2.*
+import kotlinx.android.synthetic.main.activity_my_favorites.*
 import kotlinx.android.synthetic.main.fragment_my_fav_map.*
 import kotlinx.android.synthetic.main.fragment_my_fav_map.view.*
 import kotlin.math.roundToInt
+
 
 class MyFavMapFragment : Fragment(), OnMapReadyCallback {
 
@@ -39,6 +38,8 @@ class MyFavMapFragment : Fragment(), OnMapReadyCallback {
     lateinit var myFavNewArray: ArrayList<MyFav_Data>
     private lateinit var lm: LocationManager
     lateinit var RestLoc: Location
+    private var permissionCheck: Int = -100
+    private val REQUEST_ACCESS_FIND_LOCATION = 1000
 
 
     private class InfoWindowAdapter(context: Context) : InfoWindow.DefaultTextAdapter(context) {
@@ -61,9 +62,15 @@ class MyFavMapFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         var rootview =  inflater.inflate(R.layout.fragment_my_fav_map, container, false)
+
+        permissionCheck = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
 
         val getmbb = arguments
         println(getmbb?.getString("sendtry") ?: "map nun")
@@ -78,6 +85,12 @@ class MyFavMapFragment : Fragment(), OnMapReadyCallback {
             true
         }
 
+        val ab = (requireActivity() as MyFavoritesActivity).supportActionBar
+        //ab!!.setHomeAsUpIndicator(R.drawable.ic_dehaze_white_24dp)
+        ab!!.setDisplayHomeAsUpEnabled(false)
+
+        requireActivity().myfav_toolbar_title.text = "지도에서 보기"
+
 
         var mapFragment : MapFragment?
         mapFragment = childFragmentManager.findFragmentById(R.id.mfm_frame) as MapFragment?
@@ -91,13 +104,35 @@ class MyFavMapFragment : Fragment(), OnMapReadyCallback {
                 }
             }
         mapFragment?.getMapAsync(this)
-        locationSource = FusedLocationSource(this, MyFavMapFragment.LOCATION_PERMISSION_REQUEST_CODE)
+        locationSource = FusedLocationSource(
+            this,
+            MyFavMapFragment.LOCATION_PERMISSION_REQUEST_CODE
+        )
 
         return rootview
     }
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 100
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        //menu.clear()
+        inflater.inflate(R.menu.myfav_menu_file_empty, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        when(id){
+            android.R.id.home -> {
+                requireParentFragment().requireActivity().mafav_drawer.openDrawer(GravityCompat.START)
+                //requireActivity().onBackPressed()
+                Toast.makeText(requireContext(), "나옴?", Toast.LENGTH_SHORT).show()
+                //requireActivity().mafav_drawer.openDrawer(GravityCompat.START)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onRequestPermissionsResult(
@@ -116,16 +151,16 @@ class MyFavMapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(naverMap: NaverMap) {
         mapN = naverMap
-        mapN.locationSource = locationSource
+        //mapN.locationSource = locationSource
         //mapN.cameraPosition
 
         mapN.addOnOptionChangeListener {
             val mode = naverMap.locationTrackingMode
-
+            mapN.locationSource = locationSource
             locationSource.isCompassEnabled = mode == LocationTrackingMode.Follow || mode == LocationTrackingMode.Face
 
         }
-        mapN.locationTrackingMode = LocationTrackingMode.None
+        //mapN.locationTrackingMode = LocationTrackingMode.None
 
         val infoWindow = InfoWindow().apply {
             position = LatLng(37.5666102, 126.9783881)
@@ -146,12 +181,26 @@ class MyFavMapFragment : Fragment(), OnMapReadyCallback {
                 map = mapN
 
                 setOnClickListener {
+                    var distanceEstimate = 0.0
+
                     RestLoc.latitude = myFavNewArray.get(cc).restPosy
                     RestLoc.longitude = myFavNewArray.get(cc).restPosx
-                    var distanceEstimate = getCurrentLocationNu()?.distanceTo(RestLoc)?.toDouble() ?: 111.0
 
                     mfmf_tv_title.text = myFavNewArray.get(cc).restTitle
                     mfmf_tv_address.text = myFavNewArray.get(cc).restCategory
+
+                    if(permissionCheck == PackageManager.PERMISSION_DENIED){
+                        mfmf_tv_distance.text = ""
+                    }else{
+                        distanceEstimate =
+                            getCurrentLocationNu()?.distanceTo(RestLoc)?.toDouble() ?: 111.0
+                        if (distanceEstimate > 1000) {
+                            mfmf_tv_distance.text =
+                                (((distanceEstimate / 1000.0) * 10).roundToInt() / 10f).toString() + "km"
+                        } else {
+                            mfmf_tv_distance.text = distanceEstimate.roundToInt().toString() + "m"
+                        }
+                    }
 
                     mfmf_btn_details.setOnClickListener {
                         var ittbn = Intent(requireContext(), BottomNaviActivity::class.java)
@@ -160,19 +209,21 @@ class MyFavMapFragment : Fragment(), OnMapReadyCallback {
                         startActivity(ittbn)
                     }
 
-                    if(distanceEstimate > 1000){
-                        mfmf_tv_distance.text = (((distanceEstimate/1000.0)*10).roundToInt() / 10f).toString()+ "km"
-                    }
-                    else{
-                        mfmf_tv_distance.text = distanceEstimate.roundToInt().toString() +"m"
-                    }
+
 
                     //println(myFavNewArray.get(cc).restPosy.toString()+", "+ myFavNewArray.get(cc).restPosx.toString())
                     //Toast.makeText(requireContext(), myFavNewArray.get(cc).restPosy.toString()+", "+ myFavNewArray.get(cc).restPosx.toString(), Toast.LENGTH_SHORT).show()
                     val animation = CameraAnimation.Easing
-                    var campo = CameraPosition(LatLng(myFavNewArray.get(cc).restPosy, myFavNewArray.get(cc).restPosx), 14.5)
-                    naverMap.moveCamera(CameraUpdate.toCameraPosition(campo).animate(animation, 400))
-
+                    var campo = CameraPosition(
+                        LatLng(
+                            myFavNewArray.get(cc).restPosy, myFavNewArray.get(
+                                cc
+                            ).restPosx
+                        ), 14.5
+                    )
+                    naverMap.moveCamera(
+                        CameraUpdate.toCameraPosition(campo).animate(animation, 400)
+                    )
 
                     mfm_frame_downside.visibility = View.VISIBLE
                     infoWindow.open(this)
@@ -212,7 +263,11 @@ class MyFavMapFragment : Fragment(), OnMapReadyCallback {
         val isNetworkEnabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
 
         if (Build.VERSION.SDK_INT >= 23 && requireContext().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 0)
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                0
+            )
         } else {
             when { //프로바이더 제공자 활성화 여부 체크
                 isNetworkEnabled ->{

@@ -291,6 +291,7 @@ class NewRegisterActivity : AppCompatActivity() {
                             FBUserInfo.setLogin(get_email, get_pw)
                             newr_tv_progress.text = "가입 성공!"
                             newr_tv_progress.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorGreen1))
+                            MainActivity.loginbtn.visibility = View.GONE
                             delay(1000)
                             setResult(16)
                             finish()

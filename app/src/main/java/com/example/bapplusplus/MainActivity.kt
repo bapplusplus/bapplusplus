@@ -28,6 +28,7 @@ import kotlinx.android.synthetic.main.fragment_my_fav_map.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
@@ -137,14 +138,14 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         hotAdapter = MainHotAdapter(this, hotArray)
         main_hot_recycler.adapter = hotAdapter
         //set hot info
-        CoroutineScope(IO).launch {
+        CoroutineScope(Main).launch {
             getRatingArray()
             getHotArray()
 
             withContext(Main){
                 hotAdapter!!.notifyDataSetChanged()
                 main_hot_progress.visibility = View.GONE
-                main_const_bot.visibility = View.VISIBLE
+
                 mapFragment = supportFragmentManager.findFragmentById(R.id.main_hot_frame) as MapFragment?
                     ?:run {
                         //println("mapfr")
@@ -156,7 +157,9 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                         }
                     }
                 mapFragment?.getMapAsync(this@MainActivity)
-                locationSource = FusedLocationSource(this@MainActivity, LOCATION_PERMISSION_REQUEST_CODE)
+                //locationSource = FusedLocationSource(this@MainActivity, LOCATION_PERMISSION_REQUEST_CODE)
+                delay(200)
+                main_const_bot.visibility = View.VISIBLE
             }
 
         }
@@ -218,7 +221,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(naverMap: NaverMap) {
         mapN = naverMap
-        mapN.locationSource = locationSource
+        //mapN.locationSource = locationSource
         mapN.uiSettings.isLocationButtonEnabled = false
         //mapN.cameraPosition
 
