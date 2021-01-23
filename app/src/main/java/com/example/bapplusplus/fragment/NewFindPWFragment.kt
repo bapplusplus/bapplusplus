@@ -49,6 +49,7 @@ class NewFindPWFragment : Fragment() {
                     val result = trySendResetEmail(get_email)
                     if(result){
                         rootview.newfpw_progress.visibility = View.INVISIBLE
+                        rootview.newfpw_btn_send.isEnabled = false
                         rootview.newfpw_tv_result.text = "입력하신 주소로 메일을 보냈습니다.\n메일을 확인하여 비밀번호를 재설정해 주세요."
                         rootview.newfpw_tv_result.visibility = View.VISIBLE
                     }else{

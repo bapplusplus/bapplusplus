@@ -76,6 +76,10 @@ class MiUsermodFragment : Fragment() {
                         FBUserInfo.setSignOut()
                         Toast.makeText(requireContext(), "탈퇴되었습니다.", Toast.LENGTH_SHORT).show()
                         MainActivity.loginbtn.visibility = View.VISIBLE
+                        App.prefs.isAutoLogin = false
+                        App.prefs.isMaintainEmail = false
+                        App.prefs.emailValue = ""
+                        App.prefs.passwordValue = ""
                         delay(2000)
                         requireActivity().finish()
                     }else{

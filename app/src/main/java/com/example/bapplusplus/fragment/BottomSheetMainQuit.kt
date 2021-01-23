@@ -33,7 +33,7 @@ class BottomSheetMainQuit : BottomSheetDialogFragment() {
 
         bsmq_btn_yes.setOnClickListener {
             //Toast.makeText(requireContext(),"Yes", Toast.LENGTH_SHORT).show()
-            if(!App.prefs.isAutoLogin && !App.prefs.passwordValue.isNullOrEmpty()){
+            if(!App.prefs.isAutoLogin){
                 FBUserInfo.setSignOut()
                 //Toast.makeText(requireContext(), "Logout, Finish", Toast.LENGTH_SHORT).show()
             }

@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
+import com.example.bapplusplus.data.App
 import com.example.bapplusplus.data.FBUserInfo
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
@@ -292,6 +293,10 @@ class NewRegisterActivity : AppCompatActivity() {
                             newr_tv_progress.text = "가입 성공!"
                             newr_tv_progress.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorGreen1))
                             MainActivity.loginbtn.visibility = View.GONE
+                            App.prefs.isAutoLogin = false
+                            App.prefs.isMaintainEmail = false
+                            App.prefs.emailValue = get_email
+                            App.prefs.passwordValue = get_pw
                             delay(1000)
                             setResult(16)
                             finish()

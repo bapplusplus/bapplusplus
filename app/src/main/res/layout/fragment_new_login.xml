@@ -138,7 +138,7 @@
                 android:layout_marginBottom="12dp"
                 android:paddingTop="2dp"
                 android:paddingBottom="2dp"
-                android:text="LOG IN to BapPlusPlus"
+                android:text="밥++ 로그인"
                 android:textColor="@color/colorOrange2Primary"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/newlog_til_email"
